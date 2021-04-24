@@ -1,0 +1,26 @@
+@import '../../utils/variable.scss';
+
+.wrapp-headers{
+    display: flex;
+    height: auto;
+    width: 100%;
+    margin-bottom: 18px;
+
+    .btn-headers-group{
+        display: flex;
+        font-size: 13px;
+        transition: 0.2s ease-in-out;
+        color: $color1;
+        border: none;
+        outline: none;
+        background-color: transparent;
+        margin-right: 10px;
+        &:hover{
+            color: $color3;
+        }
+    }
+
+    .arrow{
+        margin-left: 10px;
+    }
+}

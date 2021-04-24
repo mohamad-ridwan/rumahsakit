@@ -1,0 +1,15 @@
+@import '../../utils/variable.scss';
+
+.wrapp-carousel-main{
+    display: flex;
+    height: auto;
+    width: 100%;
+
+    .img-carousel-main{
+        display: flex;
+        height: auto;
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+}

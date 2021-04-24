@@ -1,0 +1,25 @@
+@import '../../utils/variable.scss';
+
+.wrapp-article{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+    padding: 0 20%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background-image: $color4;
+
+    .container-card-page-article{
+        display: flex;
+        flex-wrap: wrap;
+        height: auto;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .container-btn-load-more-article{
+        display: flex;
+        justify-content: center;
+    }
+}

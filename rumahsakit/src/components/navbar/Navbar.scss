@@ -1,0 +1,112 @@
+@import '../../utils/variable.scss';
+
+.wrapp-navbar{
+    display: flex;
+    position: fixed;
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+    background-color: #fff;
+    top: 0;
+    z-index: 99;
+    transition: 0.1s ease-in-out;
+    box-shadow: 0 3px 35px -1px rgba(0,0,0,0.4);
+
+    .column-atas-navbar{
+        display: flex;
+        padding: 7px 0;
+        justify-content: center;
+        padding: 7px 20%;
+
+        .txt-group-information-navbar{
+            display: flex;
+            font-size: $font1;
+            color: $color1;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+    }
+
+    .column-bawah-navbar{
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20% 20px 20%;
+
+        .logo-rs{
+            display: flex;
+            height: auto;
+            max-width: 100%;
+            cursor: pointer;
+        }
+
+        .form-input-search{
+            display: flex;
+            position: relative;
+            height: 40px;
+            width: 200px;
+            border-radius: 5px;
+            border: 2px solid $color1;
+
+            .input-search-home{
+                display: flex;
+                height: 100%;
+                width: 150px;
+                padding: 7px 12px;
+                font-size: $font1;
+                color: $color2;
+                border: none;
+                outline: none;
+            }
+            .input-search-home::placeholder{
+                color: $color2;
+            }
+
+            i{
+                display: flex;
+                position: absolute;
+                top: 0;
+                right: 0;
+                height: 100%;
+                width: 40px;
+                justify-content: center;
+                align-items: center;
+                transition: 0.2s ease-in-out;
+                color: $color1;
+                cursor: pointer;
+                font-size: $font1;
+                &:hover{
+                    background-color: $color1;
+                    color: #fff;
+                }
+            }
+        }
+    }
+
+    .header-bottom-navbar{
+        display: flex;
+        height: auto;
+        width: 100%;
+        padding: 0 20%;
+        background-color: $color1;
+        justify-content: space-between;
+
+        .btn-group-header-bottom-navbar{
+            display: flex;
+            font-size: $font1;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            padding: 11px 17px;
+            border: none;
+            outline: none;
+            background-color: transparent;
+            transition: 0.2s ease-in-out;
+            cursor: pointer;
+            &:hover{
+                background-color: rgba(255, 255, 255, 0.171);
+            }
+        }
+    }
+}

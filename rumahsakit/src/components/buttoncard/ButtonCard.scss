@@ -1,0 +1,29 @@
+@import '../../utils/variable.scss';
+
+.btn-card{
+    display: flex;
+    position: relative;
+    padding: 10px 16px;
+    border: 2px solid #fff;
+    color: #fff;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    background-color: transparent;
+    outline: none;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    &:hover{
+        background-color: #fff;
+        color: $color1;
+    }
+
+    i{
+        display: flex;
+        position: absolute;
+        left: -7px;
+        font-size: 18px;
+        color: #fff;
+    }
+}

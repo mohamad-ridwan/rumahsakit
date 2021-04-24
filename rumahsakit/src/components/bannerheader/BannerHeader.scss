@@ -1,0 +1,27 @@
+@import '../../utils/variable.scss';
+
+.wrapp-banner-header{
+    display: flex;
+    position: relative;
+    height: auto;
+    width: 100%;
+    padding: 20px 20%;
+    background-color: $color1;
+    align-items: center;
+
+    .img-banner{
+        display: flex;
+        height: auto;
+        max-width: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .title-banner-header{
+        display: flex;
+        position: absolute;
+        font-size: 34px;
+        color: #fff;
+        font-family: "Crimson Text",serif;
+    }
+}

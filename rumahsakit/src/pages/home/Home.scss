@@ -1,0 +1,95 @@
+@import '../../utils/variable.scss';
+
+.wrapp-home{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+
+    .bg-gradient-home{
+        display: flex;
+        height: auto;
+        padding: 40px 0;
+        background-size: cover;
+        justify-content: center;
+        align-items: center;
+
+        .column-tengah-bg-gradient{
+            display: flex;
+            flex-direction: column;
+            height: auto;
+            width: auto;
+            justify-content: center;
+            align-items: center;
+
+            .img-logo2-rs{
+                display: flex;
+                height: 100px;
+                width: 100px;
+                object-fit: cover;
+            }
+
+            .txt-rs-permata-depok{
+                display: flex;
+                font-family: 'Crimson Text",serif';
+                font-size: 25px;
+                color: #fff;
+                margin-bottom: 20px;
+            }
+        }
+    }
+
+    .banner-selamat-datang{
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        width: 100%;
+        align-items: center;
+        padding: 40px 20%;
+        background-size: cover;
+
+        .title-selamat-datang{
+            display: flex;
+            font-size: 26px;
+            color: $color1;
+            margin-bottom: 20px;
+            font-family: 'Crimson Text",serif';
+        }
+
+        .deskripsi-selamat-datang{
+            display: flex;
+            font-size: 14px;
+            color: $color3;
+        }
+    }
+
+    .container-blog-health-articles{
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        width: auto;
+        padding: 40px 19%;
+
+        .title-blog-health-articles{
+            display: flex;
+            font-size: 18px;
+            color: $color1;
+            margin-bottom: 30px;
+            font-family: "Crimson Text",serif;
+            margin-left: 10px;
+        }
+
+        .column-blog-card-health-articles{
+            display: flex;
+            flex-wrap: wrap;
+            height: auto;
+            width: 100%;
+        }
+
+        .column-btn-blog-health-articles{
+            display: flex;
+            margin-top: 40px;
+            justify-content: center;
+        }
+    }
+}
