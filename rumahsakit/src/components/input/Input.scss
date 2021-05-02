@@ -1,0 +1,135 @@
+@import '../../utils/variable.scss';
+
+.wrapp-input-card{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+
+    .bintang-wajib{
+        display: flex;
+        margin-left: 5px;
+        color: $color11;
+    }
+    
+    .title-form-online-rv{
+        display: none;
+        font-size: 18px;
+        color: $color1;
+        margin-bottom: 20px;
+    }
+    
+    .label-form-online-rv{
+        display: flex;
+        font-size: 13px;
+        color: $color2;
+        margin-top: 15px;
+    }
+    
+    .input-form-online-rv{
+        display: flex;
+        padding: 10px 12px;
+        border-radius: 5px;
+        border: none;
+        outline: none;
+        margin-top: 5px;
+        font-size: 13px;
+        color: $color2;
+        background-color: #fff;
+        font-family: 'Mulish', sans-serif;
+    }
+    .input-form-online-rv::placeholder{
+        color: $color2;
+    }
+    
+    .error-message-form-online-rv{
+        display: flex;
+        font-size: 10px;
+        color: $color11;
+        margin-top: 5px;
+    }
+    
+    .btn-form-online-rv{
+        display: none;
+        position: relative;
+        padding: 10px 12px;
+        border-radius: 5px;
+        border: none;
+        outline: none;
+        margin-top: 5px;
+        font-size: 13px;
+        color: $color2;
+        background-color: #fff;
+        cursor: pointer;
+        align-items: center;
+        font-family: 'Mulish', sans-serif;
+    
+        .modal-search-input{
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            height: auto;
+            width: 100%;
+            background-color: #fff;
+            box-shadow: 0 2px 5px -1px rgba(0,0,0,0.3);
+            left: 0;
+            padding-bottom: 5px;
+            z-index: 9;
+    
+            .btn-close-modal-search-input{
+                display: flex;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                cursor: default;
+            }
+    
+            .input-search-menu{
+                display: flex;
+                padding: 7px 12px;
+                margin: 5px;
+                border: 1px solid #eee;
+                border-radius: 5px;
+                outline: none;
+                z-index: 11;
+            }
+    
+            .container-scroll-list-menu{
+                display: flex;
+                height: auto;
+                width: 100%;
+                overflow-y: auto;
+                z-index: 11;
+    
+                ul{
+                    display: flex;
+                    flex-direction: column;
+                    height: auto;
+                    width: 100%;
+                    
+                    .list-menu-modal-input{
+                        text-align: start;
+                        list-style: none;
+                        padding: 8px 20px;
+                        font-size: 13px;
+                        color: $color3;
+                        transition: 0.3s ease-in-out;
+                        text-decoration: none;
+                        // &:hover{
+                        //     background-color: #eee;
+                        // }
+                    }
+                }
+            }
+        }
+    
+        i{
+            display: flex;
+            position: absolute;
+            right: 10px;
+            margin-top: -5px;
+        }
+    }
+}

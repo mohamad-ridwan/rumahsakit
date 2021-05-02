@@ -1,0 +1,128 @@
+@import '../../utils/variable.scss';
+
+.wrapp-online-reservation{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: auto;
+    width: 100%;
+    padding: 50px 20%;
+
+    .container-konten-online-reservation{
+        display: flex;
+        height: auto;
+        width: 100%;
+
+        .form-kiri-online-rv{
+            display: flex;
+            flex-direction: column;
+            width: 50%;
+            background-color: $color10;
+            border-radius: 5px;
+            padding: 35px;
+            margin-right: 20px;
+        }
+
+        .form-kanan-online-rv{
+            display: flex;
+            flex-direction: column;
+            width: 50%;
+            background-color: $color10;
+            border-radius: 5px;
+            padding: 35px;
+
+            .note-form-online-rv{
+                display: flex;
+                text-align: start;
+                font-size: 12px;
+                color: $color1;
+                margin-top: 15px;
+                line-height: $lineHeight;
+            }
+
+            .container-agree-form-online-rv{
+                display: flex;
+                position: relative;
+                width: 100%;
+                margin: 20px 0;
+
+                .checkbox-agree-form-online-rv{
+                    display: flex;
+                    position: absolute;
+                    height: 15px;
+                    width: 15px;
+                    border: 1px solid $color2;
+                    border-radius: 3px;
+                    cursor: pointer;
+                    top: 5px;
+                    justify-content: center;
+                    align-items: center;
+
+                    i{
+                        font-size: 11px;
+                        color: $color1;
+                        transition: 0.3s ease-in-out;
+                    }
+                }
+
+                .deskripsi-agree-form-online-rv{
+                    display: flex;
+                    font-size: 12px;
+                    color: $color16;
+                    text-align: start;
+                    line-height: $lineHeight;
+                    margin-left: 30px;
+                    cursor: pointer;
+                }
+            }
+
+            .column-btn-form-online-rv{
+                margin-top: 20px;
+            }
+        }
+
+        .container-group-answer{
+            display: flex;
+            flex-direction: column;
+
+            .question-form-kanan-online-rv{
+                display: flex;
+                font-size: 14px;
+                color: $color3;
+                margin: 15px 0 0 0;
+                text-align: start;
+            }
+
+            .column-indicator-answer{
+                display: flex;
+            }
+        }
+
+        .label-form-online-rv{
+            display: flex;
+            font-size: 13px;
+            color: $color2;
+            margin-top: 15px;
+        }
+
+        .input-form-online-rv{
+            display: flex;
+            padding: 10px 12px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            margin-top: 5px;
+            font-size: 13px;
+            color: $color2;
+            background-color: #fff;
+            font-family: 'Mulish', sans-serif;
+        }
+
+        .error-message-form-online-rv{
+            display: flex;
+            font-size: 10px;
+            color: $color11;
+            margin-top: 5px;
+        }
+    }
+}

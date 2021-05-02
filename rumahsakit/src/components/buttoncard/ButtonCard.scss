@@ -3,14 +3,12 @@
 .btn-card{
     display: flex;
     position: relative;
-    padding: 10px 16px;
-    border: 2px solid #fff;
-    color: #fff;
     border-radius: 5px;
     justify-content: center;
     align-items: center;
     font-size: 14px;
     background-color: transparent;
+    border: none;
     outline: none;
     cursor: pointer;
     transition: 0.2s ease-in-out;
@@ -19,11 +17,59 @@
         color: $color1;
     }
 
+    .txt-btn-card{
+        display: flex;
+        padding: 10px 16px;
+        color: #fff;
+        border: 2px solid #fff;
+        border-radius: 5px;
+        &:hover{
+            color: $color1;
+        }
+    }
+
     i{
         display: flex;
         position: absolute;
-        left: -7px;
+        left: -6px;
         font-size: 18px;
         color: #fff;
+    }
+}
+
+.btn-card-two{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    border-radius: 5px;
+    &:hover{
+        background-color: $color1;
+        color: #fff;
+    }
+
+    .txt-btn-card{
+        display: flex;
+        padding: 10px 16px;
+        color: $color1;
+        border: 2px solid $color1;
+        border-radius: 5px;
+        &:hover{
+            color: #fff;
+        }
+    }
+
+    i{
+        display: flex;
+        position: absolute;
+        left: -6px;
+        font-size: 18px;
+        color: $color8;
     }
 }

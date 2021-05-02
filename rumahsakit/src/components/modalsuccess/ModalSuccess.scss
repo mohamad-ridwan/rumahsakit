@@ -1,0 +1,17 @@
+@import '../../utils/variable.scss';
+
+.modal-success-subscribe{
+    display: flex;
+    position: fixed;
+    height: 40px;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    z-index: 11;
+    box-shadow: 0 2px 5px -1px rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    transition: 0.4s ease-in-out;
+    top: 0;
+}

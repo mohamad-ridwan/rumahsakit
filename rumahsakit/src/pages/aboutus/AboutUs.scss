@@ -1,0 +1,87 @@
+@import '../../utils/variable.scss';
+
+.wrapp-about-us{
+    display: flex;
+    position: relative;
+    padding: 50px 20%;
+    background-color: $color4;
+
+    .kolom-kiri-about-us{
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        height: auto;
+        width: 25%;
+        margin-right: 20px;
+
+        .title-rs-permata-keluarga{
+            display: flex;
+            font-size: 18px;
+            font-family: "Crimson Text",serif;
+            color: $color1;
+            margin-bottom: 18px;
+            text-align: start;
+        }
+
+        .box-fixed-navmenu{
+            display: flex;
+            flex-direction: column;
+            height: auto;
+            width: auto;
+            top: 0;
+            transition: 0.3s ease-in-out;
+            // margin-top: 210px;
+        }        
+    }
+
+    .kolom-kanan-about-us{
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        width: 75%;
+
+        .konten-about-us{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 40px;
+            padding-bottom: 40px;
+
+            .title-konten-about-us{
+                display: flex;
+                font-size: 18px;
+                color: $color1;
+                margin-bottom: 10px;
+            }
+
+            .text-konten-about-us{
+                font-size: 14px;
+                color: $color3;
+                text-align: justify;
+                line-height: $lineHeight;
+
+                ol{
+                    margin-left: 15px;
+                    li{
+                        padding-left: 5px;
+                    }
+                }
+
+                h4{
+                    font-size: 18px;
+                }
+
+                span{
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                img{
+                    height: auto;
+                    max-width: 100%;
+                }
+            }
+        }
+    }
+}

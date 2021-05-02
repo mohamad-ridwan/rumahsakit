@@ -1,0 +1,61 @@
+@import '../../utils/variable.scss';
+
+.wrapp-detail-promo{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+    padding: 50px 20%;
+
+    .main-konten-detail-promo{
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        width: 100%;
+
+        .img-detail-promo{
+            display: flex;
+            height: auto;
+            max-width: 100%;
+            margin-bottom: 30px;
+        }
+
+        .title-detail-promo{
+            display: flex;
+            font-size: 24px;
+            color: $color1;
+            font-family: "Crimson Text",serif;
+            margin-bottom: 10px;
+            line-height: $lineHeight2;
+        }
+
+        .date-detail-promo{
+            display: flex;
+            font-size: 13px;
+            align-items: center;
+            color: $color3;
+            line-height: $lineHeight;
+
+            i{
+                color: $color1;
+                margin-right: 5px;
+            }
+        }
+    }
+
+    .konten-detail-promo{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 20px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 40px;
+
+        .txt-konten-detail-promo{
+            font-size: 14px;
+            color: $color3;
+            text-align: justify;
+            line-height: $lineHeight;
+        }
+    }
+}

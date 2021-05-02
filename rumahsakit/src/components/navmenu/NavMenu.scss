@@ -1,0 +1,27 @@
+@import '../../utils/variable.scss';
+
+.wrapp-navmenu{
+    display: flex;
+    flex-direction: column;
+
+    .btn-group-navmenu{
+        display: flex;
+        padding: 10px 15px;
+        width: auto;
+        flex-direction: column;
+        font-size: 14px;
+        color: $color1;
+        background-color: $color9;
+        border-radius: 3px;
+        outline: none;
+        border: none;
+        transition: 0.2s ease-in-out;
+        cursor: pointer;
+        margin-bottom: 2.5px;
+        text-align: start;
+        text-decoration: none;
+        &:hover{
+            color: $color3;
+        }
+    }
+}

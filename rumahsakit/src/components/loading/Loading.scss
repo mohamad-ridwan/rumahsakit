@@ -28,3 +28,32 @@
         transform: rotate(360deg);
     }
 }
+
+.wrapp-loading-form{
+    display: none;
+    position: fixed;
+    top: 170px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background-color: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+
+    .circle-loading-form{
+        display: flex;
+        height: 50px;
+        width: 50px;
+        border-radius: 500px;
+        border: 2.5px solid #fff;
+        border-top: 2.5px solid $color1;
+        animation: animationForm 0.6s ease-in-out infinite;
+    }
+}
+
+@keyframes animationForm{
+    to{
+        transform: rotate(360deg);
+    }
+}

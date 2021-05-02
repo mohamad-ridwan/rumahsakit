@@ -1,0 +1,137 @@
+@import '../../utils/variable.scss';
+
+.wrapp-detail-career{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+    padding: 50px 20%;
+    background-color: $color4;
+
+    .main-konten-detail-career{
+        display: flex;
+        flex-direction: column;
+
+        .title-konten-detail-career{
+            display: flex;
+            font-size: 26px;
+            color: $color1;
+            font-family: "Crimson Text",serif;
+            margin-bottom: 50px;
+            line-height: $lineHeight;
+        }
+    
+        .main-deskripsi-detail-career{
+            display: flex;
+            font-size: 14px;
+            color: $color3;
+            text-align: start;
+            line-height: $lineHeight;
+        }
+    
+        .title-name-rs-detail-career{
+            display: flex;
+            font-size: 18px;
+            color: $color3;
+            font-weight: bold;
+            margin: 10px 0 20px 0;
+            line-height: $lineHeight;
+        }
+    
+        .hrd-rs-detail-career{
+            display: flex;
+            font-size: 14px;
+            color: $color3;
+            line-height: $lineHeight;
+            font-weight: bold;
+        }
+    
+        .address-detail-career{
+            display: flex;
+            font-size: 14px;
+            color: $color3;
+            line-height: $lineHeight;
+            margin: 10px 0;
+        }
+    
+        .email-detail-career{
+            display: flex;
+            font-size: 14px;
+            color: $color3;
+            line-height: $lineHeight;
+            .konten-email-detail-career{
+                display: flex;
+                font-size: 14px;
+                color: $color1;
+                line-height: $lineHeight;
+                cursor: pointer;
+                margin-left: 5px;
+                &:hover{
+                    text-decoration: 1px solid $color1;
+                }
+            }
+        }
+
+        .container-box-grey-detail-career{
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            margin-top: 50px;
+
+            .box-grey-detail-career{
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                height: auto;
+                width: 70%;
+                padding: 20px;
+                border-radius: 5px;
+                background-color: transparent;
+                border: 1px solid $color3;
+
+                .title-bidang-detail-career{
+                    display: flex;
+                    font-size: 18px;
+                    color: $color1;
+                    line-height: $lineHeight;
+                }
+
+                .container-date-detail-career{
+                    display: flex;
+                    align-items: center;
+                    margin-top: 10px;
+
+                    i{
+                        font-size: 14px;
+                        color: $color1;
+                        margin-right: 5px;
+                    }
+
+                    .font-detail-career-group{
+                        display: flex;
+                        font-size: 14px;
+                        color: $color3;
+                        line-height: $lineHeight;
+                        margin-right: 15px;
+                    }
+                }
+
+                .qualification{
+                    display: flex;
+                    font-size: 14px;
+                    color: $color1;
+                    margin-top: 50px;
+                }
+
+                .deskripsi-job-detail-career{
+                    display: flex;
+                    text-align: start;
+                    font-size: 14px;
+                    color: $color3;
+                    line-height: $lineHeight;
+                    margin: 30px 0 30px 0;
+                }
+            }
+        }   
+    }
+}

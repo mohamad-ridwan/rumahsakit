@@ -114,9 +114,7 @@ class Article extends Component {
                     <div className="container-btn-load-more-article">
                         <ButtonCard
                             title={this.state.totalIndexData === this.state.totalData ? 'LESS' : 'LOAD MORE'}
-                            border={'2px solid #b04579'}
-                            colorNameBtn={'#b04579'}
-                            colorIcon={'#b04579'}
+                            nameClassBtn={'btn-card-two'}
                             clickBtn={() => {
                                 if (this.state.totalIndexData > 6 && this.state.totalIndexData !== this.state.totalData) {
                                     this.setState({

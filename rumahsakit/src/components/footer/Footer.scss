@@ -1,0 +1,86 @@
+@import '../../utils/variable.scss';
+
+.wrapp-footer{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+    padding: 40px 0% 0 0%;
+    background-color: $color1;
+    z-index: 99;
+
+    .container-menu-footer{
+        display: flex;
+        height: auto;
+        width: 100%;
+        padding: 0 20% 40px 20%;
+
+        ul{
+            display: flex;
+            flex-direction: column;
+            height: auto;
+            width: calc(100%/4);
+            color: #fff;
+
+            .title-menu-footer{
+                display: flex;
+                font-size: 16px;
+                margin-bottom: 15px;
+            }
+
+            li{
+                display: flex;
+                font-size: 14px;
+                margin-bottom: 10px;
+                cursor: pointer;
+                transition: 0.3s ease-in-out;
+                &:hover{
+                    color: $color3;
+                }
+            }
+        }
+    }
+
+    .footer-copy-right{
+        display: flex;
+        height: auto;
+        width: 100%;
+        padding: 13px 20%;
+        background-color: $color15;
+        align-items: center;
+        justify-content: space-between;
+
+        .title-footer-copy-right{
+            display: flex;
+            font-size: 14px;
+            color: #fff;
+        }
+
+        .container-contact-us{
+            display: flex;
+            align-items: center;
+
+            ul{
+                display: flex;
+                
+                li{
+                    display: flex;
+                    margin-left: 15px;
+                    font-size: 15px;
+                    list-style: none;
+                    cursor: pointer;
+                    
+                    a{
+                        text-decoration: none;
+                        font-size: 13px;
+                        color: #fff;
+                        transition: 0.3s ease-in-out;
+                        &:hover{
+                            color: $color3;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

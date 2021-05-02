@@ -1,0 +1,108 @@
+@import '../../utils/variable.scss';
+
+.wrapp-contact-us{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+    padding: 50px 20%;
+    background-color: $color4;
+
+    .title-contact-us{
+        display: flex;
+        font-size: 26px;
+        color: $color1;
+        font-family: "Crimson Text",serif;
+    }
+
+    .container-konten-contact-us{
+        display: flex;
+        height: auto;
+        width: 100%;
+        margin-top: 40px;
+
+        .form-kiri-online-cu{
+            display: flex;
+            flex-direction: column;
+            width: 50%;
+            background-color: $color10;
+            border-radius: 5px;
+            padding: 20px 35px 35px 35px;
+            margin-right: 20px;
+
+            .container-form-contact-us{
+                display: flex;
+                
+                .column-kiri-form-contact-us{
+                    display: flex;
+                    flex-direction: column;
+                    width: calc(100%/2);
+                    margin-right: 20px;
+                }
+    
+                .column-kanan-form-contact-us{
+                    display: flex;
+                    flex-direction: column;
+                    width: calc(100%/2);
+                }
+            }
+        }
+
+        .form-kanan-online-cu{
+            display: flex;
+            flex-direction: column;
+            width: 50%;
+            background-color: #fff;
+            margin-right: 20px;
+
+            .container-google-maps{
+                display: flex;
+                height: 300px;
+                width: 100%;
+                margin-bottom: 10px;
+                background-size: cover;
+                background-position: center;
+            }
+
+            .txt-icon-contact-us{
+                display: flex;
+                font-size: 16px;
+                color: $color1;
+                align-items: center;
+                margin-top: 15px;
+                cursor: default;
+
+                i{
+                    display: flex;
+                    margin-right: 10px;
+                }
+            }
+            
+        }
+
+        .label-form-online-rv{
+            display: flex;
+            font-size: 13px;
+            color: $color2;
+            margin-top: 15px;
+        }
+
+        .input-form-online-rv{
+            display: flex;
+            padding: 10px 12px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            margin-top: 5px;
+            font-size: 13px;
+            color: $color2;
+            background-color: #fff;
+            font-family: 'Mulish', sans-serif;
+        }
+    }
+    
+    .container-btn-contact-us{
+        display: flex;
+        margin-top: 40px;
+    }
+}

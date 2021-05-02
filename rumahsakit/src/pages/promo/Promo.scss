@@ -1,0 +1,22 @@
+@import '../../utils/variable.scss';
+
+.wrapp-promo{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+    padding: 50px 20%;
+
+    .container-konten-promo{
+        display: flex;
+        flex-wrap: wrap;
+        height: auto;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .container-btn-promo{
+        display: flex;
+        justify-content: center;
+    }
+}

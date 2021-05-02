@@ -13,14 +13,33 @@ import HelmetCard from '../../components/helmetcard/HelmetCard'
 import API from '../../services/api'
 import Endpoint from '../../services/api/endpoint'
 import Loading from '../../components/loading/Loading'
+import subscribe from '../../images/subscribe.jpg'
+import ModalSuccess from '../../components/modalsuccess/ModalSuccess'
 
 function Home() {
 
     const [paramsGlobal, setParamsGlobal, updateParams] = useContext(PathContext)
     const [dataArticle, setDataArticle] = useState([])
+    const [dataCarouselHome, setDataCarouselHome] = useState([])
+    const [dataBannerNewsletter, setDataBannerNewsletter] = useState({})
+    const [dataReserveNow, setDataReserveNow] = useState({})
+    const [bannerSelamatDatang, setBannerSelamatDatang] = useState({})
+    const [bannerGradient, setBannerGradient] = useState({})
+    const [dataTestimoni, setDataTestimoni] = useState([])
+    const [dataOurPatientTestimony, setDataOurPatientTestimony] = useState({})
+    const [displayBtnCarousel, setDisplayBtnCarousel] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [loadingBtn, setLoadingBtn] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('')
+    const [successMessage, setSuccessMessage] = useState('')
+    const [inputSubscribe, setInputSubscribe] = useState({
+        email: ''
+    })
 
     const history = useHistory()
+
+    let index = 0
+    let indexCarouselOurPatient = 0
 
     function setAllAPI() {
         setLoading(true);
@@ -37,12 +56,156 @@ function Home() {
                 }
             })
             .catch(err => console.log(err))
+
+        API.APIGetCarouselHome()
+            .then(res => {
+                setDataCarouselHome(res.data);
+
+                setTimeout(() => {
+                    getElementCarouselHome();
+                }, 0);
+            })
+
+        API.APIGetBanner()
+            .then(res => {
+                const respons = res.data
+                if (respons) {
+                    const getBannerNewsletter = respons.filter((e) => e.path.includes('newsletter'))
+                    setDataBannerNewsletter(getBannerNewsletter[0])
+
+                    const getReserveNow = respons.filter((e) => e.path.includes('reserve online'))
+                    setDataReserveNow(getReserveNow[0])
+
+                    const getBannerSelamatDatang = respons.filter((e) => e.path.includes('selamat datang'))
+                    setBannerSelamatDatang(getBannerSelamatDatang[0])
+
+                    const getBannerGradient = respons.filter((e) => e.path.includes('banner gradient'))
+                    setBannerGradient(getBannerGradient[0])
+
+                    const getDataOurPatient = respons.filter((e) => e.path.includes('our patient testimony'))
+                    setDataOurPatientTestimony(getDataOurPatient[0])
+                }
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
+        API.APIGetTestimonial()
+            .then(res => {
+                setDataTestimoni(res.data)
+
+                setTimeout(() => {
+                    getElementCarouselTestimoni();
+                }, 0);
+            })
     }
 
     useEffect(() => {
         window.scrollTo(0, 0)
         setAllAPI();
     }, [])
+
+    function getElementCarouselHome() {
+        const element = document.getElementsByClassName('img-carousel-main')
+
+        if (element) {
+            for (let i = 0; i < element.length; i++) {
+                const check = element[i].getAttribute('name') !== index
+                if (check) {
+                    element[i].style.display = 'none'
+                }
+            }
+            element[index].style.display = 'flex'
+        }
+    }
+
+    function getElementCarouselTestimoni() {
+        const element = document.getElementsByClassName('container-konten-carousel-main')
+
+        if (element.length > 0) {
+            for (let i = 0; i < element.length; i++) {
+                element[i].style.display = 'none'
+            }
+
+            element[0].style.display = 'flex'
+        }
+    }
+
+    function btnRightCarouselOurTestimony() {
+        const element = document.getElementsByClassName('container-konten-carousel-main')
+
+        if (element.length > 0) {
+            for (let i = 0; i < element.length; i++) {
+                element[i].style.display = 'none'
+            }
+
+            if (indexCarouselOurPatient < element.length - 1) {
+                indexCarouselOurPatient = indexCarouselOurPatient + 1
+
+                setTimeout(() => {
+                    element[indexCarouselOurPatient].style.display = 'flex'
+                }, 0);
+            } else {
+                indexCarouselOurPatient = 0
+
+                setTimeout(() => {
+                    element[0].style.display = 'flex'
+                }, 0);
+            }
+        }
+    }
+
+    function btnLeftCarouselOurTestimony() {
+        const element = document.getElementsByClassName('container-konten-carousel-main')
+
+        if (element.length > 0) {
+            for (let i = 0; i < element.length; i++) {
+                element[i].style.display = 'none'
+            }
+
+            if (indexCarouselOurPatient !== 0) {
+                indexCarouselOurPatient = indexCarouselOurPatient - 1
+
+                setTimeout(() => {
+                    element[indexCarouselOurPatient].style.display = 'flex'
+                }, 0);
+            } else {
+                indexCarouselOurPatient = element.length - 1
+
+                setTimeout(() => {
+                    element[element.length - 1].style.display = 'flex'
+                }, 0);
+            }
+        }
+    }
+
+    function btnRightCarouselHome() {
+        if (index < dataCarouselHome.length - 1) {
+            index = index + 1
+            setTimeout(() => {
+                getElementCarouselHome();
+            }, 0);
+        } else {
+            index = 0
+            setTimeout(() => {
+                getElementCarouselHome();
+            }, 0);
+        }
+    }
+
+    function btnLeftCarouselHome() {
+        if (index > 0) {
+            index = index - 1
+            setTimeout(() => {
+                getElementCarouselHome();
+            }, 0);
+        } else {
+            index = dataCarouselHome.length - 1
+            setTimeout(() => {
+                getElementCarouselHome();
+            }, 0);
+        }
+    }
 
     function goToArticles(path) {
         history.push(`/${path}`)
@@ -52,6 +215,87 @@ function Home() {
         history.push(`/articles/read/${path}`)
     }
 
+    function submitSubscribe(e) {
+        e.preventDefault()
+
+        if (loadingBtn === false) {
+            if (inputSubscribe.email.length > 0 && inputSubscribe.email.trim()) {
+                if (inputSubscribe.email.includes('@')) {
+                    setErrorMessage('')
+                    setLoadingBtn(true)
+                    API.APIGetEmailUser()
+                        .then(res => {
+                            const respons = res.data
+                            if (respons.length > 0) {
+                                const checkEmail = respons.filter((e) => e.email.includes(inputSubscribe.email))
+
+                                if (checkEmail.length === 0) {
+                                    API.APIPostEmailUser(inputSubscribe)
+                                        .then(res => {
+                                            setSuccessMessage('Anda telah berhasil subscribe!. Dan nantikan E-Newsletter tips sehat kami di gmail Anda.')
+                                            setInputSubscribe({ email: '' })
+
+                                            setTimeout(() => {
+                                                setLoadingBtn(false)
+                                                setSuccessMessage('')
+                                            }, 5000);
+                                            return res;
+                                        })
+                                } else {
+                                    setSuccessMessage('Gagal subscribe!, Email Anda telah terdaftar sebelumnya!')
+
+                                    setTimeout(() => {
+                                        setLoadingBtn(false)
+                                        setSuccessMessage('')
+                                    }, 3000);
+                                }
+                            } else {
+                                API.APIPostEmailUser(inputSubscribe)
+                                    .then(res => {
+                                        setSuccessMessage('Anda telah berhasil subscribe!. Dan nantikan E-Newsletter tips sehat kami di gmail Anda.')
+                                        setInputSubscribe({ email: '' })
+
+                                        setTimeout(() => {
+                                            setLoadingBtn(false)
+                                            setSuccessMessage('')
+                                        }, 5000);
+                                        return res;
+                                    })
+                            }
+                        })
+                } else {
+                    setErrorMessage(`Must be required "@".`)
+                }
+            } else {
+                setErrorMessage(`This field is required.`)
+            }
+        }
+    }
+
+    function autoChangeSlide() {
+        if (displayBtnCarousel === false) {
+            setTimeout(() => {
+                if (index < dataCarouselHome.length - 1) {
+                    index = index + 1
+
+                    setTimeout(() => {
+                        getElementCarouselHome();
+                    }, 0);
+                } else {
+                    index = 0
+
+                    setTimeout(() => {
+                        getElementCarouselHome();
+                    }, 0);
+                }
+            }, 0);
+        }
+    }
+
+    // if (dataCarouselHome.length > 0) {
+    //     autoChangeSlide();
+    // }
+
     return (
         <>
             <HelmetCard
@@ -59,33 +303,66 @@ function Home() {
                 content="Rumah Sakit Permata - Permata Keluarga Husada Grup"
             />
             <div className="wrapp-home">
-                <CarouselMain />
+                <ModalSuccess
+                    marginTop={successMessage.length > 0 ? '170px' : '-170px'}
+                    bgColor={successMessage.toLocaleLowerCase().includes('berhasil') ? '#08a808' : '#d30c0c'}
+                    message={successMessage.length > 0 ? successMessage : ''}
+                />
 
-                <div className="bg-gradient-home" style={{
-                    backgroundImage: `url(${bgGradient})`
-                }}>
-                    <div className="column-tengah-bg-gradient">
-                        <img src={logo2Rs} alt="" className="img-logo2-rs" />
-                        <p className="txt-rs-permata-depok">
-                            RS PERMATA DEPOK
-                        </p>
+                <CarouselMain
+                    data={dataCarouselHome}
+                    mouseEnter={() => {
+                        setDisplayBtnCarousel(true)
+                    }}
+                    mouseLeave={() => {
+                        setDisplayBtnCarousel(false)
+                    }}
+                    displayBtn={displayBtnCarousel ? 'flex' : 'none'}
+                    clickBtnLeft={() => {
+                        btnLeftCarouselHome();
+                    }}
+                    clickBtnRight={() => {
+                        btnRightCarouselHome();
+                    }}
+                />
 
-                        <ButtonCard
-                            title={'VIEW PROFILE'}
-                        />
+                {bannerGradient && Object.keys(bannerGradient).length > 0 ? (
+                    <div className="bg-gradient-home" style={{
+                        backgroundImage: `url(${Endpoint}/images/${bannerGradient.background})`
+                    }}>
+                        <div className="column-tengah-bg-gradient">
+                            <img src={`${Endpoint}/images/${bannerGradient.image}`} alt="" className="img-logo2-rs" />
+                            <p className="txt-rs-permata-depok">
+                                {bannerGradient.title}
+                            </p>
+
+                            <ButtonCard
+                                nameClassBtn={'btn-card'}
+                                title={'VIEW PROFILE'}
+                            />
+                        </div>
                     </div>
-                </div>
+                ) : (
+                    <div></div>
+                )}
 
-                <div className="banner-selamat-datang" style={{
-                    backgroundImage: `url(${bgPink})`
-                }}>
-                    <p className="title-selamat-datang">
-                        Selamat Datang di RS Permata Keluarga Husada Grup
-                    </p>
-                    <p className="deskripsi-selamat-datang">
-                        Website Ini dirancang untuk memudahkan anda dalam mendapatkan pelayanan kami dan memperoleh informasi kesehatan keluarga anda. Kami hadirkan pula Reservasi Online untuk konsultasi dengan dokter kami.
-                    </p>
-                </div>
+
+                {bannerSelamatDatang && Object.keys(bannerSelamatDatang).length > 0 ? (
+                    <>
+                        <div className="banner-selamat-datang" style={{
+                            backgroundImage: `url(${Endpoint}/images/${bannerSelamatDatang.image})`
+                        }}>
+                            <p className="title-selamat-datang">
+                                {bannerSelamatDatang.title}
+                            </p>
+                            <p className="deskripsi-selamat-datang">
+                                {bannerSelamatDatang.deskripsi}
+                            </p>
+                        </div>
+                    </>
+                ) : (
+                    <div></div>
+                )}
 
                 <div className="container-blog-health-articles">
                     <p className="title-blog-health-articles">
@@ -122,15 +399,112 @@ function Home() {
 
                     <div className="column-btn-blog-health-articles">
                         <ButtonCard
+                            nameClassBtn={'btn-card-two'}
                             title={'READ MORE ARTICLES'}
-                            border={'2px solid #b04579'}
-                            colorNameBtn={'#b04579'}
-                            colorIcon={'#b04579'}
                             clickBtn={async () => {
                                 await goToArticles('articles')
                                 updateParams('articles')
                             }}
                         />
+                    </div>
+                </div>
+
+                <div className="container-banner-subscribe-home" style={{
+                    backgroundImage: `url(${Endpoint}/images/${dataBannerNewsletter && dataBannerNewsletter.image ? dataBannerNewsletter.image : ''})`
+                }}>
+                    <div className="konten-banner-subscribe">
+                        {dataBannerNewsletter && Object.keys(dataBannerNewsletter).length > 0 ? (
+                            <p className="txt-konten-banner">
+                                {dataBannerNewsletter.title}
+                                <br />
+                                <em>{dataBannerNewsletter.deskripsi}</em>
+                            </p>
+                        ) : (
+                            <div></div>
+                        )}
+
+                        <form onSubmit={submitSubscribe}
+                            className="form-input-subscribe">
+                            <input type="text" className="input-subscribe" value={inputSubscribe.email} placeholder={'Enter your email address'}
+                                onChange={(e) => setInputSubscribe({ email: e.target.value })}
+                            />
+
+                            <div className="container-btn-subscribe">
+                                <button className="btn-subscribe"
+                                    onClick={submitSubscribe}
+                                >
+                                    SUBSCRIBE
+                                </button>
+                                <div className="container-loading-btn-subscribe" style={{
+                                    display: `${loadingBtn ? 'flex' : 'none'}`
+                                }}>
+                                    <div className="loading-btn-subscribe">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+
+                        {errorMessage.length > 0 ? (
+                            <p className="txt-error-input">
+                                {errorMessage}
+                            </p>
+                        ) : (
+                            <div></div>
+                        )}
+                    </div>
+                </div>
+
+                <div className="container-our-patient-testimony">
+                    <div className="kolom-kanan-our-patient">
+                        <p className="title-our-patient">
+                            {dataOurPatientTestimony && dataOurPatientTestimony.title ? dataOurPatientTestimony.title : ''}
+                        </p>
+
+                        <CarouselMain
+                            displayBtn={'flex'}
+                            fontSizeBtnArrow={'25px'}
+                            leftBtnArrow={'0'}
+                            rightBtnArrow={'0'}
+                            displaykontenTestimony={'flex'}
+                            dataTestimoni={dataTestimoni}
+                            iconQuotes={dataOurPatientTestimony && dataOurPatientTestimony.image ? `${Endpoint}/images/${dataOurPatientTestimony.image}` : ''}
+                            clickBtnLeft={() => {
+                                btnLeftCarouselOurTestimony();
+                            }}
+                            clickBtnRight={() => {
+                                btnRightCarouselOurTestimony();
+                            }}
+                        />
+                    </div>
+                    <div className="kolom-kiri-our-patient">
+                        {dataReserveNow && Object.keys(dataReserveNow).length > 0 ? (
+                            <>
+                                <p className="title-our-patient">
+                                    {dataReserveNow.title}
+                                </p>
+
+                                <div className="box-pink-reserve-now">
+                                    <img src={`${Endpoint}/images/${dataReserveNow.image}`} alt="" className="img-reserve-now" />
+
+                                    <p className="deskripsi-box-pink">
+                                        {dataReserveNow.deskripsi}
+                                    </p>
+
+                                    <ButtonCard
+                                        nameClassBtn={'btn-card-two'}
+                                        title={'RESERVE NOW'}
+                                        clickBtn={() => {
+                                            history.push('online-reservation')
+                                        }}
+                                    />
+                                </div>
+                            </>
+                        ) : (
+                            <div></div>
+                        )}
+
                     </div>
                 </div>
             </div>
