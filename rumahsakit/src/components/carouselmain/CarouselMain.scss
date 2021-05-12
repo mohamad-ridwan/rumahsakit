@@ -7,108 +7,115 @@
     width: 100%;
     align-items: center;
 
-    .img-carousel-main{
-        display: none;
-        height: auto;
-        max-width: 100%;
-        object-fit: cover;
-        object-position: center;
-        animation: opacity 0.3s ease-in-out forwards;
-        opacity: 0.3;
+    .splide{
+        padding: 0;
+    }
+    
+    .splide__arrow svg{
+        font-size: 10px;
+        fill: $color18;
+        transition: 0.3s ease-in-out;
+        &:hover{
+            fill: $color18;
+            opacity: 0.5;
+        }
     }
 
-    .container-konten-carousel-main{
+    .container-carousel-img{
         display: none;
-        flex-direction: column;
-        position: relative;
         height: auto;
         width: 100%;
-        padding: 20px 30px 0 30px;
-        animation: opacity 0.3s ease-in-out forwards;
-        opacity: 0.3;
 
-        .img-icon-quotes-carousel{
+        .img-carousel-main{
             display: flex;
-            position: absolute;
-            left: 0;
-            top: 0;
             height: auto;
             max-width: 100%;
-        }
-
-        .deskripsi-konten-carousel-main{
-            font-size: 14px;
-            color: $color3;
-            text-align: start;
-        }
-
-        .column-profil-konten-carousel-main{
-            display: flex;
-            margin-top: 40px;
-            align-items: center;
-
-            .img-profil-carousel{
-                display: flex;
-                height: 50px;
-                width: 50px;
-                border-radius: 500px;
-                object-fit: cover;
-                object-position: center;
-            }
-
-            .column-name-profil-carousel{
-                display: flex;
-                flex-direction: column;
-                margin-left: 20px;
-
-                .name-profil-carousel{
-                    display: flex;
-                    font-size: 16px;
-                    color: $color1;
-                    font-weight: 500;
-                }
-
-                .label-profil-carousel{
-                    display: flex;
-                    font-size: 14px;
-                    font-style: italic;
-                    color: $color3;
-                    margin: 10px 0;
-                }
-
-                .border-label-carousel{
-                    display: flex;
-                    height: 1.5px;
-                    width: 80px;
-                    background-color: $color1;
-                }
-            }
+            object-fit: cover;
+            object-position: center;
+            animation: opacity 0.3s ease-in-out forwards;
+            opacity: 0.3;
         }
     }
 
-    .btn-carousel-main-group{
+    .wrapp-carousel-testimony{
         display: none;
-        position: absolute;
-        cursor: pointer;
-        padding: 10px;
-        background-color: transparent;
-        border: none;
-        outline: none;
-        animation: opacity 0.3s ease-in-out forwards;
-        opacity: 0;
+        height: auto;
+        width: 100%;
 
-        i{
-            font-size: 30px;
-            color: $color1;
+        .container-konten-carousel-main{
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            height: auto;
+            width: 100%;
+            padding: 20px 30px 0 30px;
+            animation: opacity 0.3s ease-in-out forwards;
+            opacity: 0.3;
+    
+            .img-icon-quotes-carousel{
+                display: flex;
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: auto;
+                max-width: 100%;
+            }
+    
+            .deskripsi-konten-carousel-main{
+                font-size: 14px;
+                color: $color3;
+                text-align: start;
+            }
+    
+            .column-profil-konten-carousel-main{
+                display: flex;
+                margin-top: 40px;
+                align-items: center;
+    
+                .img-profil-carousel{
+                    display: flex;
+                    height: 50px;
+                    width: 50px;
+                    border-radius: 500px;
+                    object-fit: cover;
+                    object-position: center;
+                }
+    
+                .column-name-profil-carousel{
+                    display: flex;
+                    flex-direction: column;
+                    margin-left: 20px;
+    
+                    .name-profil-carousel{
+                        display: flex;
+                        font-size: 16px;
+                        color: $color1;
+                        font-weight: 500;
+                    }
+    
+                    .label-profil-carousel{
+                        display: flex;
+                        font-size: 14px;
+                        font-style: italic;
+                        color: $color3;
+                        margin: 10px 0;
+                    }
+    
+                    .border-label-carousel{
+                        display: flex;
+                        height: 1.5px;
+                        width: 80px;
+                        background-color: $color1;
+                    }
+                }
+            }
         }
     }
 
-    .btn-left-carousel-main{
-        left: 40px;
-    }
-
-    .btn-right-carousel-main{
-        right: 40px;
+    .wrapp-carousel-list-doctor{
+        display: none;
+        height: auto;
+        width: 100%;
     }
 }
 

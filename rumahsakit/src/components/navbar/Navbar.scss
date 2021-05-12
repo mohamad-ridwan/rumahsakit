@@ -58,6 +58,7 @@
                 color: $color2;
                 border: none;
                 outline: none;
+                font-family: 'Mulish', sans-serif;
             }
             .input-search-home::placeholder{
                 color: $color2;
@@ -66,9 +67,8 @@
             i{
                 display: flex;
                 position: absolute;
-                top: 0;
                 right: 0;
-                height: 100%;
+                height: 38px;
                 width: 40px;
                 justify-content: center;
                 align-items: center;
@@ -76,6 +76,7 @@
                 color: $color1;
                 cursor: pointer;
                 font-size: $font1;
+                margin-top: -1px;
                 &:hover{
                     background-color: $color1;
                     color: #fff;
@@ -104,8 +105,66 @@
             background-color: transparent;
             transition: 0.2s ease-in-out;
             cursor: pointer;
+            font-family: 'Mulish', sans-serif;
+            align-items: center;
+            text-decoration: none;
+            z-index: 88;
             &:hover{
-                background-color: rgba(255, 255, 255, 0.171);
+                background-color: $color8;
+            }
+
+            i{
+                margin-left: 5px;
+                margin-top: -2px;
+            }
+        }
+
+        .is-active-navbar{
+            background-color: $color8;
+        }
+
+        .modal-collapse-navbar{
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            width: auto;
+            background-color: transparent;
+            top: 173px;
+            border: 1px solid $color8;
+
+            .column-tambahan-collapse-nav{
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                padding: 8px 17px;
+                color: transparent;
+                background: transparent;
+            }
+
+            .menu-collapse-navbar{
+                display: flex;
+                list-style: none;
+                padding: 8px 17px;
+                font-size: 14px;
+                cursor: pointer;
+                color: #fff;
+                transition: 0.2s ease-in-out;
+                text-align: start;
+                text-decoration: none;
+                background-color: $color8;
+                z-index: 99;
+                &:hover{
+                    background-color: #fff;
+                    color: $color1;
+                }
+            }
+
+            .active-menu-collapse-nav{
+                background-color: #fff;
+                color: $color1;
             }
         }
     }

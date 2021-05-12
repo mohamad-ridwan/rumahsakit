@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
 import HelmetCard from '../../components/helmetcard/HelmetCard';
+import { useHistory, useParams } from 'react-router';
+import { withRouter } from 'react-router-dom'
 import './Testimonial.scss'
 import BannerHeader from '../../components/bannerheader/BannerHeader';
 import Headers from '../../components/headers/Headers';
-import { useHistory, useParams } from 'react-router';
 import { PathContext } from '../../services/context/path/Path';
 import API from '../../services/api';
-import { withRouter } from 'react-router-dom'
 import Endpoint from '../../services/api/endpoint';
 import CardTestimonial from '../../components/cardtestimonial/CardTestimonial';
 import Loading from '../../components/loading/Loading';
@@ -14,7 +14,7 @@ import ButtonCard from '../../components/buttoncard/ButtonCard';
 
 function Testimonial() {
 
-    const [paramsGlobal, setParamsGlobal, updateParams] = useContext(PathContext)
+    const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar] = useContext(PathContext)
     const [dataHeader, setDataHeader] = useState({})
     const [dataTestimonial, setDataTestimonial] = useState([])
     const [loading, setLoading] = useState(false)
@@ -68,29 +68,56 @@ function Testimonial() {
 
     useEffect(() => {
         setAllAPI();
+        activeNavbar();
     }, [])
+
+    function toPageHome() {
+        history.push('/')
+        updateParams('/')
+    }
+
+    function loadMore() {
+        let changeIndex = 3
+
+        if (indexData < totalData) {
+            setIndexData(indexData + 3)
+            changeIndex = changeIndex + 3
+
+            setTimeout(() => {
+                if (totalData >= changeIndex) {
+                    getTestimonial(changeIndex);
+                }
+            }, 0);
+        } else {
+            setIndexData(indexData - 3)
+
+            setTimeout(() => {
+                getTestimonial(indexData - 3);
+            }, 0);
+
+        }
+    }
 
     return (
         <>
             <HelmetCard
-                title={`${dataHeader && dataHeader.namePage ? dataHeader.namePage + ' ' + '-' + ' ' + 'Rumah Sakit Permata' : ''}`}
+                title={Object.keys(dataHeader).length > 0 ? dataHeader.namePage + ' ' + '-' + ' ' + 'Rumah Sakit Permata' : ''}
                 content="Rumah sakit permata Depok - Testimoni para pasien loyal"
             />
+
             <BannerHeader
-                img={dataHeader && dataHeader.img ? `${Endpoint}/images/${dataHeader.img}` : ''}
+                img={Object.keys(dataHeader).length > 0 ? `${Endpoint}/images/${dataHeader.img}` : ''}
                 title={dataHeader && dataHeader.titleBanner}
             />
+
             <div className="wrapp-testimonial">
                 <Headers
-                    header1={'Home'}
-                    arrow={'>'}
+                    header1="Home"
+                    arrow=">"
                     header2={dataHeader && dataHeader.namePage}
-                    cursor1={'pointer'}
-                    colorHeader2={'#7e7e7e'}
-                    click1={() => {
-                        history.push('/')
-                        updateParams('/')
-                    }}
+                    cursor1="pointer"
+                    colorHeader2="#7e7e7e"
+                    click1={toPageHome}
                 />
 
                 <div className="konten-testimonial">
@@ -113,28 +140,8 @@ function Testimonial() {
                     <div className="column-bawah-konten-testimonial">
                         <ButtonCard
                             title={indexData < totalData ? 'LOAD MORE' : 'LESS'}
-                            nameClassBtn={'btn-card-two'}
-                            clickBtn={() => {
-                                let changeIndex = 3
-
-                                if (indexData < totalData) {
-                                    setIndexData(indexData + 3)
-                                    changeIndex = changeIndex + 3
-
-                                    setTimeout(() => {
-                                        if (totalData >= changeIndex) {
-                                            getTestimonial(changeIndex);
-                                        }
-                                    }, 0);
-                                } else {
-                                    setIndexData(indexData - 3)
-
-                                    setTimeout(() => {
-                                        getTestimonial(indexData - 3);
-                                    }, 0);
-
-                                }
-                            }}
+                            nameClassBtn="btn-card-two"
+                            clickBtn={loadMore}
                         />
                     </div>
                 </div>

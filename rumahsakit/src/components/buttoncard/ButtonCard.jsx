@@ -1,10 +1,11 @@
 import React from 'react'
 import './ButtonCard.scss'
 
-function ButtonCard({ title, border, colorIcon, colorNameBtn, clickBtn, nameClassBtn }) {
+function ButtonCard({ title, border, colorIcon, colorNameBtn, clickBtn, nameClassBtn, displayBtn }) {
     return (
         <>
             <button className={nameClassBtn} style={{
+                display: `${displayBtn}`,
                 border: `${border}`,
                 color: `${colorNameBtn}`
             }}

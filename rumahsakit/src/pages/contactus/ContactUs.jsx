@@ -1,23 +1,23 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
+import { withRouter } from 'react-router-dom'
+import { send } from 'emailjs-com'
+import { Loader, LoaderOptions } from 'google-maps'
+import './ContactUs.scss'
 import BannerHeader from '../../components/bannerheader/BannerHeader'
 import Headers from '../../components/headers/Headers'
 import HelmetCard from '../../components/helmetcard/HelmetCard'
 import API from '../../services/api'
 import Endpoint from '../../services/api/endpoint'
 import { PathContext } from '../../services/context/path/Path'
-import './ContactUs.scss'
-import { withRouter } from 'react-router-dom'
 import Input from '../../components/input/Input'
 import ButtonCard from '../../components/buttoncard/ButtonCard'
 import Loading from '../../components/loading/Loading'
 import ModalSuccess from '../../components/modalsuccess/ModalSuccess'
-import { send } from 'emailjs-com'
-import { Loader, LoaderOptions } from 'google-maps'
 
 function ContactUs() {
 
-    const [paramsGlobal, setParamsGlobal, updateParams] = useContext(PathContext)
+    const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar] = useContext(PathContext)
     const [dataHeader, setDataHeader] = useState({})
     const [errForm, setErrForm] = useState({})
     const [loading, setLoading] = useState(false)
@@ -43,7 +43,8 @@ function ContactUs() {
 
     const history = useHistory()
 
-    const latlon = '-6.398846435949064, 106.77086719868362'
+    const lat = -6.398846435949064
+    const lng = 106.77086719868362
     const APIKey = 'AIzaSyAdmoWMT0t7Gj1EButLm35pQJ9BhiG6ZL0'
 
     function setAllAPI() {
@@ -64,7 +65,7 @@ function ContactUs() {
         const google = await loader.load();
 
         const map = new google.maps.Map(document.getElementsByClassName('container-google-maps')[0], {
-            center: { lat: -6.398846435949064, lng: 106.77086719868362 },
+            center: { lat: lat, lng: lng },
             zoom: 8
         })
 
@@ -74,6 +75,7 @@ function ContactUs() {
     useEffect(() => {
         window.scrollTo(0, 0)
         setAllAPI();
+        activeNavbar();
     }, [])
 
     function inputValue(e) {
@@ -178,16 +180,23 @@ function ContactUs() {
         }, 0);
     }
 
+    function toPageHome() {
+        history.push('/')
+        updateParams('/')
+    }
+
     return (
         <>
             <HelmetCard
-                title={`${dataHeader && Object.keys(dataHeader).length > 0 ? dataHeader.namePage + ' ' + '-' + ' ' + 'Rumah Sakit Permata' : ''}`}
+                title={Object.keys(dataHeader).length > 0 ? dataHeader.namePage + ' ' + '-' + ' ' + 'Rumah Sakit Permata' : ''}
                 content="Rumah sakit permata Depok - Testimoni para pasien loyal"
             />
+
             <BannerHeader
-                img={dataHeader && dataHeader.img ? `${Endpoint}/images/${dataHeader.img}` : ''}
+                img={Object.keys(dataHeader).length > 0 ? `${Endpoint}/images/${dataHeader.img}` : ''}
                 title={dataHeader && dataHeader.titleBanner}
             />
+
             <div className="wrapp-contact-us">
                 <ModalSuccess
                     marginTop={successMessage.length > 0 ? '170px' : '-170px'}
@@ -196,15 +205,12 @@ function ContactUs() {
                 />
 
                 <Headers
-                    header1={'Home'}
-                    arrow={'>'}
+                    header1="Home"
+                    arrow=">"
                     header2={dataHeader && dataHeader.namePage}
-                    cursor1={'pointer'}
-                    colorHeader2={'#7e7e7e'}
-                    click1={() => {
-                        history.push('/')
-                        updateParams('/')
-                    }}
+                    cursor1="pointer"
+                    colorHeader2="#7e7e7e"
+                    click1={toPageHome}
                 />
 
                 <p className="title-contact-us">
@@ -216,19 +222,19 @@ function ContactUs() {
                         <div className="container-form-contact-us">
                             <div className="column-kiri-form-contact-us">
                                 <Input
-                                    displayTitle={'none'}
-                                    label={'Nama'}
-                                    nameInput={'nama'}
+                                    displayTitle="none"
+                                    label="Nama"
+                                    nameInput="nama"
                                     value={valueContact.nama}
                                     handleChange={inputValue}
                                     errorMessage={errForm && errForm.nama}
                                 />
 
                                 <Input
-                                    displayTitle={'none'}
-                                    label={'Phone Number'}
-                                    nameInput={'phoneNumber'}
-                                    displayBintangWajib={'none'}
+                                    displayTitle="none"
+                                    label="Phone Number"
+                                    nameInput="phoneNumber"
+                                    displayBintangWajib="none"
                                     value={valueContact.phoneNumber}
                                     handleChange={inputValue}
                                 />
@@ -236,19 +242,19 @@ function ContactUs() {
 
                             <div className="column-kanan-form-contact-us">
                                 <Input
-                                    displayTitle={'none'}
-                                    label={'Email Address'}
-                                    nameInput={'emailAddress'}
+                                    displayTitle="none"
+                                    label="Email Address"
+                                    nameInput="emailAddress"
                                     value={valueContact.emailAddress}
                                     handleChange={inputValue}
                                     errorMessage={errForm && errForm.emailAddress}
                                 />
 
                                 <Input
-                                    displayTitle={'none'}
-                                    label={'Company'}
-                                    nameInput={'company'}
-                                    displayBintangWajib={'none'}
+                                    displayTitle="none"
+                                    label="Company"
+                                    nameInput="company"
+                                    displayBintangWajib="none"
                                     value={valueContact.company}
                                     handleChange={inputValue}
                                 />
@@ -259,7 +265,7 @@ function ContactUs() {
                             Message
                         </label>
 
-                        <textarea name={'message'} className="input-form-online-rv" cols="30" rows="10"
+                        <textarea name="message" className="input-form-online-rv" cols="30" rows="10"
                             onChange={inputValue}
                         ></textarea>
                     </div>
@@ -291,8 +297,8 @@ function ContactUs() {
 
                 <div className="container-btn-contact-us">
                     <ButtonCard
-                        nameClassBtn={'btn-card-two'}
-                        title={'CONTACT US'}
+                        nameClassBtn="btn-card-two"
+                        title="CONTACT US"
                         clickBtn={submitForm}
                     />
                 </div>

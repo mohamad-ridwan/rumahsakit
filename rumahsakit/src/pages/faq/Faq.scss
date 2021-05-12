@@ -1,0 +1,73 @@
+@import '../../utils/variable.scss';
+
+.wrapp-faq{
+    display: flex;
+    height: auto;
+    width: 100%;
+    padding: 50px 20%;
+    background-size: cover;
+    background-image: $color4;
+
+    .column-kiri-faq{
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        width: 25%;
+        margin-right: 20px;
+    }
+
+    .column-kanan-faq{
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        width: 75%;
+
+        .box-accordion-faq{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid $color1;
+            margin-bottom: 20px;
+            background-color: #fff;
+            transition: 0.2s ease-in-out;
+
+            .btn-accordion-faq{
+                display: flex;
+                padding: 15px 30px;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 14px;
+                color: $color18;
+                cursor: pointer;
+                border: none;
+                outline: none;
+                background-color: transparent;
+                text-align: start;
+                font-family: 'Mulish', sans-serif;
+            
+                i{
+                    font-size: 20px;
+                    color: $color18;
+                    transition: 0.2s ease-in-out;
+                    // margin-top: -2px;
+                }
+            }
+
+            .column-deskripsi-accordion-faq{
+                display: flex;
+                transition: 0.3s ease-in-out;
+                border-top: 1px solid $color1;
+                overflow: hidden;
+
+                .txt-answer-accordion-faq{
+                    font-size: 14px;
+                    color: $color3;
+                    text-align: start;
+                    line-height: $lineHeight;
+                    padding: 15px 30px;
+                }
+            }
+        }
+    }
+}

@@ -6,7 +6,8 @@
     height: auto;
     width: 100%;
     padding: 50px 20%;
-    background-color: $color4;
+    background-size: cover;
+    background-image: $color4;
 
     .img-main-konten-find-doctor{
         display: flex;
@@ -89,7 +90,7 @@
             .container-detail-personalized{
                 display: flex;
                 flex-direction: column;
-                height: 0;
+                height: 1px;
                 max-height: auto;
                 width: 100%;
                 margin-top: 20px;
@@ -101,6 +102,12 @@
                     font-size: 13px;
                     color: $color2;
                     margin-top: 15px;
+
+                    .unselect-day{
+                        color: $color1;
+                        margin-left: 10px;
+                        cursor: pointer;
+                    }
                 }
 
                 .container-btn-choose{

@@ -1,10 +1,10 @@
 import React, { Component, useContext, useEffect, useState } from 'react'
-import HelmetCard from '../../components/helmetcard/HelmetCard';
+import { useHistory, withRouter } from 'react-router-dom'
 import './AboutUs.scss'
+import HelmetCard from '../../components/helmetcard/HelmetCard';
 import BannerHeader from '../../components/bannerheader/BannerHeader';
 import NavMenu from '../../components/navmenu/NavMenu';
 import Headers from '../../components/headers/Headers';
-import { useHistory, withRouter } from 'react-router-dom'
 import API from '../../services/api';
 import Loading from '../../components/loading/Loading';
 import { PathContext } from '../../services/context/path/Path';
@@ -12,7 +12,7 @@ import Endpoint from '../../services/api/endpoint';
 
 function AboutUs() {
 
-    const [paramsGlobal, setParamsGlobal, updateParams] = useContext(PathContext)
+    const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar] = useContext(PathContext)
     const [loading, setLoading] = useState(false)
     const [fixed, setFixed] = useState(false)
     const [indexBtn, setIndexBtn] = useState(null)
@@ -44,13 +44,19 @@ function AboutUs() {
 
     function RenderHTML(data, title) {
         return (
-            <p className={'text-konten-about-us'} dangerouslySetInnerHTML={{ __html: data.data }}></p>
+            <p className="text-konten-about-us" dangerouslySetInnerHTML={{ __html: data.data }}></p>
         )
     }
 
     useEffect(() => {
         setAllAPI();
+        activeNavbar();
     }, [])
+
+    const styleNavmenu = {
+        position: fixed ? 'fixed' : 'static',
+        marginTop: fixed ? '190px' : '0'
+    }
 
     function toElement(path) {
         const element = document.getElementById(path)
@@ -144,26 +150,30 @@ function AboutUs() {
         }
     }
 
+    function toPageHome() {
+        updateParams('/')
+        history.push('/')
+    }
+
     return (
         <>
             <HelmetCard
-                title={`${dataHeader && dataHeader.namePage ? dataHeader.namePage + ' ' + '-' + ' ' + 'Rumah Sakit Permata' : ''}`}
+                title={Object.keys(dataHeader).length > 0 ? dataHeader.namePage + ' ' + '-' + ' ' + 'Rumah Sakit Permata' : ''}
                 content="Rumah sakit permata Depok - Testimoni para pasien loyal"
             />
+
             <BannerHeader
-                img={dataHeader && dataHeader.img ? `${Endpoint}/images/${dataHeader.img}` : ''}
+                img={Object.keys(dataHeader).length > 0 ? `${Endpoint}/images/${dataHeader.img}` : ''}
                 title={dataHeader && dataHeader.titleBanner}
             />
+
             <div className="wrapp-about-us">
                 <div className="kolom-kiri-about-us">
                     <p className="title-rs-permata-keluarga">
                         RS PERMATA KELUARGA
                     </p>
-                    <div className="box-fixed-navmenu" style={{
-                        position: `${fixed ? 'fixed' : 'static'}`,
-                        marginTop: `${fixed ? '190px' : '0'}`,
-                    }}
-                        onMouseLeave={() => mouseLeaveNavmenu()}
+                    <div className="box-fixed-navmenu" style={styleNavmenu}
+                        onMouseLeave={mouseLeaveNavmenu}
                     >
                         {dataKonten && dataKonten.length > 0 ?
                             dataKonten.map((e, i) => {
@@ -187,16 +197,12 @@ function AboutUs() {
                 </div>
                 <div className="kolom-kanan-about-us">
                     <Headers
-                        header1={'Home'}
-                        arrow={'>'}
+                        header1="Home"
+                        arrow=">"
                         header2={dataHeader && dataHeader.namePage}
-                        cursor1={'pointer'}
-                        colorHeader2={'#7e7e7e'}
-                        click1={() => {
-                            history.push('/')
-                            updateParams('/')
-                        }}
-                    // click2={() => this.props.history.push('/articles')}
+                        cursor1="pointer"
+                        colorHeader2="#7e7e7e"
+                        click1={toPageHome}
                     />
 
                     {dataKonten && dataKonten.length > 0 ?
@@ -205,13 +211,15 @@ function AboutUs() {
                             const getPath = e.path.split(' ').join('-')
 
                             return (
-                                <div key={e._id} className="konten-about-us" id={getPath}>
-                                    <p className={'title-konten-about-us'}>{e.title}</p>
-                                    <RenderHTML
-                                        data={e.konten}
-                                        title={e.title}
-                                    />
-                                </div>
+                                <>
+                                    <div key={e._id} className="konten-about-us" id={getPath}>
+                                        <p className="title-konten-about-us">{e.title}</p>
+                                        <RenderHTML
+                                            data={e.konten}
+                                            title={e.title}
+                                        />
+                                    </div>
+                                </>
                             )
                         }) : (
                             <div></div>

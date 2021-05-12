@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
-import './Promo.scss'
 import { useHistory, withRouter } from 'react-router-dom'
+import './Promo.scss'
 import API from '../../services/api'
 import HelmetCard from '../../components/helmetcard/HelmetCard'
 import BannerHeader from '../../components/bannerheader/BannerHeader'
@@ -13,7 +13,7 @@ import Loading from '../../components/loading/Loading'
 
 function Promo() {
 
-    const [paramsGlobal, setParamsGlobal, updateParams] = useContext(PathContext)
+    const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar] = useContext(PathContext)
     const [dataHeader, setDataHeader] = useState({})
     const [promo, setPromo] = useState([])
     const [totalData, setTotalData] = useState()
@@ -62,6 +62,7 @@ function Promo() {
     useEffect(() => {
         window.scrollTo(0, 0)
         setAllAPI();
+        activeNavbar();
     }, [])
 
     function loadMore() {
@@ -85,53 +86,53 @@ function Promo() {
         }
     }
 
-    function goToPage(path) {
-        history.push(`/promo/details/${path}`)
+    function toPage(path) {
+        history.push(path)
+        updateParams(path)
     }
 
     return (
         <>
             <HelmetCard
-                title={`${dataHeader && dataHeader.namePage ? dataHeader.namePage + ' ' + '-' + ' ' + 'Rumah Sakit Permata' : ''}`}
+                title={Object.keys(dataHeader).length > 0 ? dataHeader.namePage + ' ' + '-' + ' ' + 'Rumah Sakit Permata' : ''}
                 content="Rumah sakit permata Depok - Testimoni para pasien loyal"
             />
+
             <BannerHeader
-                img={dataHeader && dataHeader.img ? `${Endpoint}/images/${dataHeader.img}` : ''}
+                img={Object.keys(dataHeader).length > 0 ? `${Endpoint}/images/${dataHeader.img}` : ''}
                 title={dataHeader && dataHeader.titleBanner}
             />
+
             <div className="wrapp-promo">
                 <Headers
-                    header1={'Home'}
-                    arrow={'>'}
+                    header1="Home"
+                    arrow=">"
                     header2={dataHeader && dataHeader.namePage}
-                    cursor1={'pointer'}
-                    colorHeader2={'#7e7e7e'}
-                    click1={() => {
-                        history.push('/')
-                        updateParams('/')
-                    }}
+                    cursor1="pointer"
+                    colorHeader2="#7e7e7e"
+                    click1={() => toPage('/')}
                 />
 
                 <div className="container-konten-promo">
                     {promo && promo.length > 0 ?
                         promo.map((e) => {
                             return (
-                                <Card
-                                    key={e._id}
-                                    widthCard={'calc(90%/2'}
-                                    heightImg="213px"
-                                    heightCardImg="213"
-                                    widthCardImg="425"
-                                    paddingCard={'0'}
-                                    marginCard={'0 0 40px 0'}
-                                    img={`${Endpoint}/images/${e.image}`}
-                                    title={e.title}
-                                    date={e.date}
-                                    deskripsi={e.deskripsi}
-                                    clickToPage={() => {
-                                        goToPage(e.path)
-                                    }}
-                                />
+                                <>
+                                    <Card
+                                        key={e._id}
+                                        widthCard="calc(90%/2)"
+                                        heightImg="213px"
+                                        heightCardImg="213"
+                                        widthCardImg="425"
+                                        paddingCard="0"
+                                        marginCard="0 0 40px 0"
+                                        img={`${Endpoint}/images/${e.image}`}
+                                        title={e.title}
+                                        date={e.date}
+                                        deskripsi={e.deskripsi}
+                                        clickToPage={() => toPage(`/promo/details/${e.path}`)}
+                                    />
+                                </>
                             )
                         }) : (
                             <div></div>
@@ -142,7 +143,7 @@ function Promo() {
                     {promo && promo.length > 12 ? (
                         <ButtonCard
                             title={indexBtn === totalData ? 'LESS' : 'LOAD MORE'}
-                            nameClassBtn={'btn-card-two'}
+                            nameClassBtn="btn-card-two"
                             clickBtn={loadMore}
                         />
                     ) : (

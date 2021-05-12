@@ -1,0 +1,102 @@
+@import '../../utils/variable.scss';
+
+.wrapp-profil-doctor{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+    padding: 50px 20%;
+    background-size: cover;
+    background-image: $color4;
+
+    .container-main-profil-doctor{
+        display: flex;
+        height: auto;
+        width: 100%;
+        align-items: center;
+        margin-top: 40px;
+
+        .img-profil-doctor{
+            display: flex;
+            height: 120px;
+            width: 120px;
+            object-fit: cover;
+            object-position: center;
+            margin-right: 10px;
+            border: 3.5px solid $color10;
+            box-sizing: content-box;
+            border-radius: 5px;
+        }
+        
+        .container-bio-profil-doctor{
+            display: flex;
+            flex-direction: column;
+            
+            .name-profil-doctor{
+                display: flex;
+                text-align: start;
+                font-size: 30px;
+                color: $color1;
+            }
+
+            .speciality-profil-doctor{
+                display: flex;
+                font-size: 14px;
+                color: $color2;
+                font-style: italic;
+                margin: 10px 0;
+            }
+        }
+    }
+
+    .profil-doctor-schedule{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 40px;
+
+        .title-doctor-schedule{
+            display: flex;
+            font-size: 24px;
+            color: $color1;
+            font-family: "Crimson Text",serif;
+        }
+
+        ul{
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            justify-content: space-between;
+            padding-left: 15px;
+            margin-top: 5px;
+
+            li{
+                display: flex;
+                position: relative;
+                font-size: 14px;
+                width: calc(100%/2);
+                color: $color3;
+                margin: 10px 0;
+                justify-content: space-between;
+
+                .time-doctor{
+                    display: flex;
+                    width: 100px;
+                    text-align: start;
+                    margin-left: 20px;
+                    margin-right: 80px;
+                }
+            }
+
+            li::before{
+                content: '';
+                position: absolute;
+                top: 6px;
+                left: -15px;
+                border: 3px solid transparent;
+                border-left-width: 5px;
+                border-left-color: $color8;
+            }
+        }
+    }
+}

@@ -1,24 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react'
-import CarouselMain from '../../components/carouselmain/CarouselMain'
+import { useHistory } from 'react-router'
 import './Home.scss'
-import bgGradient from '../../images/bggradient.png'
-import logo2Rs from '../../images/logo2-rs.png'
-import bgPink from '../../images/bgpink.svg'
+import CarouselMain from '../../components/carouselmain/CarouselMain'
 import ButtonCard from '../../components/buttoncard/ButtonCard'
 import Card from '../../components/card/Card'
-import imgCard from '../../images/healtarticles1.png'
-import { useHistory } from 'react-router'
 import { PathContext } from '../../services/context/path/Path'
 import HelmetCard from '../../components/helmetcard/HelmetCard'
 import API from '../../services/api'
 import Endpoint from '../../services/api/endpoint'
 import Loading from '../../components/loading/Loading'
-import subscribe from '../../images/subscribe.jpg'
 import ModalSuccess from '../../components/modalsuccess/ModalSuccess'
 
 function Home() {
 
-    const [paramsGlobal, setParamsGlobal, updateParams] = useContext(PathContext)
+    const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar] = useContext(PathContext)
     const [dataArticle, setDataArticle] = useState([])
     const [dataCarouselHome, setDataCarouselHome] = useState([])
     const [dataBannerNewsletter, setDataBannerNewsletter] = useState({})
@@ -27,7 +22,6 @@ function Home() {
     const [bannerGradient, setBannerGradient] = useState({})
     const [dataTestimoni, setDataTestimoni] = useState([])
     const [dataOurPatientTestimony, setDataOurPatientTestimony] = useState({})
-    const [displayBtnCarousel, setDisplayBtnCarousel] = useState(false)
     const [loading, setLoading] = useState(false)
     const [loadingBtn, setLoadingBtn] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
@@ -38,8 +32,7 @@ function Home() {
 
     const history = useHistory()
 
-    let index = 0
-    let indexCarouselOurPatient = 0
+    const buttonNavbar = document.getElementsByClassName('btn-group-header-bottom-navbar')
 
     function setAllAPI() {
         setLoading(true);
@@ -60,10 +53,6 @@ function Home() {
         API.APIGetCarouselHome()
             .then(res => {
                 setDataCarouselHome(res.data);
-
-                setTimeout(() => {
-                    getElementCarouselHome();
-                }, 0);
             })
 
         API.APIGetBanner()
@@ -93,126 +82,29 @@ function Home() {
         API.APIGetTestimonial()
             .then(res => {
                 setDataTestimoni(res.data)
-
-                setTimeout(() => {
-                    getElementCarouselTestimoni();
-                }, 0);
             })
     }
 
     useEffect(() => {
         window.scrollTo(0, 0)
         setAllAPI();
+        activeNavbar();
     }, [])
 
-    function getElementCarouselHome() {
-        const element = document.getElementsByClassName('img-carousel-main')
-
-        if (element) {
-            for (let i = 0; i < element.length; i++) {
-                const check = element[i].getAttribute('name') !== index
-                if (check) {
-                    element[i].style.display = 'none'
-                }
-            }
-            element[index].style.display = 'flex'
-        }
+    const styleBgGradientHome = {
+        backgroundImage: Object.keys(bannerGradient).length > 0 ? `url(${Endpoint}/images/${bannerGradient.background})` : ''
     }
 
-    function getElementCarouselTestimoni() {
-        const element = document.getElementsByClassName('container-konten-carousel-main')
-
-        if (element.length > 0) {
-            for (let i = 0; i < element.length; i++) {
-                element[i].style.display = 'none'
-            }
-
-            element[0].style.display = 'flex'
-        }
+    const styleBannerWelcome = {
+        backgroundImage: Object.keys(bannerSelamatDatang).length > 0 ? `url(${Endpoint}/images/${bannerSelamatDatang.image})` : ''
     }
 
-    function btnRightCarouselOurTestimony() {
-        const element = document.getElementsByClassName('container-konten-carousel-main')
-
-        if (element.length > 0) {
-            for (let i = 0; i < element.length; i++) {
-                element[i].style.display = 'none'
-            }
-
-            if (indexCarouselOurPatient < element.length - 1) {
-                indexCarouselOurPatient = indexCarouselOurPatient + 1
-
-                setTimeout(() => {
-                    element[indexCarouselOurPatient].style.display = 'flex'
-                }, 0);
-            } else {
-                indexCarouselOurPatient = 0
-
-                setTimeout(() => {
-                    element[0].style.display = 'flex'
-                }, 0);
-            }
-        }
+    const styleBannerSubscribe = {
+        backgroundImage: Object.keys(dataBannerNewsletter).length > 0 ? `url(${Endpoint}/images/${dataBannerNewsletter.image})` : ''
     }
 
-    function btnLeftCarouselOurTestimony() {
-        const element = document.getElementsByClassName('container-konten-carousel-main')
-
-        if (element.length > 0) {
-            for (let i = 0; i < element.length; i++) {
-                element[i].style.display = 'none'
-            }
-
-            if (indexCarouselOurPatient !== 0) {
-                indexCarouselOurPatient = indexCarouselOurPatient - 1
-
-                setTimeout(() => {
-                    element[indexCarouselOurPatient].style.display = 'flex'
-                }, 0);
-            } else {
-                indexCarouselOurPatient = element.length - 1
-
-                setTimeout(() => {
-                    element[element.length - 1].style.display = 'flex'
-                }, 0);
-            }
-        }
-    }
-
-    function btnRightCarouselHome() {
-        if (index < dataCarouselHome.length - 1) {
-            index = index + 1
-            setTimeout(() => {
-                getElementCarouselHome();
-            }, 0);
-        } else {
-            index = 0
-            setTimeout(() => {
-                getElementCarouselHome();
-            }, 0);
-        }
-    }
-
-    function btnLeftCarouselHome() {
-        if (index > 0) {
-            index = index - 1
-            setTimeout(() => {
-                getElementCarouselHome();
-            }, 0);
-        } else {
-            index = dataCarouselHome.length - 1
-            setTimeout(() => {
-                getElementCarouselHome();
-            }, 0);
-        }
-    }
-
-    function goToArticles(path) {
-        history.push(`/${path}`)
-    }
-
-    function goToBlogArticle(path) {
-        history.push(`/articles/read/${path}`)
+    const styleLoadingBtnSubscribe = {
+        display: loadingBtn ? 'flex' : 'none'
     }
 
     function submitSubscribe(e) {
@@ -272,29 +164,29 @@ function Home() {
         }
     }
 
-    function autoChangeSlide() {
-        if (displayBtnCarousel === false) {
-            setTimeout(() => {
-                if (index < dataCarouselHome.length - 1) {
-                    index = index + 1
-
-                    setTimeout(() => {
-                        getElementCarouselHome();
-                    }, 0);
-                } else {
-                    index = 0
-
-                    setTimeout(() => {
-                        getElementCarouselHome();
-                    }, 0);
-                }
-            }, 0);
-        }
+    function toPageProfile() {
+        history.push('our-hospital/content/profil')
+        updateParams('our-hospital/content/profil')
     }
 
-    // if (dataCarouselHome.length > 0) {
-    //     autoChangeSlide();
-    // }
+    function toPageBlogArticles(e) {
+        updateParams(`/articles/read/${e.path}`)
+        history.push(`/articles/read/${e.path}`)
+    }
+
+    function toPageArticles() {
+        updateParams('/articles')
+        history.push('/articles')
+    }
+
+    function changeInputSubscribe(e) {
+        setInputSubscribe({ email: e.target.value })
+    }
+
+    function toPageOnlineReservation() {
+        updateParams('online-reservation')
+        history.push('online-reservation')
+    }
 
     return (
         <>
@@ -311,47 +203,33 @@ function Home() {
 
                 <CarouselMain
                     data={dataCarouselHome}
-                    mouseEnter={() => {
-                        setDisplayBtnCarousel(true)
-                    }}
-                    mouseLeave={() => {
-                        setDisplayBtnCarousel(false)
-                    }}
-                    displayBtn={displayBtnCarousel ? 'flex' : 'none'}
-                    clickBtnLeft={() => {
-                        btnLeftCarouselHome();
-                    }}
-                    clickBtnRight={() => {
-                        btnRightCarouselHome();
-                    }}
+                    displayCarouselImg="flex"
                 />
 
-                {bannerGradient && Object.keys(bannerGradient).length > 0 ? (
-                    <div className="bg-gradient-home" style={{
-                        backgroundImage: `url(${Endpoint}/images/${bannerGradient.background})`
-                    }}>
-                        <div className="column-tengah-bg-gradient">
-                            <img src={`${Endpoint}/images/${bannerGradient.image}`} alt="" className="img-logo2-rs" />
-                            <p className="txt-rs-permata-depok">
-                                {bannerGradient.title}
-                            </p>
+                {Object.keys(bannerGradient).length > 0 ? (
+                    <>
+                        <div className="bg-gradient-home" style={styleBgGradientHome}>
+                            <div className="column-tengah-bg-gradient">
+                                <img src={`${Endpoint}/images/${bannerGradient.image}`} alt="background gradient" className="img-logo2-rs" />
+                                <p className="txt-rs-permata-depok">
+                                    {bannerGradient.title}
+                                </p>
 
-                            <ButtonCard
-                                nameClassBtn={'btn-card'}
-                                title={'VIEW PROFILE'}
-                            />
+                                <ButtonCard
+                                    nameClassBtn="btn-card"
+                                    title="VIEW PROFILE"
+                                    clickBtn={toPageProfile}
+                                />
+                            </div>
                         </div>
-                    </div>
+                    </>
                 ) : (
                     <div></div>
                 )}
 
-
-                {bannerSelamatDatang && Object.keys(bannerSelamatDatang).length > 0 ? (
+                {Object.keys(bannerSelamatDatang).length > 0 ? (
                     <>
-                        <div className="banner-selamat-datang" style={{
-                            backgroundImage: `url(${Endpoint}/images/${bannerSelamatDatang.image})`
-                        }}>
+                        <div className="banner-selamat-datang" style={styleBannerWelcome}>
                             <p className="title-selamat-datang">
                                 {bannerSelamatDatang.title}
                             </p>
@@ -379,18 +257,17 @@ function Home() {
                                 const minimizeTitle = e.title.substr(0, 50)
 
                                 return (
-                                    <Card
-                                        key={e._id}
-                                        img={`${Endpoint}/images/${e.image}`}
-                                        title={`${minimizeTitle}...`}
-                                        date={e.date}
-                                        deskripsi={`${minimizeDescription}...`}
-                                        heightImg={'200px'}
-                                        clickToPage={async () => {
-                                            await goToBlogArticle(e.path)
-                                            updateParams(`/articles/read/${e.path}`)
-                                        }}
-                                    />
+                                    <>
+                                        <Card
+                                            key={e._id}
+                                            img={`${Endpoint}/images/${e.image}`}
+                                            title={`${minimizeTitle}...`}
+                                            date={e.date}
+                                            deskripsi={`${minimizeDescription}...`}
+                                            heightImg="200px"
+                                            clickToPage={() => toPageBlogArticles(e)}
+                                        />
+                                    </>
                                 )
                             }) : (
                                 <div></div>
@@ -399,34 +276,31 @@ function Home() {
 
                     <div className="column-btn-blog-health-articles">
                         <ButtonCard
-                            nameClassBtn={'btn-card-two'}
-                            title={'READ MORE ARTICLES'}
-                            clickBtn={async () => {
-                                await goToArticles('articles')
-                                updateParams('articles')
-                            }}
+                            nameClassBtn="btn-card-two"
+                            title="READ MORE ARTICLES"
+                            clickBtn={toPageArticles}
                         />
                     </div>
                 </div>
 
-                <div className="container-banner-subscribe-home" style={{
-                    backgroundImage: `url(${Endpoint}/images/${dataBannerNewsletter && dataBannerNewsletter.image ? dataBannerNewsletter.image : ''})`
-                }}>
+                <div className="container-banner-subscribe-home" style={styleBannerSubscribe}>
                     <div className="konten-banner-subscribe">
-                        {dataBannerNewsletter && Object.keys(dataBannerNewsletter).length > 0 ? (
-                            <p className="txt-konten-banner">
-                                {dataBannerNewsletter.title}
-                                <br />
-                                <em>{dataBannerNewsletter.deskripsi}</em>
-                            </p>
+                        {Object.keys(dataBannerNewsletter).length > 0 ? (
+                            <>
+                                <p className="txt-konten-banner">
+                                    {dataBannerNewsletter.title}
+                                    <br />
+                                    <em>{dataBannerNewsletter.deskripsi}</em>
+                                </p>
+                            </>
                         ) : (
                             <div></div>
                         )}
 
                         <form onSubmit={submitSubscribe}
                             className="form-input-subscribe">
-                            <input type="text" className="input-subscribe" value={inputSubscribe.email} placeholder={'Enter your email address'}
-                                onChange={(e) => setInputSubscribe({ email: e.target.value })}
+                            <input type="text" className="input-subscribe" value={inputSubscribe.email} placeholder="Enter your email address"
+                                onChange={changeInputSubscribe}
                             />
 
                             <div className="container-btn-subscribe">
@@ -435,21 +309,20 @@ function Home() {
                                 >
                                     SUBSCRIBE
                                 </button>
-                                <div className="container-loading-btn-subscribe" style={{
-                                    display: `${loadingBtn ? 'flex' : 'none'}`
-                                }}>
+                                <div className="container-loading-btn-subscribe" style={styleLoadingBtnSubscribe}>
                                     <div className="loading-btn-subscribe">
 
                                     </div>
                                 </div>
                             </div>
-
                         </form>
 
                         {errorMessage.length > 0 ? (
-                            <p className="txt-error-input">
-                                {errorMessage}
-                            </p>
+                            <>
+                                <p className="txt-error-input">
+                                    {errorMessage}
+                                </p>
+                            </>
                         ) : (
                             <div></div>
                         )}
@@ -459,45 +332,33 @@ function Home() {
                 <div className="container-our-patient-testimony">
                     <div className="kolom-kanan-our-patient">
                         <p className="title-our-patient">
-                            {dataOurPatientTestimony && dataOurPatientTestimony.title ? dataOurPatientTestimony.title : ''}
+                            {Object.keys(dataOurPatientTestimony).length > 0 ? dataOurPatientTestimony.title : ''}
                         </p>
 
                         <CarouselMain
-                            displayBtn={'flex'}
-                            fontSizeBtnArrow={'25px'}
-                            leftBtnArrow={'0'}
-                            rightBtnArrow={'0'}
-                            displaykontenTestimony={'flex'}
+                            displayCarouselTestimony="flex"
                             dataTestimoni={dataTestimoni}
-                            iconQuotes={dataOurPatientTestimony && dataOurPatientTestimony.image ? `${Endpoint}/images/${dataOurPatientTestimony.image}` : ''}
-                            clickBtnLeft={() => {
-                                btnLeftCarouselOurTestimony();
-                            }}
-                            clickBtnRight={() => {
-                                btnRightCarouselOurTestimony();
-                            }}
+                            iconQuotes={Object.keys(dataOurPatientTestimony).length > 0 ? `${Endpoint}/images/${dataOurPatientTestimony.image}` : ''}
                         />
                     </div>
                     <div className="kolom-kiri-our-patient">
-                        {dataReserveNow && Object.keys(dataReserveNow).length > 0 ? (
+                        {Object.keys(dataReserveNow).length > 0 ? (
                             <>
                                 <p className="title-our-patient">
                                     {dataReserveNow.title}
                                 </p>
 
                                 <div className="box-pink-reserve-now">
-                                    <img src={`${Endpoint}/images/${dataReserveNow.image}`} alt="" className="img-reserve-now" />
+                                    <img src={`${Endpoint}/images/${dataReserveNow.image}`} alt="background pink reserve now" className="img-reserve-now" />
 
                                     <p className="deskripsi-box-pink">
                                         {dataReserveNow.deskripsi}
                                     </p>
 
                                     <ButtonCard
-                                        nameClassBtn={'btn-card-two'}
-                                        title={'RESERVE NOW'}
-                                        clickBtn={() => {
-                                            history.push('online-reservation')
-                                        }}
+                                        nameClassBtn="btn-card-two"
+                                        title="RESERVE NOW"
+                                        clickBtn={toPageOnlineReservation}
                                     />
                                 </div>
                             </>

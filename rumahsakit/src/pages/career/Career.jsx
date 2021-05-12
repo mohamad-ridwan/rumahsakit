@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
+import { withRouter } from 'react-router-dom'
+import './Career.scss'
 import BannerHeader from '../../components/bannerheader/BannerHeader'
 import Headers from '../../components/headers/Headers'
 import HelmetCard from '../../components/helmetcard/HelmetCard'
@@ -7,12 +9,10 @@ import Loading from '../../components/loading/Loading'
 import API from '../../services/api'
 import Endpoint from '../../services/api/endpoint'
 import { PathContext } from '../../services/context/path/Path'
-import './Career.scss'
-import { withRouter } from 'react-router-dom'
 
 function Career() {
 
-    const [paramsGlobal, setParamsGlobal, updateParams] = useContext(PathContext)
+    const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar] = useContext(PathContext)
     const [dataHeader, setDataHeader] = useState({})
     const [career, setCareer] = useState([])
     const [loading, setLoading] = useState(false)
@@ -38,29 +38,34 @@ function Career() {
 
     useEffect(() => {
         setAllAPI();
+        activeNavbar();
     }, [])
+
+    function toPage(path) {
+        history.push(path)
+        updateParams(path)
+    }
 
     return (
         <>
             <HelmetCard
-                title={`${dataHeader && Object.keys(dataHeader).length > 0 ? dataHeader.titleBanner + ' ' + '-' + ' ' + 'Rumah Sakit Permata' : ''}`}
+                title={Object.keys(dataHeader).length > 0 ? dataHeader.titleBanner + ' ' + '-' + ' ' + 'Rumah Sakit Permata' : ''}
                 content="Rumah sakit permata Depok - Testimoni para pasien loyal"
             />
+
             <BannerHeader
-                img={dataHeader && dataHeader.img ? `${Endpoint}/images/${dataHeader.img}` : ''}
+                img={Object.keys(dataHeader).length > 0 ? `${Endpoint}/images/${dataHeader.img}` : ''}
                 title={dataHeader && dataHeader.titleBanner}
             />
+
             <div className="wrapp-career">
                 <Headers
-                    header1={'Home'}
-                    arrow={'>'}
+                    header1="Home"
+                    arrow=">"
                     header2={dataHeader && dataHeader.namePage}
-                    cursor1={'pointer'}
-                    colorHeader2={'#7e7e7e'}
-                    click1={() => {
-                        history.push('/')
-                        updateParams('/')
-                    }}
+                    cursor1="pointer"
+                    colorHeader2="#7e7e7e"
+                    click1={() => toPage('/')}
                 />
 
                 {career && career.length > 0 ?
@@ -120,10 +125,7 @@ function Career() {
                                             </p>
 
                                             <p className="view-detail"
-                                                onClick={() => {
-                                                    history.push(`/career/details/${e.path}`)
-                                                    updateParams(`/career/details/${e.path}`)
-                                                }}
+                                                onClick={() => toPage(`/career/details/${e.path}`)}
                                             >
                                                 View Detail
                                             </p>

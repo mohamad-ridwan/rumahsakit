@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import './Input.scss'
 
-function Input({ title, label, placeholder, displayTitle, errorMessage, displayBtn, nameBtn, displayInput, nameInput, value, handleChange, data, displayModal, topModal, clickBtnInput, clickNameMenu, searchMenuInput, clickCloseModal, nameClass, displayWrapp, displayBintangWajib, cursorBtn, displayLabel }) {
+function Input({ title, label, placeholder, displayTitle, errorMessage, displayBtn, nameBtn, displayInput, nameInput, value, handleChange, data, displayModal, topModal, clickBtnInput, clickNameMenu, searchMenuInput, clickCloseModal, nameClass, displayWrapp, displayBintangWajib, cursorBtn, displayLabel, borderBtn }) {
     return (
         <>
             <div className="wrapp-input-card" style={{
@@ -26,7 +26,8 @@ function Input({ title, label, placeholder, displayTitle, errorMessage, displayB
 
                 <button className="btn-form-online-rv" id={'btn-form-online-rv'} style={{
                     display: `${displayBtn}`,
-                    cursor: `${cursorBtn}`
+                    cursor: `${cursorBtn}`,
+                    border: `${borderBtn}`
                 }}
                     onClick={clickBtnInput}
                 >

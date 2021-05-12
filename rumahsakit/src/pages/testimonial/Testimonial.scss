@@ -6,6 +6,8 @@
     height: auto;
     width: 100%;
     padding: 50px 20%;
+    background-size: cover;
+    background-image: $color4;
 
     .konten-testimonial{
         display: flex;
@@ -13,7 +15,6 @@
         position: relative;
         height: auto;
         width: 100%;
-        // margin-top: 40px;
 
         .column-bawah-konten-testimonial{
             display: flex;

@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
+import './DetailCareer.scss'
 import BannerHeader from '../../components/bannerheader/BannerHeader'
 import Headers from '../../components/headers/Headers'
 import HelmetCard from '../../components/helmetcard/HelmetCard'
@@ -7,7 +8,6 @@ import Loading from '../../components/loading/Loading'
 import API from '../../services/api'
 import Endpoint from '../../services/api/endpoint'
 import { PathContext } from '../../services/context/path/Path'
-import './DetailCareer.scss'
 
 function DetailCareer() {
 
@@ -41,34 +41,35 @@ function DetailCareer() {
         setAllAPI();
     }, [])
 
+    function toPage(path) {
+        history.push(path)
+        updateParams(path)
+    }
+
     return (
         <>
             <HelmetCard
-                title={`${career && Object.keys(career).length > 0 ? career.titleBidang + ' ' + '-' + ' ' + 'Rumah Sakit Permata' : ''}`}
+                title={Object.keys(career).length > 0 ? career.titleBidang + ' ' + '-' + ' ' + 'Rumah Sakit Permata' : ''}
                 content="Rumah sakit permata Depok - Testimoni para pasien loyal"
             />
+
             <BannerHeader
-                img={dataHeader && dataHeader.img ? `${Endpoint}/images/${dataHeader.img}` : ''}
+                img={Object.keys(dataHeader).length > 0 ? `${Endpoint}/images/${dataHeader.img}` : ''}
                 title={dataHeader && dataHeader.titleBanner}
             />
+
             <div className="wrapp-detail-career">
                 <Headers
-                    header1={'Home'}
-                    arrow={'>'}
-                    arrow2={'>'}
+                    header1="Home"
+                    arrow=">"
+                    arrow2=">"
                     header2={dataHeader && dataHeader.namePage}
                     header3={career && career.titleBidang}
-                    cursor1={'pointer'}
-                    cursor2={'pointer'}
-                    colorHeader3={'#7e7e7e'}
-                    click1={() => {
-                        history.push('/')
-                        updateParams('/')
-                    }}
-                    click2={() => {
-                        history.push('/career')
-                        updateParams('/career')
-                    }}
+                    cursor1="pointer"
+                    cursor2="pointer"
+                    colorHeader3="#7e7e7e"
+                    click1={() => toPage('/')}
+                    click2={() => toPage('/career')}
                 />
 
                 {career && Object.keys(career).length > 0 ?

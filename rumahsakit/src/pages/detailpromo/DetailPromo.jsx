@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
+import './DetailPromo.scss'
 import BannerHeader from '../../components/bannerheader/BannerHeader'
 import Headers from '../../components/headers/Headers'
 import HelmetCard from '../../components/helmetcard/HelmetCard'
@@ -7,14 +8,17 @@ import Loading from '../../components/loading/Loading'
 import API from '../../services/api'
 import Endpoint from '../../services/api/endpoint'
 import { PathContext } from '../../services/context/path/Path'
-import './DetailPromo.scss'
+import Card from '../../components/card/Card'
 
 function DetailPromo() {
 
-    const [paramsGlobal, setParamsGlobal, updateParams] = useContext(PathContext)
+    const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar] = useContext(PathContext)
     const [dataHeader, setDataHeader] = useState({})
     const [detailPromo, setDetailPromo] = useState({})
+    const [allPromo, setAllPromo] = useState([])
     const [loading, setLoading] = useState(false)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [perPage, setPerPage] = useState(3)
 
     const location = window.location.pathname.toString().split('/')[1]
     const locationDetail = window.location.pathname.toString().split('/')[3]
@@ -26,22 +30,30 @@ function DetailPromo() {
 
         API.APIGetHeader()
             .then(res => {
-                const getData = res.data.filter((e) => e.path.includes(location))
+                const getData = res.data.filter((e) => e.path === location)
                 setDataHeader(getData[0])
             })
 
         API.APIGetPromo()
             .then(res => {
                 setLoading(false)
-                const getData = res.data.filter((e) => e.path.includes(locationDetail))
+                const getData = res.data.filter((e) => e.path === locationDetail)
                 setDetailPromo(getData[0])
+
+                const getAllData = res.data.filter((e) => e.path !== locationDetail)
+                setAllPromo(getAllData)
             })
     }
 
     useEffect(() => {
         window.scrollTo(0, 0)
         setAllAPI();
+        activeNavbar();
     }, [])
+
+    const indexOfLastPage = currentPage * perPage
+    const indexOfFirstPage = indexOfLastPage - perPage
+    const currentList = allPromo.slice(indexOfFirstPage, indexOfLastPage)
 
     function RenderHTML(data) {
         return (
@@ -51,40 +63,45 @@ function DetailPromo() {
         )
     }
 
+    function toPage(path) {
+        history.push(path)
+        updateParams(path)
+
+        if (path.includes('/details')) {
+            window.location.reload()
+        }
+    }
+
     return (
         <>
             <HelmetCard
-                title={`${detailPromo && Object.keys(detailPromo).length > 0 ? detailPromo.title + ' ' + '-' + ' ' + 'Rumah Sakit Permata' : ''}`}
+                title={Object.keys(detailPromo).length > 0 ? detailPromo.title + ' ' + '-' + ' ' + 'Rumah Sakit Permata' : ''}
                 content="Rumah sakit permata Depok - Testimoni para pasien loyal"
             />
+
             <BannerHeader
-                img={dataHeader && dataHeader.img ? `${Endpoint}/images/${dataHeader.img}` : ''}
+                img={Object.keys(dataHeader).length > 0 ? `${Endpoint}/images/${dataHeader.img}` : ''}
                 title={dataHeader && dataHeader.titleBanner}
             />
+
             <div className="wrapp-detail-promo">
                 <Headers
-                    header1={'Home'}
-                    arrow={'>'}
+                    header1="Home"
+                    arrow=">"
                     header2={dataHeader && dataHeader.namePage}
                     header3={detailPromo && detailPromo.title}
-                    cursor1={'pointer'}
-                    cursor2={'pointer'}
-                    colorHeader3={'#7e7e7e'}
-                    arrow2={'>'}
-                    click1={() => {
-                        history.push('/')
-                        updateParams('/')
-                    }}
-                    click2={() => {
-                        history.push('/promo')
-                        updateParams('/promo')
-                    }}
+                    cursor1="pointer"
+                    cursor2="pointer"
+                    colorHeader3="#7e7e7e"
+                    arrow2=">"
+                    click1={() => toPage('/')}
+                    click2={() => toPage('/promo')}
                 />
 
                 <div className="main-konten-detail-promo">
-                    {detailPromo && Object.keys(detailPromo).length > 0 ? (
+                    {Object.keys(detailPromo).length > 0 ? (
                         <>
-                            <img src={`${Endpoint}/images/${detailPromo.image}`} alt="" className="img-detail-promo" width={'940'} height={'377'} />
+                            <img src={`${Endpoint}/images/${detailPromo.image}`} alt="" className="img-detail-promo" width="940" height="377" />
 
                             <p className="title-detail-promo">
                                 {detailPromo.title}
@@ -104,6 +121,33 @@ function DetailPromo() {
                     <RenderHTML
                         konten={detailPromo && detailPromo.konten}
                     />
+                </div>
+
+                <div className="container-promo-lainnya">
+                    <p className="promo-lainnya">
+                        Promo Lainnya
+                    </p>
+
+                    <div className="column-card-promo-lainnya">
+                        {currentList && currentList.length > 0 ? currentList.map((e) => {
+                            return (
+                                <>
+                                    <Card
+                                        key={e._id}
+                                        widthCard="calc(100%/3)"
+                                        img={`${Endpoint}/images/${e.image}`}
+                                        title={e.title}
+                                        date={e.date}
+                                        deskripsi={e.deskripsi}
+                                        heightImg="150px"
+                                        clickToPage={() => toPage(`/promo/details/${e.path}`)}
+                                    />
+                                </>
+                            )
+                        }) : (
+                            <div></div>
+                        )}
+                    </div>
                 </div>
             </div>
 

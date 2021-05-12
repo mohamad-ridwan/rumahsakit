@@ -1,0 +1,19 @@
+@import '../../utils/variable.scss';
+
+.wrapp-disclaimer{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+    padding: 50px 20%;
+    background-image: $color4;
+    background-size: cover;
+
+    .konten-disclaimer{
+        display: flex;
+        font-size: 14px;
+        color: $color3;
+        text-align: justify;
+        line-height: $lineHeight;
+    }
+}

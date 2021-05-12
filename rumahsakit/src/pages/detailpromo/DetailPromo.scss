@@ -6,6 +6,8 @@
     height: auto;
     width: 100%;
     padding: 50px 20%;
+    background-size: cover;
+    background-image: $color4;
 
     .main-konten-detail-promo{
         display: flex;
@@ -48,7 +50,7 @@
         flex-direction: column;
         width: 100%;
         margin-top: 20px;
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid #ddd;
         padding-bottom: 40px;
 
         .txt-konten-detail-promo{
@@ -56,6 +58,27 @@
             color: $color3;
             text-align: justify;
             line-height: $lineHeight;
+        }
+    }
+
+    .container-promo-lainnya{
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        width: 100%;
+        margin: 30px 0 0 0;
+
+        .promo-lainnya{
+            display: flex;
+            font-size: 30px;
+            color: $color1;
+            font-family: "Crimson Text",serif;
+            margin-bottom: 30px;
+        }
+
+        .column-card-promo-lainnya{
+            display: flex;
+            width: 100%;
         }
     }
 }

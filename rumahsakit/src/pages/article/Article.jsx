@@ -1,12 +1,11 @@
-import React, { Component } from 'react'
-import BannerHeader from '../../components/bannerheader/BannerHeader'
+import React, { Component, useEffect } from 'react'
+import { withRouter } from 'react-router-dom'
 import './Article.scss'
+import BannerHeader from '../../components/bannerheader/BannerHeader'
 import bgHeader from '../../images/bgheader.png'
 import Headers from '../../components/headers/Headers'
-import imgCard from '../../images/healtarticles1.png'
 import Card from '../../components/card/Card'
 import ButtonCard from '../../components/buttoncard/ButtonCard'
-import { withRouter } from 'react-router-dom'
 import { PathContext } from '../../services/context/path/Path'
 import API from '../../services/api'
 import Endpoint from '../../services/api/endpoint'
@@ -50,9 +49,18 @@ class Article extends Component {
             })
     }
 
+    activeNavbar() {
+        const getActiveNavbar = this.context[3]
+        const setIndexActive = this.context[5]
+
+        getActiveNavbar();
+        setIndexActive();
+    }
+
     componentDidMount() {
         this.setAllAPI();
         window.scrollTo(0, 0)
+        this.activeNavbar();
     }
 
     goToPage(path) {

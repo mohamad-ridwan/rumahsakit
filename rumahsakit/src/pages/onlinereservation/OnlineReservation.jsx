@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router';
+import { send } from 'emailjs-com'
+import './OnlineReservation.scss'
 import BannerHeader from '../../components/bannerheader/BannerHeader';
 import ButtonCard from '../../components/buttoncard/ButtonCard';
 import Headers from '../../components/headers/Headers';
@@ -8,15 +10,13 @@ import Input from '../../components/input/Input';
 import API from '../../services/api';
 import Endpoint from '../../services/api/endpoint';
 import { PathContext } from '../../services/context/path/Path';
-import './OnlineReservation.scss'
-import { send } from 'emailjs-com'
 import IndicatorAnswer from '../../components/indicatoranswer/IndicatorAnswer';
 import Loading from '../../components/loading/Loading';
 import ModalSuccess from '../../components/modalsuccess/ModalSuccess';
 
 function OnlineReservation() {
 
-    const [paramsGlobal, setParamsGlobal, updateParams] = useContext(PathContext)
+    const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar, indexActive, setIndexActive] = useContext(PathContext)
     const [dataHeader, setDataHeader] = useState({})
     const [dataListDoctor, setDataListDoctor] = useState([])
     const [allDoctor, setAllDoctor] = useState([])
@@ -109,9 +109,23 @@ function OnlineReservation() {
             })
     }
 
+    const styleGroupAnswer = {
+        display: nameBtnPilihDoctor !== 'Pilih Dokter' ? 'flex' : 'none'
+    }
+
+    const styleColumnIndicatorAnswer = {
+        flexDirection: 'column'
+    }
+
+    const styleIconCheck = {
+        display: agreeSubmit ? 'flex' : 'none'
+    }
+
     useEffect(() => {
         window.scrollTo(0, 0)
         setAllAPI();
+        activeNavbar();
+        setIndexActive()
     }, [])
 
     function inputDataPribadi(e) {
@@ -349,17 +363,182 @@ function OnlineReservation() {
 
     const filterNameDoctor = listNamaDoctor.filter((e) => e.toLocaleLowerCase().includes(searchSpesialisDoctor.toLocaleLowerCase()))
 
+    function toPageHome() {
+        history.push('/')
+        updateParams('/')
+    }
+
+    function answerYes() {
+        setToSend({
+            ...toSend,
+            pernahBerobat: 'Ya'
+        })
+        setAnswerPernahBerobat('Ya')
+    }
+
+    function answerNo() {
+        setToSend({
+            ...toSend,
+            pernahBerobat: 'Tidak'
+        })
+        setAnswerPernahBerobat('Tidak')
+    }
+
+    function answerBiayaPribadi() {
+        setToSend({
+            ...toSend,
+            tipePembayaran: 'Biaya Pribadi'
+        })
+        setAnswerTipePembayaran('Biaya Pribadi')
+    }
+
+    function answerBiayaAsuransi() {
+        setToSend({
+            ...toSend,
+            tipePembayaran: 'Asuransi'
+        })
+        setAnswerTipePembayaran('Asuransi')
+    }
+
+    function inputSpesialisDoctor(e) {
+        setSearchSpesialisDoctor(e.target.value)
+    }
+
+    function showModalSpesialisDoctor(e) {
+        e.stopPropagation();
+
+        const getTop = document.getElementById('btn-form-online-rv')
+        setTopModal(`${getTop.getBoundingClientRect().top + 40}px`)
+
+        setModalSpesialisDoctor(!modalSpesialisDoctor)
+    }
+
+    function selectSpesialisDoctor(data, index) {
+        const element = document.getElementsByClassName('spesialis')
+
+        for (let i = 0; i < element.length; i++) {
+            element[i].style.backgroundColor = '#fff'
+            element[i].style.color = '#333'
+        }
+
+        element[index].style.backgroundColor = '#999'
+        element[index].style.color = '#fff'
+        setNameBtnSpesialisDoctor(data)
+        setValue({
+            ...value,
+            spesialisDokter: data
+        })
+
+        setTimeout(() => {
+            if (nameBtnPilihDoctor !== 'Pilih Dokter') {
+                getNameDoctor(data);
+                setNameBtnPilihDoctor('Pilih Dokter')
+
+                const element = document.getElementsByClassName('nameDoctor')
+
+                for (let i = 0; i < element.length; i++) {
+                    element[i].style.backgroundColor = '#fff'
+                    element[i].style.color = '#333'
+                }
+
+                const elementJadwalPraktek = document.getElementsByClassName('jadwal-praktek')
+
+                if (elementJadwalPraktek.length > 0 && nameBtnPilihDoctor !== 'Pilih Dokter') {
+                    for (let i = 0; i < elementJadwalPraktek.length; i++) {
+                        elementJadwalPraktek[i].style.backgroundColor = 'transparent'
+                        elementJadwalPraktek[i].style.border = '1px solid #999'
+                    }
+                }
+            } else {
+                getNameDoctor(data);
+            }
+
+            setModalSpesialisDoctor(false)
+        }, 0);
+    }
+
+    function closeModalSpesialisDoctor() {
+        setModalSpesialisDoctor(false)
+        setSearchSpesialisDoctor('')
+    }
+
+    function showModalNameDoctor(e) {
+        if (nameBtnSpesialisDoctor !== 'Pilih Spesialisasi Dokter') {
+            e.stopPropagation();
+
+            const getTop = document.getElementById('btn-form-online-rv')
+            setTopModalPilihDoctor(`${getTop.getBoundingClientRect().top + 40}px`)
+
+            setModalPilihDoctor(!modalPilihDoctor)
+        }
+    }
+
+    function closeModalNameDoctor() {
+        setSearchSpesialisDoctor('')
+        setModalPilihDoctor(false)
+    }
+
+    function selectNameDoctor(data, index) {
+        const elementNameDoctor = document.getElementsByClassName('nameDoctor')
+
+        for (let i = 0; i < elementNameDoctor.length; i++) {
+            elementNameDoctor[i].style.backgroundColor = '#fff'
+            elementNameDoctor[i].style.color = '#333'
+        }
+
+        elementNameDoctor[index].style.backgroundColor = '#999'
+        elementNameDoctor[index].style.color = '#fff'
+
+        const elementJadwalPraktek = document.getElementsByClassName('jadwal-praktek')
+
+        if (elementJadwalPraktek.length > 0 && nameBtnPilihDoctor !== 'Pilih Dokter') {
+            for (let i = 0; i < elementJadwalPraktek.length; i++) {
+                elementJadwalPraktek[i].style.backgroundColor = 'transparent'
+                elementJadwalPraktek[i].style.border = '1px solid #999'
+            }
+        }
+
+        setTimeout(() => {
+            clickPilihDokter(data)
+            setModalPilihDoctor(false)
+        }, 0);
+
+        setValue({
+            ...value,
+            namaDokter: data
+        })
+        setNameBtnPilihDoctor(data)
+    }
+
+    function answerJadwalPraktek(e, i) {
+        setValue({
+            ...value,
+            jadwalDokter: e[1]
+        })
+
+        const elementJadwalPraktek = document.getElementsByClassName('jadwal-praktek')
+
+        for (let p = 0; p < elementJadwalPraktek.length; p++) {
+            elementJadwalPraktek[p].style.backgroundColor = 'transparent'
+            elementJadwalPraktek[p].style.border = '1px solid #999'
+        }
+
+        elementJadwalPraktek[i].style.backgroundColor = '#b04579'
+        elementJadwalPraktek[i].style.border = '1px solid #b04579'
+    }
+
     return (
         <>
             <HelmetCard
-                title={dataHeader && dataHeader.namePage ? `${dataHeader.namePage} - Rumah Sakit Permata` : 'Rumah Sakit Permata'}
+                title={Object.keys(dataHeader).length > 0 ? `${dataHeader.namePage} - Rumah Sakit Permata` : 'Rumah Sakit Permata'}
                 content="Rumah Sakit Permata - Permata Keluarga Husada Grup"
             />
 
             <BannerHeader
-                img={dataHeader && dataHeader.img ? `${Endpoint}/images/${dataHeader.img}` : ''}
+                img={Object.keys(dataHeader).length > 0 ? `${Endpoint}/images/${dataHeader.img}` : ''}
                 title={dataHeader && dataHeader.titleBanner}
             />
+
             <div className="wrapp-online-reservation">
                 <ModalSuccess
                     marginTop={successMessage.length > 0 ? '170px' : '-170px'}
@@ -368,49 +547,46 @@ function OnlineReservation() {
                 />
 
                 <Headers
-                    header1={'Home'}
-                    arrow={'>'}
+                    header1="Home"
+                    arrow=">"
                     header2={dataHeader && dataHeader.namePage}
-                    cursor1={'pointer'}
-                    colorHeader2={'#7e7e7e'}
-                    click1={() => {
-                        history.push('/')
-                        updateParams('/')
-                    }}
+                    cursor1="pointer"
+                    colorHeader2="#7e7e7e"
+                    click1={toPageHome}
                 />
 
                 <div className="container-konten-online-reservation">
                     <div className="form-kiri-online-rv">
                         <Input
-                            displayTitle={'flex'}
-                            title={'Data Pribadi'}
-                            label={'Nama'}
-                            nameInput={'nama'}
+                            displayTitle="flex"
+                            title="Data Pribadi"
+                            label="Nama"
+                            nameInput="nama"
                             value={value.nama}
                             handleChange={inputDataPribadi}
                             errorMessage={errForm && errForm.nama}
                         />
 
                         <Input
-                            label={'Nomor Telepon'}
-                            nameInput={'nomorTelepon'}
+                            label="Nomor Telepon"
+                            nameInput="nomorTelepon"
                             value={value.nomorTelepon}
                             handleChange={inputDataPribadi}
                             errorMessage={errForm && errForm.nomorTelepon}
                         />
 
                         <Input
-                            label={'Tanggal Lahir'}
-                            placeholder={'Tanggal/Bulan/Tahun'}
-                            nameInput={'tanggalLahir'}
+                            label="Tanggal Lahir"
+                            placeholder="Tanggal/Bulan/Tahun"
+                            nameInput="tanggalLahir"
                             value={value.tanggalLahir}
                             handleChange={inputDataPribadi}
                             errorMessage={errForm && errForm.tanggalLahir}
                         />
 
                         <Input
-                            label={'Email'}
-                            nameInput={'email'}
+                            label="Email"
+                            nameInput="email"
                             value={value.email}
                             handleChange={inputDataPribadi}
                             errorMessage={errForm && errForm.email}
@@ -423,38 +599,26 @@ function OnlineReservation() {
 
                             <div className="column-indicator-answer">
                                 <IndicatorAnswer
-                                    answer={'Ya'}
+                                    answer="Ya"
                                     bgColorAnswer={answerPernahBerobat === 'Ya' ? '#b04579' : 'transparent'}
                                     borderAnswer={answerPernahBerobat === 'Ya' ? '1px solid #b04579' : '1px solid #999'}
-                                    clickAnswer={() => {
-                                        setToSend({
-                                            ...toSend,
-                                            pernahBerobat: 'Ya'
-                                        })
-                                        setAnswerPernahBerobat('Ya')
-                                    }}
+                                    clickAnswer={answerYes}
                                 />
 
                                 <IndicatorAnswer
-                                    answer={'Tidak'}
+                                    answer="Tidak"
                                     bgColorAnswer={answerPernahBerobat === 'Tidak' ? '#b04579' : 'transparent'}
                                     borderAnswer={answerPernahBerobat === 'Tidak' ? '1px solid #b04579' : '1px solid #999'}
-                                    clickAnswer={() => {
-                                        setToSend({
-                                            ...toSend,
-                                            pernahBerobat: 'Tidak'
-                                        })
-                                        setAnswerPernahBerobat('Tidak')
-                                    }}
+                                    clickAnswer={answerNo}
                                 />
                             </div>
                         </div>
 
                         <Input
                             displayWrapp={answerPernahBerobat === 'Ya' ? 'flex' : 'none'}
-                            displayBintangWajib={'none'}
-                            label={'Nomor Rekam Medis'}
-                            nameInput={'nomorRekamMedis'}
+                            displayBintangWajib="none"
+                            label="Nomor Rekam Medis"
+                            nameInput="nomorRekamMedis"
                             value={value.nomorRekamMedis}
                             handleChange={inputDataPribadi}
                         />
@@ -466,29 +630,17 @@ function OnlineReservation() {
 
                             <div className="column-indicator-answer">
                                 <IndicatorAnswer
-                                    answer={'Biaya Pribadi'}
+                                    answer="Biaya Pribadi"
                                     bgColorAnswer={answerTipePembayaran === 'Biaya Pribadi' ? '#b04579' : 'transparent'}
                                     borderAnswer={answerTipePembayaran === 'Biaya Pribadi' ? '1px solid #b04579' : '1px solid #999'}
-                                    clickAnswer={() => {
-                                        setToSend({
-                                            ...toSend,
-                                            tipePembayaran: 'Biaya Pribadi'
-                                        })
-                                        setAnswerTipePembayaran('Biaya Pribadi')
-                                    }}
+                                    clickAnswer={answerBiayaPribadi}
                                 />
 
                                 <IndicatorAnswer
                                     answer={'Asuransi'}
                                     bgColorAnswer={answerTipePembayaran !== 'Biaya Pribadi' ? '#b04579' : 'transparent'}
                                     borderAnswer={answerTipePembayaran !== 'Biaya Pribadi' ? '1px solid #b04579' : '1px solid #999'}
-                                    clickAnswer={() => {
-                                        setToSend({
-                                            ...toSend,
-                                            tipePembayaran: 'Asuransi'
-                                        })
-                                        setAnswerTipePembayaran('Asuransi')
-                                    }}
+                                    clickAnswer={answerBiayaAsuransi}
                                 />
                             </div>
                         </div>
@@ -496,172 +648,61 @@ function OnlineReservation() {
 
                     <div className="form-kanan-online-rv">
                         <Input
-                            displayTitle={'flex'}
-                            title={'Waktu Kunjungan Anda'}
-                            displayInput={'none'}
-                            label={'Spesialisasi Dokter'}
+                            displayTitle="flex"
+                            title="Waktu Kunjungan Anda"
+                            displayInput="none"
+                            label="Spesialisasi Dokter"
                             errorMessage={errForm && errForm.spesialisDokter}
-                            displayBtn={'flex'}
+                            displayBtn="flex"
                             nameBtn={nameBtnSpesialisDoctor}
                             data={filterSpesialisDoctor}
                             displayModal={modalSpesialisDoctor ? 'flex' : 'none'}
                             topModal={topModal}
-                            nameClass={'spesialis'}
-                            searchMenuInput={(e) => setSearchSpesialisDoctor(e.target.value)}
-                            clickBtnInput={(e) => {
-                                e.stopPropagation();
-
-                                const getTop = document.getElementById('btn-form-online-rv')
-                                setTopModal(`${getTop.getBoundingClientRect().top + 40}px`)
-
-                                setModalSpesialisDoctor(!modalSpesialisDoctor)
-                            }}
-                            clickNameMenu={(data, index) => {
-                                const element = document.getElementsByClassName('spesialis')
-
-                                for (let i = 0; i < element.length; i++) {
-                                    element[i].style.backgroundColor = '#fff'
-                                    element[i].style.color = '#333'
-                                }
-
-                                element[index].style.backgroundColor = '#999'
-                                element[index].style.color = '#fff'
-                                setNameBtnSpesialisDoctor(data)
-                                setValue({
-                                    ...value,
-                                    spesialisDokter: data
-                                })
-
-                                setTimeout(() => {
-                                    if (nameBtnPilihDoctor !== 'Pilih Dokter') {
-                                        getNameDoctor(data);
-                                        setNameBtnPilihDoctor('Pilih Dokter')
-
-                                        const element = document.getElementsByClassName('nameDoctor')
-
-                                        for (let i = 0; i < element.length; i++) {
-                                            element[i].style.backgroundColor = '#fff'
-                                            element[i].style.color = '#333'
-                                        }
-
-                                        const elementJadwalPraktek = document.getElementsByClassName('jadwal-praktek')
-
-                                        if (elementJadwalPraktek.length > 0 && nameBtnPilihDoctor !== 'Pilih Dokter') {
-                                            for (let i = 0; i < elementJadwalPraktek.length; i++) {
-                                                elementJadwalPraktek[i].style.backgroundColor = 'transparent'
-                                                elementJadwalPraktek[i].style.border = '1px solid #999'
-                                            }
-                                        }
-                                    } else {
-                                        getNameDoctor(data);
-                                    }
-
-                                    setModalSpesialisDoctor(false)
-                                }, 0);
-                            }}
-                            clickCloseModal={() => {
-                                setModalSpesialisDoctor(false)
-                                setSearchSpesialisDoctor('')
-                            }}
+                            nameClass="spesialis"
+                            searchMenuInput={inputSpesialisDoctor}
+                            clickBtnInput={(e) => showModalSpesialisDoctor(e)}
+                            clickNameMenu={(data, index) => selectSpesialisDoctor(data, index)}
+                            clickCloseModal={closeModalSpesialisDoctor}
                         />
 
                         <Input
-                            displayTitle={'none'}
-                            displayInput={'none'}
-                            label={'Nama Dokter'}
+                            displayTitle="none"
+                            displayInput="none"
+                            label="Nama Dokter"
                             errorMessage={errForm && errForm.namaDokter}
-                            displayBtn={'flex'}
+                            displayBtn="flex"
                             nameBtn={nameBtnPilihDoctor}
                             data={filterNameDoctor}
                             displayModal={modalPilihDoctor ? 'flex' : 'none'}
                             topModal={topModalPilihDoctor}
-                            nameClass={'nameDoctor'}
+                            nameClass="nameDoctor"
                             cursorBtn={nameBtnSpesialisDoctor === 'Pilih Spesialisasi Dokter' ? 'not-allowed' : 'pointer'}
-                            searchMenuInput={(e) => setSearchSpesialisDoctor(e.target.value)}
-                            clickBtnInput={(e) => {
-                                if (nameBtnSpesialisDoctor !== 'Pilih Spesialisasi Dokter') {
-                                    e.stopPropagation();
-
-                                    const getTop = document.getElementById('btn-form-online-rv')
-                                    setTopModalPilihDoctor(`${getTop.getBoundingClientRect().top + 40}px`)
-
-                                    setModalPilihDoctor(!modalPilihDoctor)
-                                }
-                            }}
-                            clickCloseModal={() => {
-                                setSearchSpesialisDoctor('')
-                                setModalPilihDoctor(false)
-                            }}
-                            clickNameMenu={(data, index) => {
-                                const element = document.getElementsByClassName('nameDoctor')
-
-                                for (let i = 0; i < element.length; i++) {
-                                    element[i].style.backgroundColor = '#fff'
-                                    element[i].style.color = '#333'
-                                }
-
-                                element[index].style.backgroundColor = '#999'
-                                element[index].style.color = '#fff'
-
-                                const elementJadwalPraktek = document.getElementsByClassName('jadwal-praktek')
-
-                                if (elementJadwalPraktek.length > 0 && nameBtnPilihDoctor !== 'Pilih Dokter') {
-                                    for (let i = 0; i < elementJadwalPraktek.length; i++) {
-                                        elementJadwalPraktek[i].style.backgroundColor = 'transparent'
-                                        elementJadwalPraktek[i].style.border = '1px solid #999'
-                                    }
-                                }
-
-                                setTimeout(() => {
-                                    clickPilihDokter(data)
-                                    setModalPilihDoctor(false)
-                                }, 0);
-
-                                setValue({
-                                    ...value,
-                                    namaDokter: data
-                                })
-                                setNameBtnPilihDoctor(data)
-                            }}
+                            searchMenuInput={inputSpesialisDoctor}
+                            clickBtnInput={(e) => showModalNameDoctor(e)}
+                            clickCloseModal={closeModalNameDoctor}
+                            clickNameMenu={(data, index) => selectNameDoctor(data, index)}
                         />
 
-                        <div className="container-group-answer" style={{
-                            display: `${nameBtnPilihDoctor !== 'Pilih Dokter' ? 'flex' : 'none'}`
-                        }}>
+                        <div className="container-group-answer" style={styleGroupAnswer}>
                             <p className="question-form-kanan-online-rv">
                                 Pilih Jadwal Praktek Dokter
                             </p>
 
-                            <div className="column-indicator-answer" style={{
-                                flexDirection: 'column'
-                            }}>
+                            <div className="column-indicator-answer" style={styleColumnIndicatorAnswer}>
                                 {Object.entries(jadwalDokter).map((e, i) => {
 
                                     const removeNonSchedule = e[1].includes('.') ? e[1] : ''
 
                                     return (
-                                        <IndicatorAnswer
-                                            key={i}
-                                            displayWrapp={removeNonSchedule !== '' ? 'flex' : 'none'}
-                                            answer={removeNonSchedule}
-                                            classAnswer={'jadwal-praktek'}
-                                            clickAnswer={() => {
-                                                setValue({
-                                                    ...value,
-                                                    jadwalDokter: e[1]
-                                                })
-
-                                                const element = document.getElementsByClassName('jadwal-praktek')
-
-                                                for (let p = 0; p < element.length; p++) {
-                                                    element[p].style.backgroundColor = 'transparent'
-                                                    element[p].style.border = '1px solid #999'
-                                                }
-
-                                                element[i].style.backgroundColor = '#b04579'
-                                                element[i].style.border = '1px solid #b04579'
-                                            }}
-                                        />
+                                        <>
+                                            <IndicatorAnswer
+                                                key={i}
+                                                displayWrapp={removeNonSchedule !== '' ? 'flex' : 'none'}
+                                                answer={removeNonSchedule}
+                                                classAnswer="jadwal-praktek"
+                                                clickAnswer={() => answerJadwalPraktek(e, i)}
+                                            />
+                                        </>
                                     )
                                 })}
                             </div>
@@ -672,10 +713,10 @@ function OnlineReservation() {
                         </p>
 
                         <Input
-                            label={'Tanggal Kunjungan'}
-                            placeholder={'Tanggal/Bulan/Tahun'}
+                            label="Tanggal Kunjungan"
+                            placeholder="Tanggal/Bulan/Tahun"
                             errorMessage={errForm && errForm.tanggalKunjungan}
-                            nameInput={'tanggalKunjungan'}
+                            nameInput="tanggalKunjungan"
                             value={value.tanggalKunjungan}
                             handleChange={inputDataPribadi}
                         />
@@ -684,7 +725,7 @@ function OnlineReservation() {
                             Message
                         </label>
 
-                        <textarea name={'message'} className="input-form-online-rv" cols="30" rows="10"
+                        <textarea name="message" className="input-form-online-rv" cols="30" rows="10"
                             onChange={inputDataPribadi}
                         ></textarea>
 
@@ -697,9 +738,7 @@ function OnlineReservation() {
                                 onClick={clickAgreeSubmit}
                             >
                                 <i className="fas fa-check"
-                                    style={{
-                                        display: `${agreeSubmit ? 'flex' : 'none'}`
-                                    }}
+                                    style={styleIconCheck}
                                 ></i>
                             </div>
 
@@ -716,8 +755,8 @@ function OnlineReservation() {
 
                         <div className="column-btn-form-online-rv">
                             <ButtonCard
-                                nameClassBtn={'btn-card-two'}
-                                title={'SUBMIT'}
+                                nameClassBtn="btn-card-two"
+                                title="SUBMIT"
                                 clickBtn={handleSubmit}
                             />
                         </div>

@@ -24,4 +24,26 @@
             color: $color3;
         }
     }
+
+    .container-modal-navmenu{
+        display: flex;
+        flex-direction: column;
+        height: 1px;
+        width: 100%;
+        overflow: hidden;
+        transition: 0.3s ease-in-out;
+        background-color: #fff;
+        z-index: 22;
+
+        .btn-modal-navmenu{
+            display: flex;
+            font-size: 14px;
+            color: $color1;
+            text-decoration: none;
+            text-align: start;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+        }
+    }
 }
