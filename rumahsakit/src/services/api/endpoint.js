@@ -1,3 +1,3 @@
-const Endpoint = 'http://localhost:6200'
+const Endpoint = 'https://rs-permata-depok.herokuapp.com'
 
 export default Endpoint;

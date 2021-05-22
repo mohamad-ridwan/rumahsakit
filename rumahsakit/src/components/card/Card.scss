@@ -1,11 +1,23 @@
 @import '../../utils/variable.scss';
 
+@mixin mobile {
+    @media (max-width: $mobile) {
+        @content;
+    }
+}
+
 .wrapp-card{
     display: flex;
     flex-direction: column;
     height: auto;
     width: calc(100%/3);
     padding: 0 10px;
+
+    @include mobile(){
+        width: 100%;
+        padding: 0;
+        margin: 10px 0;
+    }
 
     .img-card{
         display: flex;
@@ -32,7 +44,7 @@
             display: flex;
             font-size: 24px;
             color: $color1;
-            font-family: "Crimson Text", serif;
+            font-family: "Crimson Text",serif;
             margin-bottom: 10px;
             cursor: pointer;
             transition: 0.2s ease-in-out;
@@ -40,6 +52,10 @@
             line-height: $lineHeight2;
             &:hover{
                 color: $color3
+            }
+
+            @include mobile(){
+                font-size: 17px;
             }
         }
 
@@ -64,6 +80,99 @@
             margin-bottom: 10px;
             text-align: start;
             line-height: $lineHeight;
+
+            .render-deskripsi-card{
+                img{
+                    display: flex;
+                    height: auto;
+                    max-width: 100%;
+                    object-fit: cover;
+                    object-position: center;
+                }
+
+                h4{
+                    font-size: 24px;
+                    color: $color1;
+                    font-family: "Crimson Text",serif;
+                    font-weight: normal;
+                    text-align: start;
+                }
+
+                i{
+                    display: flex;
+                    font-size: 13px;
+                    justify-content: flex-start;
+                    align-items: center;
+                    color: $color1;
+                    span{
+                        color: $color16;
+                        justify-content: flex-start;
+                        font-family: 'Mulish', sans-serif;
+                        font-weight: normal;
+                        margin-left: 5px;
+                    }
+                }
+
+                span{
+                    display: flex;
+                    width: 100%;
+                    font-size: 14px;
+                    justify-content: center;
+                    line-height: $lineHeight;
+                }
+
+                small{
+                    display: flex;
+                }
+
+                ol{
+                    margin-left: 13px;
+                    li{
+                        padding-left: 5px;
+                    }
+                }
+
+                ul{
+                    margin-left: 13px;
+                    li{
+                        position: relative;
+                        padding-left: 5px;
+                        list-style: none;
+                    }
+                    li::before{
+                        content: '';
+                        position: absolute;
+                        top: 9px;
+                        left: -13px;
+                        border: 3px solid transparent;
+                        border-left-width: 5px;
+                        border-left-color: $color8;
+                    }
+                }
+            }
+        }
+
+        .download-pdf{
+            display: none;
+            font-size: 13px;
+            color: $color1;
+            text-decoration: none;
+            transition: 0.3s ease-in-out;
+            cursor: pointer;
+            align-items: center;
+            &:hover{
+                color: $color3;
+            }
+
+            .icon-pdf{
+                display: flex;
+                object-fit: cover;
+                margin-right: 5px;
+                transition: 0.3s ease-in-out;
+                &:hover{
+                    opacity: 0.5;
+                }
+            }
         }
 
         .btn-read-more{
@@ -75,8 +184,13 @@
             outline: none;
             border: none;
             cursor: pointer;
+            font-family: 'Mulish', sans-serif;
             &:hover{
                 color: $color3;
+            }
+
+            @include mobile(){
+                font-size: 13px;
             }
         }
     }

@@ -2,14 +2,17 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router'
 import { NavLink } from 'react-router-dom'
 import './Navbar.scss'
-import logoRs from '../../images/logo-rs.jpg'
 import { PathContext } from '../../services/context/path/Path'
 import API from '../../services/api'
+import Endpoint from '../../services/api/endpoint'
+import { FaqContext } from '../../services/context/faq/Faq'
 
 function Navbar() {
 
-    const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar, indexActive, setIndexActive] = useContext(PathContext)
+    const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar, indexActive, setIndexActive, searchResult, setSearchResult, searchValue, setSearchValue] = useContext(PathContext)
+    const [titleMenuFaq, setTitleMenuFaq, indexActiveFaqGlobal, setIndexActiveFaqGlobal] = useContext(FaqContext)
     const [dataNavbar, setDataNavbar] = useState([])
+    const [mainNavbar, setMainNabar] = useState({})
     const [dataCollapseNavbar, setDataCollapseNavbar] = useState([])
     const [pathMenuCollapseNav, setPathMenuCollapseNav] = useState([])
     const [displayCloseCollapse, setDisplayCloseCollapse] = useState(false)
@@ -23,8 +26,12 @@ function Navbar() {
     function setAllAPI() {
         API.APIGetNavbar()
             .then(res => {
-                setDataNavbar(res.data)
+                const getMenuNavbar = res.data.filter((e) => e.id === 'menu')
+                setDataNavbar(getMenuNavbar)
                 activeNavbar();
+
+                const getMainNavbar = res.data.filter((e) => e.id === 'main-navbar')
+                setMainNabar(getMainNavbar[0])
             })
     }
 
@@ -33,14 +40,14 @@ function Navbar() {
         const roundItUp = Math.floor(position)
 
         setTimeout(() => {
-            if (paramsGlobal !== '/' && getElement.length > 0) {
+            if (paramsGlobal !== '/') {
                 if (roundItUp > 40) {
                     getElement[0].style.boxShadow = 'none'
                 } else if (roundItUp < 40) {
                     getElement[0].style.boxShadow = '0 3px 35px -1px rgba(0,0,0,0.4)'
                 }
             }
-            if (paramsGlobal == '/' && getElement.length > 0) {
+            if (paramsGlobal == '/') {
                 getElement[0].style.boxShadow = 'none'
             }
         }, 0);
@@ -59,14 +66,30 @@ function Navbar() {
         boxShadow: `${paramsGlobal !== '/' ? '0 3px 35px -1px rgba(0,0,0,0.4)' : 'none'}`
     }
 
-    function toPage(path) {
+    function toPage(path, condition) {
         if (path !== '-') {
             if (path !== '/') {
                 history.push(`/${path}`)
                 updateParams(`/${path}`)
+
+                if (path === 'faq') {
+                    setTitleMenuFaq()
+                    setIndexActiveFaqGlobal(0)
+                }
+
+                if (condition === undefined) {
+                    setSearchResult('')
+                    setSearchValue('')
+                }
+
             } else {
                 history.push(path)
                 updateParams(path)
+
+                if (condition === undefined) {
+                    setSearchResult('')
+                    setSearchValue('')
+                }
 
                 setTimeout(() => {
                     window.scrollTo(0, 0)
@@ -135,7 +158,7 @@ function Navbar() {
         elementBtnNavbar[index].classList.add('is-active-navbar')
     }
 
-    function mouseLeaveBtnNavbar(e) {
+    function mouseLeaveBtnNavbar() {
         for (let i = 0; i < elementBtnNavbar.length; i++) {
             elementBtnNavbar[i].classList.remove('is-active-navbar')
         }
@@ -161,10 +184,23 @@ function Navbar() {
 
         history.push(`/${pathMenuCollapseNav[index]}`)
         updateParams(`/${pathMenuCollapseNav[index]}`)
+        setSearchResult('')
+        setSearchValue('')
 
         if (pathMenuCollapseNav[index].includes('our-hospital')) {
             window.location.reload()
         }
+    }
+
+    function inputSearch(e) {
+        setSearchValue(e.target.value)
+    }
+
+    function submitSearch() {
+        setSearchResult(searchValue)
+        toPage(`search?q=${searchValue}`, true)
+
+        window.scrollTo(0, 0)
     }
 
     return (
@@ -172,26 +208,31 @@ function Navbar() {
             <div className="wrapp-navbar" style={styleWrappNavbar}>
                 <div className="column-atas-navbar">
                     <p className="txt-group-information-navbar"
-                        onClick={() => toPage('online-reservation')}
+                        onClick={() => toPage(`${mainNavbar && mainNavbar.pathOnlineReservation}`)}
                     >
-                        Online Reservation
+                        {mainNavbar && mainNavbar.onlineReservation}
                     </p>
                     <p className="txt-group-information-navbar">
                         |
                     </p>
-                    <p className="txt-group-information-navbar">
-                        RS Permata Depok +62813-8395-9452
-                    </p>
+                    <a href={`tel:${mainNavbar && mainNavbar.pathNoTelpRS}`} className="txt-group-information-navbar">
+                        {mainNavbar && mainNavbar.noTelpRS}
+                    </a>
                 </div>
 
                 <div className="column-bawah-navbar">
-                    <img src={logoRs} alt="" className="logo-rs"
+                    <img src={`${Endpoint}/images/${mainNavbar && mainNavbar.logo}`} alt="" className="logo-rs"
                         onClick={() => toPage('/')}
                     />
 
-                    <form className="form-input-search">
-                        <input type="text" className="input-search-home" placeholder="Search..." />
-                        <i class="fas fa-search"></i>
+                    <form onSubmit={(e) => {
+                        e.preventDefault();
+                        submitSearch()
+                    }} className="form-input-search">
+                        <input type="text" className="input-search-home" placeholder="Search..." value={searchValue}
+                            onChange={inputSearch}
+                        />
+                        <i class="fas fa-search" onClick={submitSearch}></i>
                     </form>
                 </div>
                 <div className="header-bottom-navbar">

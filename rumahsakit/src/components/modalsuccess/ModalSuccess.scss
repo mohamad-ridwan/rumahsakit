@@ -1,5 +1,11 @@
 @import '../../utils/variable.scss';
 
+@mixin mobile {
+    @media (max-width: $mobile) {
+        @content;
+    }
+}
+
 .modal-success-subscribe{
     display: flex;
     position: fixed;
@@ -14,4 +20,10 @@
     color: #fff;
     transition: 0.4s ease-in-out;
     top: 0;
+
+    .txt-success-subscribe{
+        @include mobile(){
+            font-size: $font3;
+        }
+    }
 }

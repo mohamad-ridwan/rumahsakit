@@ -135,6 +135,7 @@ function DetailPromo() {
                                     <Card
                                         key={e._id}
                                         widthCard="calc(100%/3)"
+                                        nameBtnReadMore="Read More"
                                         img={`${Endpoint}/images/${e.image}`}
                                         title={e.title}
                                         date={e.date}

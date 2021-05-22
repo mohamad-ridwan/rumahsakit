@@ -25,7 +25,7 @@ function Disclaimer() {
 
         API.APIGetHeader()
             .then(res => {
-                const getData = res.data.filter((e) => e.path.includes(location))
+                const getData = res.data.filter((e) => e.path === location)
                 setDataHeader(getData[0])
             })
 
@@ -38,6 +38,8 @@ function Disclaimer() {
 
     useEffect(() => {
         setAllAPI();
+        setIndexActive();
+        activeNavbar();
     }, [])
 
     function toPage(path) {

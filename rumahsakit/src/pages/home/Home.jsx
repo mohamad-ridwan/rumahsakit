@@ -32,8 +32,6 @@ function Home() {
 
     const history = useHistory()
 
-    const buttonNavbar = document.getElementsByClassName('btn-group-header-bottom-navbar')
-
     function setAllAPI() {
         setLoading(true);
 
@@ -45,7 +43,6 @@ function Home() {
                         newData.push(res.data[i])
                     }
                     setDataArticle(newData)
-                    setLoading(false)
                 }
             })
             .catch(err => console.log(err))
@@ -82,6 +79,7 @@ function Home() {
         API.APIGetTestimonial()
             .then(res => {
                 setDataTestimoni(res.data)
+                setLoading(false)
             })
     }
 
@@ -188,15 +186,21 @@ function Home() {
         history.push('online-reservation')
     }
 
+    const widthBody = document.body.getBoundingClientRect().width
+    const minimizeValue = Math.floor(widthBody)
+
+    const topSuccessMessage = minimizeValue < 769 ? '110px' : '170px'
+
     return (
         <>
             <HelmetCard
                 title="Rumah Sakit Permata"
                 content="Rumah Sakit Permata - Permata Keluarga Husada Grup"
             />
+
             <div className="wrapp-home">
                 <ModalSuccess
-                    marginTop={successMessage.length > 0 ? '170px' : '-170px'}
+                    marginTop={successMessage.length > 0 ? topSuccessMessage : '-170px'}
                     bgColor={successMessage.toLocaleLowerCase().includes('berhasil') ? '#08a808' : '#d30c0c'}
                     message={successMessage.length > 0 ? successMessage : ''}
                 />
@@ -210,7 +214,7 @@ function Home() {
                     <>
                         <div className="bg-gradient-home" style={styleBgGradientHome}>
                             <div className="column-tengah-bg-gradient">
-                                <img src={`${Endpoint}/images/${bannerGradient.image}`} alt="background gradient" className="img-logo2-rs" />
+                                <img src={`${Endpoint}/images/${bannerGradient.image}`} alt="background gradient" width="97" height="87" className="img-logo2-rs" />
                                 <p className="txt-rs-permata-depok">
                                     {bannerGradient.title}
                                 </p>
@@ -265,6 +269,7 @@ function Home() {
                                             date={e.date}
                                             deskripsi={`${minimizeDescription}...`}
                                             heightImg="200px"
+                                            nameBtnReadMore="Read More"
                                             clickToPage={() => toPageBlogArticles(e)}
                                         />
                                     </>
@@ -299,7 +304,7 @@ function Home() {
 
                         <form onSubmit={submitSubscribe}
                             className="form-input-subscribe">
-                            <input type="text" className="input-subscribe" value={inputSubscribe.email} placeholder="Enter your email address"
+                            <input type="email" className="input-subscribe" value={inputSubscribe.email} placeholder="Enter your email address"
                                 onChange={changeInputSubscribe}
                             />
 

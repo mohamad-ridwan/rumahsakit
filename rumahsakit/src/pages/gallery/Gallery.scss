@@ -1,0 +1,50 @@
+@import '../../utils/variable.scss';
+
+.wrapp-gallery{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+    padding: 50px 20%;
+    background-image: $color4;
+
+    .konten-gallery{
+        display: flex;
+        height: auto;
+        width: 100%;
+
+        .box-img-gallery{
+            display: flex;
+            flex-direction: column;
+            width: calc(100%/3);
+            margin-right: 20px;
+
+            .btn-view-img{
+                display: flex;
+                text-decoration: none;
+                height: auto;
+    
+                .img-konten-gallery{
+                    display: flex;
+                    height: auto;
+                    max-width: 100%;
+                    object-fit: cover;
+                    vertical-align: middle;
+                    margin-right: 20px;
+                    margin-bottom: 20px;
+                    transition: 0.3s ease-in-out;
+                    cursor: pointer;
+                    &:hover{
+                        -webkit-transform: scale(1.1, 1.1);
+                    }
+                }
+            }
+        }
+    }
+
+    .column-btn-gallery{
+        display: flex;
+        justify-content: center;
+        margin-top: 40px;
+    }
+}

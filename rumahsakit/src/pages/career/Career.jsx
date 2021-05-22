@@ -98,8 +98,8 @@ function Career() {
 
                                     <p className="email-career">
                                         atau email ke:
-                                        <p className="konten-email-career">
-                                            {e.email} </p>
+                                        <a href={`mailto:${e.email}`} className="konten-email-career">
+                                            {e.email} </a>
                                     </p>
 
                                     <div className="container-box-grey">
@@ -109,11 +109,6 @@ function Career() {
                                             </p>
 
                                             <div className="container-date-career">
-                                                <i className="fas fa-medkit"></i>
-                                                <p className="name-rs-career font-career-group">
-                                                    {e.nameRs}
-                                                </p>
-
                                                 <i className="far fa-calendar-alt"></i>
                                                 <p className="date-job-career font-career-group">
                                                     {e.dateLamaran}

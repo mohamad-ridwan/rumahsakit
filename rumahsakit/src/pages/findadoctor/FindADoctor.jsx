@@ -165,11 +165,6 @@ function FindADoctor() {
     const indexOfFirstPage = indexOfLastPage - perPage;
     const currentList = listDoctor.slice(indexOfFirstPage, indexOfLastPage);
 
-    function toPageHome() {
-        history.push('/')
-        updateParams('/')
-    }
-
     function showDoctorSpeciality() {
         setModalList(!modalList)
     }
@@ -203,9 +198,9 @@ function FindADoctor() {
         setDisplayBtn(!displayBtn)
     }
 
-    function toPageDetailDoctor(e) {
-        history.push(`doctor/${e.path}`)
-        updateParams(`doctor/${e.path}`)
+    function toPage(path) {
+        history.push(path)
+        updateParams(path)
     }
 
     function numberPaginate(number) {
@@ -232,7 +227,7 @@ function FindADoctor() {
                     header2={dataHeader && dataHeader.namePage}
                     cursor1="pointer"
                     colorHeader2="#7e7e7e"
-                    click1={toPageHome}
+                    click1={() => toPage('/')}
                 />
 
                 {findADoctor && Object.keys(findADoctor).length > 0 ? (
@@ -350,7 +345,7 @@ function FindADoctor() {
                                                     img={`${Endpoint}/images/${e.image}`}
                                                     title={e.name}
                                                     date={e.speciality}
-                                                    clickToPage={() => toPageDetailDoctor(e)}
+                                                    clickToPage={() => toPage(`/doctor/${e.path}`)}
                                                 />
                                             </>
                                         )

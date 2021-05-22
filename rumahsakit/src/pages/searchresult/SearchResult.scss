@@ -1,0 +1,69 @@
+@import '../../utils/variable.scss';
+
+.wrapp-search-result{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+    padding: 50px 20%;
+    background-image: $color4;
+
+    .konten-search-result{
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        line-height: $lineHeight;
+
+        .title-faq-search-result{
+            display: flex;
+            font-size: 24px;
+            color: $color1;
+            font-family: "Crimson Text",serif;
+            margin-bottom: 20px;
+        }
+
+        .konten-group-search-result{
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+
+        .konten-article-search-result{
+            display: flex;
+            flex-wrap: wrap;
+            height: auto;
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .konten-publication-search-result{
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .konten-doctor-search-result{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .konten-layanan-and-fasilitas-search-result{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .konten-promo-search-result{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .konten-career-search-result{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+    }
+}

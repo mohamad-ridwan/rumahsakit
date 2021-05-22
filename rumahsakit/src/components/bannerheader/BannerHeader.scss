@@ -1,5 +1,11 @@
 @import '../../utils/variable.scss';
 
+@mixin mobile {
+    @media (max-width: $mobile) {
+        @content;
+    }
+}
+
 .wrapp-banner-header{
     display: flex;
     position: relative;
@@ -9,12 +15,20 @@
     background-color: $color1;
     align-items: center;
 
+    @include mobile(){
+        padding: 20px 10px;
+    }
+
     .img-banner{
         display: flex;
         height: auto;
         max-width: 100%;
         object-fit: cover;
         object-position: center;
+
+        @include mobile(){
+            width: 40px;
+        }
     }
 
     .title-banner-header{
@@ -24,5 +38,10 @@
         color: #fff;
         font-family: "Crimson Text",serif;
         text-transform: uppercase;
+        text-align: start;
+
+        @include mobile(){
+            font-size: 20px;
+        }
     }
 }

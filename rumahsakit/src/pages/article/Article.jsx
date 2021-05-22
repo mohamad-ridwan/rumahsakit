@@ -2,7 +2,6 @@ import React, { Component, useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 import './Article.scss'
 import BannerHeader from '../../components/bannerheader/BannerHeader'
-import bgHeader from '../../images/bgheader.png'
 import Headers from '../../components/headers/Headers'
 import Card from '../../components/card/Card'
 import ButtonCard from '../../components/buttoncard/ButtonCard'
@@ -18,30 +17,38 @@ class Article extends Component {
 
     constructor(props) {
         super(props)
+
         this.state = {
-            totalIndexData: 0,
-            totalData: 6,
             loading: false,
-            dataArticle: []
+            header: {},
+            perPage: 6,
+            currentPage: 1,
+            dataArticle: [],
         }
+
+        this.loadMore = this.loadMore.bind(this)
     }
+
+    location = this.props.match.path.split('/')[1]
 
     setAllAPI() {
         this.setState({
             loading: true
         })
+
+        API.APIGetHeader()
+            .then(res => {
+                const getPath = res.data.filter((e) => e.path === this.location)
+                this.setState({
+                    header: getPath[0]
+                })
+            })
+
         API.APIGetHealthArticle()
             .then(res => {
-                let newData = []
-                if (res.data.length > 0) {
-                    for (let i = 0; i < this.state.totalData; i++) {
-                        newData.push(res.data[i])
-                    }
-                }
                 this.setState({
-                    dataArticle: newData,
+                    dataArticle: res.data,
                     loading: false,
-                    totalIndexData: res.data.length
                 })
             })
             .catch(err => {
@@ -67,26 +74,49 @@ class Article extends Component {
         this.props.history.push(`/articles/read/${path}`)
     }
 
+    loadMore() {
+        if (this.state.perPage < this.state.dataArticle.length) {
+            this.setState({
+                perPage: this.state.perPage + 6
+            })
+        }
+    }
+
     render() {
 
         const updateParams = this.context[2]
 
+        const indexOfLastPage = this.state.currentPage * this.state.perPage;
+        const indexOfFirstPage = this.indexOfLastPage - this.state.perPage;
+        const currentList = this.state.dataArticle.slice(indexOfFirstPage, indexOfLastPage)
+
+        const displayBtn = this.state.perPage === this.state.dataArticle.length || this.state.perPage > this.state.dataArticle.length ? 'none' : 'flex'
+
+        const widthBody = document.body.getBoundingClientRect().width
+        const minimizeValue = Math.floor(widthBody)
+
+        const heightCardImg = minimizeValue < 769 ? 'auto' : '213px'
+        const widthCardImg = minimizeValue < 769 ? 'auto' : '425'
+
         return (
             <>
                 <HelmetCard
-                    title={`Article - Rumah Sakit Permata`}
+                    title={Object.keys(this.state.header).length > 0 ? `${this.state.header.namePage} - Rumah Sakit Permata` : 'Rumah Sakit Permata'}
+                    content="seputar artikel kesehatan dari rumah sakit permata depok"
                 />
+
                 <BannerHeader
-                    img={bgHeader}
-                    title={'ARTICLE'}
+                    img={Object.keys(this.state.header).length > 0 ? `${Endpoint}/images/${this.state.header.img}` : ''}
+                    title={Object.keys(this.state.header).length > 0 ? `${this.state.header.titleBanner}` : ''}
                 />
+
                 <div className="wrapp-article">
                     <Headers
-                        header1={'Home'}
-                        arrow={'>'}
-                        header2={'Article'}
-                        cursor1={'pointer'}
-                        colorHeader2={'#999'}
+                        header1="Home"
+                        arrow=">"
+                        header2={Object.keys(this.state.header).length > 0 ? `${this.state.header.namePage}` : ''}
+                        cursor1="pointer"
+                        colorHeader2="#999"
                         click1={() => {
                             this.props.history.push('/')
                             updateParams('/')
@@ -94,25 +124,30 @@ class Article extends Component {
                     />
 
                     <div className="container-card-page-article">
-                        {this.state.dataArticle && this.state.dataArticle.length > 0 ? this.state.dataArticle.map((e, i) => {
+                        {currentList && currentList.length > 0 ? currentList.map((e) => {
 
                             const removeTagHTML = e.deskripsi.includes('<br/>') ? e.deskripsi.split('<br/>').join(' ') : e.deskripsi
 
                             return (
-                                <Card
-                                    key={e._id}
-                                    widthCard={'calc(90%/2'}
-                                    heightImg="213px"
-                                    heightCardImg="213"
-                                    widthCardImg="425"
-                                    paddingCard={'0'}
-                                    marginCard={'0 0 40px 0'}
-                                    img={`${Endpoint}/images/${e.image}`}
-                                    title={e.title}
-                                    date={e.date}
-                                    deskripsi={removeTagHTML}
-                                    clickToPage={() => this.goToPage(e.path)}
-                                />
+                                <>
+                                    <div className="column-card-page-article">
+                                        <Card
+                                            key={e._id}
+                                            widthCard="100%"
+                                            heightImg={heightCardImg}
+                                            heightCardImg="213"
+                                            widthCardImg={widthCardImg}
+                                            paddingCard="0"
+                                            marginCard="0 0 40px 0"
+                                            nameBtnReadMore="Read More"
+                                            img={`${Endpoint}/images/${e.image}`}
+                                            title={e.title}
+                                            date={e.date}
+                                            deskripsi={removeTagHTML}
+                                            clickToPage={() => this.goToPage(e.path)}
+                                        />
+                                    </div>
+                                </>
                             )
                         }) : (
                             <div></div>
@@ -121,25 +156,10 @@ class Article extends Component {
 
                     <div className="container-btn-load-more-article">
                         <ButtonCard
-                            title={this.state.totalIndexData === this.state.totalData ? 'LESS' : 'LOAD MORE'}
-                            nameClassBtn={'btn-card-two'}
-                            clickBtn={() => {
-                                if (this.state.totalIndexData > 6 && this.state.totalIndexData !== this.state.totalData) {
-                                    this.setState({
-                                        totalData: this.state.totalData + (this.state.totalIndexData - this.state.totalData)
-                                    })
-                                    setTimeout(() => {
-                                        this.setAllAPI();
-                                    }, 0);
-                                } else if (this.state.totalIndexData === this.state.totalData) {
-                                    this.setState({
-                                        totalData: this.state.totalData - 6
-                                    })
-                                    setTimeout(() => {
-                                        this.setAllAPI();
-                                    }, 0);
-                                }
-                            }}
+                            displayBtn={displayBtn}
+                            title="LOAD MORE"
+                            nameClassBtn="btn-card-two"
+                            clickBtn={this.loadMore}
                         />
                     </div>
                 </div>

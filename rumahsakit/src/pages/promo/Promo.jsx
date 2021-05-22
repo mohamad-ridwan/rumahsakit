@@ -16,14 +16,12 @@ function Promo() {
     const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar] = useContext(PathContext)
     const [dataHeader, setDataHeader] = useState({})
     const [promo, setPromo] = useState([])
-    const [totalData, setTotalData] = useState()
-    const [indexBtn, setIndexBtn] = useState(5)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [perPage, setPerPage] = useState(6)
     const [loading, setLoading] = useState(false)
 
     const history = useHistory();
     const location = window.location.pathname.toString().split('/')[1]
-
-    let index = 5
 
     function setAllAPI() {
         setLoading(true)
@@ -33,26 +31,10 @@ function Promo() {
                 setDataHeader(getData[0])
             })
 
-        getDataPromo();
-    }
-
-    function getDataPromo() {
         API.APIGetPromo()
             .then(res => {
                 setLoading(false)
-                const respons = res.data
-                setTotalData(respons.length)
-
-                let newData = []
-
-                if (respons.length > 2) {
-                    for (let i = 0; i < index; i++) {
-                        newData.push(respons[i])
-                    }
-                    setPromo(newData)
-                } else {
-                    setPromo(res.data)
-                }
+                setPromo(res.data)
             })
             .catch(err => {
                 console.log(err)
@@ -65,24 +47,13 @@ function Promo() {
         activeNavbar();
     }, [])
 
-    function loadMore() {
-        if (index < totalData) {
-            if (totalData > 12) {
-                if (indexBtn === totalData) {
-                    index = indexBtn - 3
-                    setIndexBtn(indexBtn - 3)
+    const indexOfLastPage = currentPage * perPage;
+    const indexOfFirstPage = indexOfLastPage - perPage;
+    const currentList = promo.slice(indexOfFirstPage, indexOfLastPage)
 
-                    setTimeout(() => {
-                        getDataPromo();
-                    }, 0);
-                } else {
-                    index = index + 3
-                    setIndexBtn(indexBtn + 3)
-                    setTimeout(() => {
-                        getDataPromo();
-                    }, 0);
-                }
-            }
+    function loadMore() {
+        if (perPage < promo.length) {
+            setPerPage(perPage + 6)
         }
     }
 
@@ -114,8 +85,8 @@ function Promo() {
                 />
 
                 <div className="container-konten-promo">
-                    {promo && promo.length > 0 ?
-                        promo.map((e) => {
+                    {currentList && currentList.length > 0 ?
+                        currentList.map((e) => {
                             return (
                                 <>
                                     <Card
@@ -126,6 +97,7 @@ function Promo() {
                                         widthCardImg="425"
                                         paddingCard="0"
                                         marginCard="0 0 40px 0"
+                                        nameBtnReadMore="Read More"
                                         img={`${Endpoint}/images/${e.image}`}
                                         title={e.title}
                                         date={e.date}
@@ -140,9 +112,10 @@ function Promo() {
                 </div>
 
                 <div className="container-btn-promo">
-                    {promo && promo.length > 12 ? (
+                    {promo && promo.length > 6 ? (
                         <ButtonCard
-                            title={indexBtn === totalData ? 'LESS' : 'LOAD MORE'}
+                            displayBtn={perPage === promo.length || perPage > promo.length ? 'none' : 'flex'}
+                            title="LOAD MORE"
                             nameClassBtn="btn-card-two"
                             clickBtn={loadMore}
                         />

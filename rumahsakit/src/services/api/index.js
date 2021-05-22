@@ -2,12 +2,14 @@ import GetAboutUs from "./aboutus/get";
 import GetBanner from "./banner/get";
 import GetCareer from "./career/get";
 import GetCarouselHome from "./carouselhome/get";
+import GetContactUs from "./contactus/get";
 import PostContactUs from "./contactus/post";
 import GetDisclaimer from "./disclaimer/get";
 import GetEmailUser from "./emailuser/get";
 import PostEmailUser from "./emailuser/post";
 import GetFindADoctor from "./findadoctor/get";
 import GetFooter from "./footer/get";
+import GetGallery from "./gallery/get";
 import GetGeneral from "./general/get";
 import GetHeader from "./header/get";
 import GetHealthArticle from "./healtharticle/get";
@@ -16,6 +18,7 @@ import GetNavbar from "./navbar/get";
 import PostOnlineReservation from "./onlinereservation/post";
 import GetOurHospital from "./ourhospital/get";
 import GetPromo from "./promo/get";
+import GetPublication from "./publication/get";
 import GetTestimonial from "./testimonial/get";
 import GetVisitorPatientInformation from "./visitorpatientinformation/get";
 
@@ -55,6 +58,7 @@ const APIGetCareer = () => GetCareer('career/get')
 
 // contact-us
 const APIPostContactUs = (data) => PostContactUs('contact-us/post', data)
+const APIGetContactUs = () => GetContactUs('contact-us/get')
 
 // find-doctor
 const APIGetFindADoctor = () => GetFindADoctor('find-doctor/get')
@@ -77,6 +81,12 @@ const APIGetFooter = () => GetFooter('footer/get')
 // Disclaimer
 const APIGetDisclaimer = () => GetDisclaimer('disclaimer/get')
 
+// Publication
+const APIGetPublication = () => GetPublication('publication/get')
+
+// Gallery
+const APIGetGallery = () => GetGallery('gallery/get')
+
 const API = {
     APIGetHealthArticle,
     APIGetCarouselHome,
@@ -97,7 +107,10 @@ const API = {
     APIGetOurHospital,
     APIGetNavbar,
     APIGetFooter,
-    APIGetDisclaimer
+    APIGetDisclaimer,
+    APIGetPublication,
+    APIGetGallery,
+    APIGetContactUs
 }
 
 export default API;

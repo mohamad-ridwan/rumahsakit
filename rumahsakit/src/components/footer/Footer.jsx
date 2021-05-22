@@ -8,13 +8,18 @@ function Footer() {
 
     const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar, indexActive, setIndexActive] = useContext(PathContext)
     const [dataFooter, setDataFooter] = useState([])
+    const [dataFooterTwo, setDataFooterTwo] = useState({})
 
     const history = useHistory()
 
     function setAllAPI() {
         API.APIGetFooter()
             .then(res => {
-                setDataFooter(res.data)
+                const getMenuPageFooter = res.data.filter((e) => e.id === 'footer-one')
+                setDataFooter(getMenuPageFooter)
+
+                const getFooterTwo = res.data.filter((e) => e.id === 'footer-two')
+                setDataFooterTwo(getFooterTwo[0])
             })
     }
 
@@ -26,7 +31,9 @@ function Footer() {
         history.push(`/${path}`)
         updateParams(`/${path}`)
 
-        window.location = window.location
+        if (path.includes('our-hospital')) {
+            window.location = window.location
+        }
     }
 
     return (
@@ -66,7 +73,7 @@ function Footer() {
 
                 <div className="footer-copy-right">
                     <p className="title-footer-copy-right">
-                        © 2021 Permata Hospital. Developed by : Mohamad Ridwan Apriyadi
+                        © {dataFooterTwo && dataFooterTwo.copyRight}. Developed by : {dataFooterTwo && dataFooterTwo.developedBy}
                     </p>
 
                     <div className="container-contact-us">
@@ -76,17 +83,17 @@ function Footer() {
 
                         <ul>
                             <li>
-                                <a target='_blank' href="https://www.facebook.com/malingjemur/">
+                                <a target='_blank' href={dataFooterTwo && dataFooterTwo.urlFacebook}>
                                     <i className="fab fa-facebook-f"></i>
                                 </a>
                             </li>
                             <li>
-                                <a target='_blank' href="https://www.instagram.com/ridwan.12">
+                                <a target='_blank' href={dataFooterTwo && dataFooterTwo.urlInstagram}>
                                     <i className="fab fa-instagram"></i>
                                 </a>
                             </li>
                             <li>
-                                <a target='_blank' href="https://twitter.com/MohamadRidwan04">
+                                <a target='_blank' href={dataFooterTwo && dataFooterTwo.urlTwitter}>
                                     <i className="fab fa-twitter"></i>
                                 </a>
                             </li>

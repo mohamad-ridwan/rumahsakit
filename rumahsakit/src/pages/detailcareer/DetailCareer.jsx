@@ -25,14 +25,14 @@ function DetailCareer() {
         setLoading(true)
         API.APIGetHeader()
             .then(res => {
-                const getData = res.data.filter((e) => e.path.includes(location))
+                const getData = res.data.filter((e) => e.path === location)
                 setDataHeader(getData[0])
             })
 
         API.APIGetCareer()
             .then(res => {
                 setLoading(false)
-                const getData = res.data.filter((e) => e.path.includes(locationDetail))
+                const getData = res.data.filter((e) => e.path === locationDetail)
                 setCareer(getData[0])
             })
     }
@@ -98,8 +98,8 @@ function DetailCareer() {
 
                                 <p className="email-detail-career">
                                     atau email ke:
-                                        <p className="konten-email-detail-career">
-                                        {career.email} </p>
+                                        <a href={`mailto:${career.email}`} className="konten-email-detail-career">
+                                        {career.email} </a>
                                 </p>
 
                                 <div className="container-box-grey-detail-career">
@@ -109,11 +109,6 @@ function DetailCareer() {
                                         </p>
 
                                         <div className="container-date-detail-career">
-                                            <i className="fas fa-medkit"></i>
-                                            <p className="name-rs-career font-detail-career-group">
-                                                {career.nameRs}
-                                            </p>
-
                                             <i className="far fa-calendar-alt"></i>
                                             <p className="date-job-career font-detail-career-group">
                                                 {career.dateLamaran}

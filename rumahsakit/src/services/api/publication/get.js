@@ -1,12 +1,12 @@
 import Endpoint from "../endpoint"
 
-const GetTestimonial = async (path) => {
+const GetPublication = async (path) => {
     return await new Promise((resolve, reject) => {
         fetch(`${Endpoint}/${path}`, {
             method: 'GET',
             mode: 'cors',
             headers: {
-                "Content-Type": "application/json",
+                "Content-Type": "application/json"
             }
         })
             .then(res => res.json())
@@ -15,4 +15,4 @@ const GetTestimonial = async (path) => {
     })
 }
 
-export default GetTestimonial;
+export default GetPublication;

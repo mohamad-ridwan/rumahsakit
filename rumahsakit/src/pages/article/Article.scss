@@ -1,14 +1,22 @@
 @import '../../utils/variable.scss';
 
+@mixin mobile {
+    @media (max-width: $mobile) {
+        @content;
+    }
+}
+
 .wrapp-article{
     display: flex;
     flex-direction: column;
     height: auto;
     width: 100%;
-    padding: 0 20%;
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding: 50px 20%;
     background-image: $color4;
+
+    @include mobile(){
+        padding: 50px 10px;
+    }
 
     .container-card-page-article{
         display: flex;
@@ -16,6 +24,21 @@
         height: auto;
         width: 100%;
         justify-content: space-between;
+
+        @include mobile(){
+            flex-wrap: nowrap;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .column-card-page-article{
+            display: flex;
+            width: calc(90%/2);
+
+            @include mobile(){
+                width: 100%;
+            }
+        }
     }
 
     .container-btn-load-more-article{

@@ -1,6 +1,6 @@
 import './App.css';
-import Navbar from './components/navbar/Navbar';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Navbar from './components/navbar/Navbar';
 import Home from './pages/home/Home';
 import Article from './pages/article/Article';
 import BlogArticle from './pages/blogarticle/BlogArticle';
@@ -19,6 +19,10 @@ import ProfilDoctor from './pages/profildoctor/ProfilDoctor';
 import Faq from './pages/faq/Faq';
 import OurHospital from './pages/ourhospital/OurHospital';
 import Disclaimer from './pages/disclaimer/Disclaimer';
+import Publication from './pages/publication/Publication';
+import Gallery from './pages/gallery/Gallery';
+import SearchResult from './pages/searchresult/SearchResult';
+import NavbarMobile from './components/navbarmobile/NavbarMobile';
 
 function App() {
 
@@ -27,8 +31,21 @@ function App() {
       <WrappContextProvider>
         <BrowserRouter>
           <Navbar />
+          <NavbarMobile />
 
           <Switch>
+            <Route path='/search'>
+              <SearchResult />
+            </Route>
+
+            <Route path='/gallery'>
+              <Gallery />
+            </Route>
+
+            <Route path='/publication'>
+              <Publication />
+            </Route>
+
             <Route path='/disclaimer'>
               <Disclaimer />
             </Route>

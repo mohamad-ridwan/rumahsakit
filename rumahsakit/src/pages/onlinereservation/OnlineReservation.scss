@@ -1,5 +1,11 @@
 @import '../../utils/variable.scss';
 
+@mixin mobile {
+    @media (max-width: $mobile) {
+        @content;
+    }
+}
+
 .wrapp-online-reservation{
     display: flex;
     flex-direction: column;
@@ -8,10 +14,18 @@
     width: 100%;
     padding: 50px 20%;
 
+    @include mobile(){
+        padding: 50px 10px;
+    }
+
     .container-konten-online-reservation{
         display: flex;
         height: auto;
         width: 100%;
+
+        @include mobile(){
+            flex-direction: column;
+        }
 
         .form-kiri-online-rv{
             display: flex;
@@ -21,6 +35,12 @@
             border-radius: 5px;
             padding: 35px;
             margin-right: 20px;
+
+            @include mobile(){
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 40px;
+            }
         }
 
         .form-kanan-online-rv{
@@ -30,6 +50,10 @@
             background-color: $color10;
             border-radius: 5px;
             padding: 35px;
+
+            @include mobile(){
+                width: 100%;
+            }
 
             .note-form-online-rv{
                 display: flex;

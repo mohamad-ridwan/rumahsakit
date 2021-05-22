@@ -20,11 +20,14 @@ class BlogArticle extends Component {
         this.state = {
             loading: false,
             dataBlog: {},
+            header: {},
             allDataArticle: [],
             currentPage: 1,
             perPage: 3
         }
     }
+
+    location = this.props.match.path.split('/')[1]
 
     setAllAPI() {
         this.idParams = this.props.match.params.id
@@ -32,6 +35,15 @@ class BlogArticle extends Component {
         this.setState({
             loading: true
         })
+
+        API.APIGetHeader()
+            .then(res => {
+                const getPath = res.data.filter((e) => e.path === this.location)
+                this.setState({
+                    header: getPath[0]
+                })
+            })
+
         API.APIGetHealthArticle()
             .then(res => {
                 const getPath = res.data.filter((e) => e.path === this.idParams)
@@ -77,13 +89,18 @@ class BlogArticle extends Component {
 
         const updateParams = this.context[2]
 
-        const RenderHTML = (props) => (<p className={'deskripsi-blog-article'} dangerouslySetInnerHTML={{ __html: props.HTML }}></p>)
+        const RenderHTML = (props) => (<p className="deskripsi-blog-article" dangerouslySetInnerHTML={{ __html: props.HTML }}></p>)
 
         const RenderHTML2 = (props) => (<p className="konten-blog-article" dangerouslySetInnerHTML={{ __html: props.HTML }}></p>)
 
         const indexOfLastPage = this.state.currentPage * this.state.perPage
         const indexOfFirstPage = indexOfLastPage - this.state.perPage
         const currentList = this.state.allDataArticle.slice(indexOfFirstPage, indexOfLastPage)
+
+        const widthBody = document.body.getBoundingClientRect().width
+        const minimizeValue = Math.floor(widthBody)
+
+        const heightImgCard = minimizeValue < 769 ? 'auto' : '150px'
 
         return (
             <>
@@ -93,8 +110,8 @@ class BlogArticle extends Component {
                 />
 
                 <BannerHeader
-                    img={bgHeader}
-                    title="ARTICLE"
+                    img={Object.keys(this.state.header).length > 0 ? `${Endpoint}/images/${this.state.header.img}` : ''}
+                    title={Object.keys(this.state.header).length > 0 ? `${this.state.header.titleBanner}` : ''}
                 />
 
                 <div className="wrapp-blog-article">
@@ -102,7 +119,7 @@ class BlogArticle extends Component {
                         header1="Home"
                         arrow=">"
                         arrow2=">"
-                        header2="Article"
+                        header2={Object.keys(this.state.header).length > 0 ? `${this.state.header.namePage}` : ''}
                         cursor1="pointer"
                         cursor2="pointer"
                         header3={this.state.dataBlog && this.state.dataBlog.title}
@@ -150,16 +167,19 @@ class BlogArticle extends Component {
                         {currentList && currentList.length > 0 ? currentList.map((e) => {
                             return (
                                 <>
-                                    <Card
-                                        key={e._id}
-                                        widthCard="calc(100%/3)"
-                                        img={`${Endpoint}/images/${e.image}`}
-                                        title={e.title}
-                                        date={e.date}
-                                        deskripsi={e.deskripsi}
-                                        heightImg="150px"
-                                        clickToPage={() => this.toPageArticles(`/articles/read/${e.path}`)}
-                                    />
+                                    <div className="column-card-blog-article">
+                                        <Card
+                                            key={e._id}
+                                            widthCard="100%"
+                                            nameBtnReadMore="Read More"
+                                            img={`${Endpoint}/images/${e.image}`}
+                                            title={e.title}
+                                            date={e.date}
+                                            deskripsi={e.deskripsi}
+                                            heightImg={heightImgCard}
+                                            clickToPage={() => this.toPageArticles(`/articles/read/${e.path}`)}
+                                        />
+                                    </div>
                                 </>
                             )
                         }) : (

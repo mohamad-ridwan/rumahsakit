@@ -9,9 +9,11 @@ import NavMenu from '../../components/navmenu/NavMenu'
 import API from '../../services/api'
 import Endpoint from '../../services/api/endpoint'
 import { PathContext } from '../../services/context/path/Path'
+import { FaqContext } from '../../services/context/faq/Faq'
 
 function Faq() {
 
+    const [titleMenuFaq, setTitleMenuFaq, indexActiveFaqGlobal, setIndexActiveFaqGlobal] = useContext(FaqContext)
     const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar] = useContext(PathContext)
     const [dataHeader, setDataHeader] = useState({})
     const [dataGeneral, setDataGeneral] = useState([])
@@ -30,6 +32,9 @@ function Faq() {
 
         const newData = []
 
+        const newDataGeneral = []
+        const newDataVisitor = []
+
         API.APIGetHeader()
             .then(res => {
                 const getData = res.data.filter((e) => e.path.includes(location))
@@ -45,22 +50,36 @@ function Faq() {
                 const filterTitle = respons.filter((v, i, a) => a.findIndex(t => t.title === v.title) === i)
 
                 newData.push(filterTitle[0])
-            })
 
-        setTimeout(() => {
-            API.APIGetVisitorPatientInformation()
-                .then(res => {
-                    setLoading(false)
-
-                    const respons = res.data
-                    setDataVisitorPatient(res.data)
-
-                    const filterTitle = respons.filter((v, i, a) => a.findIndex(t => t.title === v.title) === i)
-                    newData.push(filterTitle[0])
-
-                    setNavMenu(newData)
+                respons.forEach((e) => {
+                    newDataGeneral.push(e)
                 })
-        }, 0);
+
+                setTimeout(() => {
+                    API.APIGetVisitorPatientInformation()
+                        .then(res => {
+                            setLoading(false)
+
+                            const respons = res.data
+                            setDataVisitorPatient(res.data)
+
+                            const filterTitle = respons.filter((v, i, a) => a.findIndex(t => t.title === v.title) === i)
+                            newData.push(filterTitle[0])
+
+                            setNavMenu(newData)
+
+                            respons.forEach((e) => {
+                                newDataVisitor.push(e)
+
+                                setTimeout(() => {
+                                    if (titleMenuFaq !== undefined && titleMenuFaq !== null) {
+                                        toPageFromNavmenu(indexActiveFaqGlobal, titleMenuFaq, false, newDataGeneral, newDataVisitor)
+                                    }
+                                }, 0);
+                            })
+                        })
+                }, 0);
+            })
     }
 
     function RenderHTML(data) {
@@ -77,11 +96,29 @@ function Faq() {
         activeNavbar();
     }, [])
 
-    function changeData(path) {
-        if (path === 'General') {
-            setDataFaq(dataGeneral)
+    function changeData(path, condition, general, visitor) {
+        if (condition) {
+            if (path === 'General') {
+                setDataFaq(dataGeneral)
+            } else {
+                setDataFaq(dataVisitorPatient)
+            }
         } else {
-            setDataFaq(dataVisitorPatient)
+            if (path === 'General') {
+                setDataFaq(general)
+            } else {
+                setDataFaq(visitor)
+            }
+        }
+    }
+
+    function toPageFromNavmenu(i, e, condition, general, visitor) {
+        if (condition) {
+            setActiveNavMenu(i)
+            changeData(e.title, condition)
+        } else {
+            setActiveNavMenu(i)
+            changeData(e, condition, general, visitor)
         }
     }
 
@@ -145,11 +182,6 @@ function Faq() {
         }
     }
 
-    function toPageFromNavmenu(i, e) {
-        setActiveNavMenu(i)
-        changeData(e.title)
-    }
-
     function toPageHome() {
         history.push('/')
         updateParams('/')
@@ -180,7 +212,7 @@ function Faq() {
                                         mouseLeave={() => mouseLeaveNavmenu()}
                                         marginLeft={activeNavMenu === i ? '-7px' : '0'}
                                         colorBtn={activeNavMenu === i ? '#333' : '#b04579'}
-                                        clickBtn={() => toPageFromNavmenu(i, e)}
+                                        clickBtn={() => toPageFromNavmenu(i, e, true)}
                                     />
                                 </>
                             )

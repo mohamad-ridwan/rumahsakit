@@ -1,5 +1,11 @@
 @import '../../utils/variable.scss';
 
+@mixin mobile {
+    @media (max-width: $mobile) {
+        @content;
+    }
+}
+
 .btn-card{
     display: flex;
     position: relative;
@@ -12,9 +18,14 @@
     outline: none;
     cursor: pointer;
     transition: 0.2s ease-in-out;
+    letter-spacing: .5px;
     &:hover{
         background-color: #fff;
         color: $color1;
+    }
+
+    @include mobile(){
+        font-size: 10px;
     }
 
     .txt-btn-card{
@@ -49,9 +60,14 @@
     cursor: pointer;
     transition: 0.2s ease-in-out;
     border-radius: 5px;
+    letter-spacing: .5px;
     &:hover{
         background-color: $color1;
         color: #fff;
+    }
+
+    @include mobile(){
+        font-size: 10px;
     }
 
     .txt-btn-card{

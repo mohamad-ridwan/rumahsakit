@@ -61,6 +61,14 @@ function CarouselMain({ data, mouseEnter, mouseLeave, dataTestimoni, iconQuotes,
         display: displayCarouselListDoctor
     }
 
+    const marginCardListDoctor = document.body.getBoundingClientRect().width < 769 ? '0 0 0 0' : '0 0 0 45px'
+
+    const marginImgCardListDoctor = document.body.getBoundingClientRect().width < 769 ? '0 0 10px 0' : '0 10px 0 0'
+
+    const flexDirectionCardListDoctor = document.body.getBoundingClientRect().width < 769 ? 'column' : 'row'
+
+    const alignItemsCardListDoctor = document.body.getBoundingClientRect().width < 769 ? 'center' : 'start'
+
     function toPageDetailDoctor(e) {
         history.push(`/doctor/${e.path}`)
         updateParams(`/doctor/${e.path}`)
@@ -79,7 +87,7 @@ function CarouselMain({ data, mouseEnter, mouseLeave, dataTestimoni, iconQuotes,
                                 return (
                                     <>
                                         <SplideSlide>
-                                            <img key={e._id} name={i} src={`${Endpoint}/images/${e.img}`} alt="banner home" width="1519" height="608" className="img-carousel-main" />
+                                            <img key={e._id} name={i} src={`${Endpoint}/images/${e.img || e.image}`} alt="banner home" width="1519" height="608" className="img-carousel-main" />
                                         </SplideSlide>
                                     </>
                                 )
@@ -136,7 +144,12 @@ function CarouselMain({ data, mouseEnter, mouseLeave, dataTestimoni, iconQuotes,
                                             key={e._id}
                                             widthCard="100%"
                                             displayReadMore="none"
-                                            flexDirection="row"
+                                            flexDirection={flexDirectionCardListDoctor}
+                                            alignItemsWrapp={alignItemsCardListDoctor}
+                                            textAlignTitleContent={alignItemsCardListDoctor}
+                                            textAlignDatekonten={alignItemsCardListDoctor}
+                                            justifyContentDateKonten={alignItemsCardListDoctor}
+                                            justifyContentTitleContent={alignItemsCardListDoctor}
                                             displayIcon="none"
                                             heightImg="80px"
                                             heightCardImg="213"
@@ -145,8 +158,8 @@ function CarouselMain({ data, mouseEnter, mouseLeave, dataTestimoni, iconQuotes,
                                             paddingCard="0"
                                             fontFamilyTitle="Mulish, sans-serif"
                                             fontTitle="16px"
-                                            marginImg="0 10px 0 0"
-                                            marginCard="0px 0px 0px 45px"
+                                            marginImg={marginImgCardListDoctor}
+                                            marginCard={marginCardListDoctor}
                                             img={`${Endpoint}/images/${e.image}`}
                                             title={e.name}
                                             date={e.speciality}

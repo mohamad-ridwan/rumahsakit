@@ -109,6 +109,24 @@ function OnlineReservation() {
             })
     }
 
+    function changeElementInputFormRv(condition) {
+        if (condition) {
+            const getTanggalKunjungan = document.getElementById('tanggal-kunjungan')
+            return getTanggalKunjungan.setAttribute('readonly', 'readonly')
+        } else {
+            const getTanggalKunjungan = document.getElementById('tanggal-kunjungan')
+            return getTanggalKunjungan.removeAttribute('readonly', 'readonly')
+        }
+    }
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+        setAllAPI();
+        activeNavbar();
+        setIndexActive();
+        changeElementInputFormRv(true);
+    }, [])
+
     const styleGroupAnswer = {
         display: nameBtnPilihDoctor !== 'Pilih Dokter' ? 'flex' : 'none'
     }
@@ -120,13 +138,6 @@ function OnlineReservation() {
     const styleIconCheck = {
         display: agreeSubmit ? 'flex' : 'none'
     }
-
-    useEffect(() => {
-        window.scrollTo(0, 0)
-        setAllAPI();
-        activeNavbar();
-        setIndexActive()
-    }, [])
 
     function inputDataPribadi(e) {
         setValue({
@@ -426,8 +437,11 @@ function OnlineReservation() {
         setNameBtnSpesialisDoctor(data)
         setValue({
             ...value,
-            spesialisDokter: data
+            spesialisDokter: data,
+            jadwalDokter: ''
         })
+
+        changeElementInputFormRv(true);
 
         setTimeout(() => {
             if (nameBtnPilihDoctor !== 'Pilih Dokter') {
@@ -505,9 +519,12 @@ function OnlineReservation() {
 
         setValue({
             ...value,
-            namaDokter: data
+            namaDokter: data,
+            jadwalDokter: ''
         })
         setNameBtnPilihDoctor(data)
+
+        changeElementInputFormRv(true);
     }
 
     function answerJadwalPraktek(e, i) {
@@ -525,7 +542,14 @@ function OnlineReservation() {
 
         elementJadwalPraktek[i].style.backgroundColor = '#b04579'
         elementJadwalPraktek[i].style.border = '1px solid #b04579'
+
+        changeElementInputFormRv(false);
     }
+
+    const widthBody = document.body.getBoundingClientRect().width
+    const minimizeValue = Math.floor(widthBody)
+
+    const topSuccessMessage = minimizeValue < 769 ? '110px' : '170px'
 
     return (
         <>
@@ -541,7 +565,7 @@ function OnlineReservation() {
 
             <div className="wrapp-online-reservation">
                 <ModalSuccess
-                    marginTop={successMessage.length > 0 ? '170px' : '-170px'}
+                    marginTop={successMessage.length > 0 ? topSuccessMessage : '-170px'}
                     bgColor={successMessage.toLocaleLowerCase().includes('berhasil') ? '#08a808' : '#d30c0c'}
                     message={successMessage.length > 0 ? successMessage : ''}
                 />
@@ -570,6 +594,7 @@ function OnlineReservation() {
                         <Input
                             label="Nomor Telepon"
                             nameInput="nomorTelepon"
+                            typeInput="tel"
                             value={value.nomorTelepon}
                             handleChange={inputDataPribadi}
                             errorMessage={errForm && errForm.nomorTelepon}
@@ -587,6 +612,7 @@ function OnlineReservation() {
                         <Input
                             label="Email"
                             nameInput="email"
+                            typeInput="email"
                             value={value.email}
                             handleChange={inputDataPribadi}
                             errorMessage={errForm && errForm.email}
@@ -719,6 +745,8 @@ function OnlineReservation() {
                             nameInput="tanggalKunjungan"
                             value={value.tanggalKunjungan}
                             handleChange={inputDataPribadi}
+                            cursorInputForm={value.jadwalDokter.length > 1 ? 'text' : 'not-allowed'}
+                            idInputForm="tanggal-kunjungan"
                         />
 
                         <label htmlFor="label" className="label-form-online-rv">

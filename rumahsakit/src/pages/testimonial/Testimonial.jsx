@@ -18,8 +18,8 @@ function Testimonial() {
     const [dataHeader, setDataHeader] = useState({})
     const [dataTestimonial, setDataTestimonial] = useState([])
     const [loading, setLoading] = useState(false)
-    const [indexData, setIndexData] = useState(3)
-    const [totalData, setTotalData] = useState(0)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [perPage, setPerPage] = useState(3)
 
     const history = useHistory();
 
@@ -33,37 +33,11 @@ function Testimonial() {
                 setDataHeader(getData[0])
             })
 
-        getTestimonial(3);
-    }
-
-    function getTestimonial(index) {
-        setLoading(true)
-
-        let totalIndex = index
-
-        setTimeout(() => {
-            API.APIGetTestimonial()
-                .then(res => {
-                    setLoading(false)
-                    const respons = res.data
-                    setTotalData(respons.length)
-
-                    let newData = []
-                    if (respons.length > 0) {
-                        for (let i = 0; i < totalIndex; i++) {
-                            newData.push(respons[i])
-                        }
-
-                        setTimeout(() => {
-                            setDataTestimonial(newData)
-                        }, 0);
-                    }
-                })
-                .catch(err => {
-                    setLoading(false)
-                    console.log(err)
-                })
-        }, 0);
+        API.APIGetTestimonial()
+            .then(res => {
+                setLoading(false)
+                setDataTestimonial(res.data)
+            })
     }
 
     useEffect(() => {
@@ -71,30 +45,18 @@ function Testimonial() {
         activeNavbar();
     }, [])
 
+    const indexOfLastPage = currentPage * perPage;
+    const indexOfFirstPage = indexOfLastPage - perPage;
+    const currentList = dataTestimonial.slice(indexOfFirstPage, indexOfLastPage)
+
     function toPageHome() {
         history.push('/')
         updateParams('/')
     }
 
     function loadMore() {
-        let changeIndex = 3
-
-        if (indexData < totalData) {
-            setIndexData(indexData + 3)
-            changeIndex = changeIndex + 3
-
-            setTimeout(() => {
-                if (totalData >= changeIndex) {
-                    getTestimonial(changeIndex);
-                }
-            }, 0);
-        } else {
-            setIndexData(indexData - 3)
-
-            setTimeout(() => {
-                getTestimonial(indexData - 3);
-            }, 0);
-
+        if (perPage < dataTestimonial.length) {
+            setPerPage(perPage + 3)
         }
     }
 
@@ -121,8 +83,8 @@ function Testimonial() {
                 />
 
                 <div className="konten-testimonial">
-                    {dataTestimonial && dataTestimonial.length > 0 ?
-                        dataTestimonial.map((e) => {
+                    {currentList && currentList.length > 0 ?
+                        currentList.map((e) => {
                             return (
                                 <CardTestimonial
                                     key={e._id}
@@ -139,7 +101,8 @@ function Testimonial() {
 
                     <div className="column-bawah-konten-testimonial">
                         <ButtonCard
-                            title={indexData < totalData ? 'LOAD MORE' : 'LESS'}
+                            displayBtn={perPage === dataTestimonial.length || perPage > dataTestimonial.length ? 'none' : 'flex'}
+                            title="LOAD MORE"
                             nameClassBtn="btn-card-two"
                             clickBtn={loadMore}
                         />

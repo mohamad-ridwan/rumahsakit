@@ -1,5 +1,11 @@
 @import '../../utils/variable.scss';
 
+@mixin mobile {
+    @media (max-width: $mobile) {
+        @content;
+    }
+}
+
 .wrapp-carousel-main{
     display: flex;
     position: relative;
@@ -32,8 +38,6 @@
             max-width: 100%;
             object-fit: cover;
             object-position: center;
-            animation: opacity 0.3s ease-in-out forwards;
-            opacity: 0.3;
         }
     }
 
@@ -49,8 +53,6 @@
             height: auto;
             width: 100%;
             padding: 20px 30px 0 30px;
-            animation: opacity 0.3s ease-in-out forwards;
-            opacity: 0.3;
     
             .img-icon-quotes-carousel{
                 display: flex;
@@ -65,6 +67,10 @@
                 font-size: 14px;
                 color: $color3;
                 text-align: start;
+
+                @include mobile(){
+                    font-size: $font3;
+                }
             }
     
             .column-profil-konten-carousel-main{
@@ -99,6 +105,11 @@
                         font-style: italic;
                         color: $color3;
                         margin: 10px 0;
+
+                        @include mobile(){
+                            font-size: 13px;
+                            text-align: start;
+                        }
                     }
     
                     .border-label-carousel{
@@ -116,11 +127,5 @@
         display: none;
         height: auto;
         width: 100%;
-    }
-}
-
-@keyframes opacity{
-    to{
-        opacity: 1;
     }
 }

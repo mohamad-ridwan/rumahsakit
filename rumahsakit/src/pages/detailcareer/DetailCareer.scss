@@ -67,6 +67,7 @@
                 line-height: $lineHeight;
                 cursor: pointer;
                 margin-left: 5px;
+                text-decoration: none;
                 &:hover{
                     text-decoration: 1px solid $color1;
                 }

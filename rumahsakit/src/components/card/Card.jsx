@@ -1,10 +1,10 @@
 import React from 'react'
 import './Card.scss'
 
-function Card({ img, title, date, deskripsi, widthCard, paddingCard, marginCard, heightImg, clickToPage, widthCardImg, heightCardImg, displayReadMore, displayIcon, flexDirection, marginImg, fontTitle, fontFamilyTitle, radiusImg }) {
+function Card({ img, title, date, deskripsi, widthCard, paddingCard, marginCard, heightImg, clickToPage, widthCardImg, heightCardImg, displayReadMore, displayIcon, flexDirection, marginImg, fontTitle, fontFamilyTitle, radiusImg, displayBtnDownload, iconPdf, linkDownloadPdf, displayImg, fontStyle, nameBtnReadMore, alignItemsWrapp, textAlignTitleContent, textAlignDatekonten, justifyContentDateKonten, justifyContentTitleContent }) {
 
     const RenderHTML = (props) => (
-        <span dangerouslySetInnerHTML={{ __html: props.deskripsi }}></span>
+        <span className="render-deskripsi-card" dangerouslySetInnerHTML={{ __html: props.deskripsi }}></span>
     )
 
     return (
@@ -13,12 +13,14 @@ function Card({ img, title, date, deskripsi, widthCard, paddingCard, marginCard,
                 width: `${widthCard}`,
                 padding: `${paddingCard}`,
                 margin: `${marginCard}`,
-                flexDirection: `${flexDirection}`
+                flexDirection: `${flexDirection}`,
+                alignItems: alignItemsWrapp
             }}>
                 <img src={img} width={widthCardImg} height={heightCardImg} className="img-card" style={{
                     height: `${heightImg}`,
                     margin: `${marginImg}`,
-                    borderRadius: `${radiusImg}`
+                    borderRadius: `${radiusImg}`,
+                    display: `${displayImg}`
                 }}
                     onClick={clickToPage}
                 />
@@ -26,13 +28,19 @@ function Card({ img, title, date, deskripsi, widthCard, paddingCard, marginCard,
                 <div className="container-konten-card">
                     <p className="title-konten" style={{
                         fontSize: `${fontTitle}`,
-                        fontFamily: `${fontFamilyTitle}`
+                        fontFamily: `${fontFamilyTitle}`,
+                        fontStyle: `${fontStyle}`,
+                        textAlign: textAlignTitleContent,
+                        justifyContent: justifyContentTitleContent
                     }}
                         onClick={clickToPage}
                     >
                         {title}
                     </p>
-                    <p className="date-konten">
+                    <p className="date-konten" style={{
+                        textAlign: textAlignDatekonten,
+                        justifyContent: justifyContentDateKonten
+                    }}>
                         <i className="far fa-calendar-alt" style={{
                             display: `${displayIcon}`
                         }}></i> {date}
@@ -41,12 +49,20 @@ function Card({ img, title, date, deskripsi, widthCard, paddingCard, marginCard,
                         <RenderHTML deskripsi={deskripsi} />
                     </p>
 
+                    <a href={linkDownloadPdf} target="_blank" className="download-pdf" style={{
+                        display: `${displayBtnDownload}`
+                    }}
+                    >
+                        <img src={iconPdf} alt="" className="icon-pdf" />
+                        View
+                    </a>
+
                     <button className="btn-read-more" style={{
                         display: `${displayReadMore}`
                     }}
                         onClick={clickToPage}
                     >
-                        Read more
+                        {nameBtnReadMore}
                     </button>
                 </div>
             </div>

@@ -71,7 +71,12 @@
                 color: $color1;
                 align-items: center;
                 margin-top: 15px;
-                cursor: default;
+                cursor: pointer;
+                text-decoration: none;
+                transition: 0.3s ease-in-out;
+                &:hover{
+                    color: $color3;
+                }
 
                 i{
                     display: flex;

@@ -12,6 +12,8 @@
     .main-konten-career{
         display: flex;
         flex-direction: column;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #ddd;
 
         .title-konten-career{
             display: flex;
@@ -67,6 +69,7 @@
                 line-height: $lineHeight;
                 cursor: pointer;
                 margin-left: 5px;
+                text-decoration: none;
                 &:hover{
                     text-decoration: 1px solid $color1;
                 }

@@ -19,11 +19,13 @@ function ContactUs() {
 
     const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar] = useContext(PathContext)
     const [dataHeader, setDataHeader] = useState({})
+    const [dataContactRS, setDataContactRS] = useState({})
     const [errForm, setErrForm] = useState({})
     const [loading, setLoading] = useState(false)
     const [loadingSubmit, setLoadingSubmit] = useState(false)
     const [successMessage, setSuccessMessage] = useState('')
     const [valueContact, setValueContact] = useState({
+        id: 'data-user',
         nama: '',
         emailAddress: '',
         phoneNumber: '',
@@ -54,6 +56,12 @@ function ContactUs() {
                 setLoading(false)
                 const getData = res.data.filter((e) => e.path.includes(location))
                 setDataHeader(getData[0])
+            })
+
+        API.APIGetContactUs()
+            .then(res => {
+                const getContactRS = res.data.filter((e) => e.id === 'data-contact-rs')
+                setDataContactRS(getContactRS[0])
             })
 
         initMap();
@@ -281,17 +289,17 @@ function ContactUs() {
                             RS Permata Depok
                         </p>
 
-                        <p className="txt-icon-contact-us">
+                        <a href={`tel:${dataContactRS && dataContactRS.noTelpRS}`} className="txt-icon-contact-us">
                             <i className="fas fa-phone">
                             </i>
-                            +62813-8395-9452
-                        </p>
+                            {dataContactRS && dataContactRS.noTelpRS}
+                        </a>
 
-                        <p className="txt-icon-contact-us">
+                        <a href={`mailto:${dataContactRS && dataContactRS.emailRS}`} className="txt-icon-contact-us">
                             <i className="fas fa-envelope">
                             </i>
-                            marketingrspermatadepok@gmail.com
-                        </p>
+                            {dataContactRS && dataContactRS.emailRS}
+                        </a>
                     </div>
                 </div>
 
