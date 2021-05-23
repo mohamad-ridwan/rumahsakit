@@ -32,6 +32,7 @@ function ContactUs() {
         company: '',
         message: ''
     })
+
     const [sendGmail, setSendGmail] = useState({
         from_name: '',
         to_name: '',
@@ -193,6 +194,11 @@ function ContactUs() {
         updateParams('/')
     }
 
+    const widthBody = document.body.getBoundingClientRect().width
+    const minimizeValue = Math.floor(widthBody)
+
+    const topSuccessMessage = minimizeValue < 767 ? '110px' : '170px'
+
     return (
         <>
             <HelmetCard
@@ -207,7 +213,7 @@ function ContactUs() {
 
             <div className="wrapp-contact-us">
                 <ModalSuccess
-                    marginTop={successMessage.length > 0 ? '170px' : '-170px'}
+                    marginTop={successMessage.length > 0 ? topSuccessMessage : '-170px'}
                     bgColor={successMessage.toLocaleLowerCase().includes('berhasil') ? '#08a808' : '#d30c0c'}
                     message={successMessage.length > 0 ? successMessage : ''}
                 />
