@@ -586,6 +586,7 @@ function OnlineReservation() {
                             title="Data Pribadi"
                             label="Nama"
                             nameInput="nama"
+                            typeInput="text"
                             value={value.nama}
                             handleChange={inputDataPribadi}
                             errorMessage={errForm && errForm.nama}
@@ -604,6 +605,7 @@ function OnlineReservation() {
                             label="Tanggal Lahir"
                             placeholder="Tanggal/Bulan/Tahun"
                             nameInput="tanggalLahir"
+                            typeInput="text"
                             value={value.tanggalLahir}
                             handleChange={inputDataPribadi}
                             errorMessage={errForm && errForm.tanggalLahir}
@@ -645,6 +647,7 @@ function OnlineReservation() {
                             displayBintangWajib="none"
                             label="Nomor Rekam Medis"
                             nameInput="nomorRekamMedis"
+                            typeInput="text"
                             value={value.nomorRekamMedis}
                             handleChange={inputDataPribadi}
                         />
@@ -743,6 +746,7 @@ function OnlineReservation() {
                             placeholder="Tanggal/Bulan/Tahun"
                             errorMessage={errForm && errForm.tanggalKunjungan}
                             nameInput="tanggalKunjungan"
+                            typeInput="text"
                             value={value.tanggalKunjungan}
                             handleChange={inputDataPribadi}
                             cursorInputForm={value.jadwalDokter.length > 1 ? 'text' : 'not-allowed'}

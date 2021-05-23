@@ -199,8 +199,6 @@ function ContactUs() {
 
     const topSuccessMessage = minimizeValue < 767 ? '110px' : '170px'
 
-    // jangkrik
-
     return (
         <>
             <HelmetCard
@@ -241,6 +239,7 @@ function ContactUs() {
                                     displayTitle="none"
                                     label="Nama"
                                     nameInput="nama"
+                                    typeInput="text"
                                     value={valueContact.nama}
                                     handleChange={inputValue}
                                     errorMessage={errForm && errForm.nama}
@@ -251,6 +250,7 @@ function ContactUs() {
                                     label="Phone Number"
                                     nameInput="phoneNumber"
                                     displayBintangWajib="none"
+                                    typeInput="tel"
                                     value={valueContact.phoneNumber}
                                     handleChange={inputValue}
                                 />
@@ -261,6 +261,7 @@ function ContactUs() {
                                     displayTitle="none"
                                     label="Email Address"
                                     nameInput="emailAddress"
+                                    typeInput="email"
                                     value={valueContact.emailAddress}
                                     handleChange={inputValue}
                                     errorMessage={errForm && errForm.emailAddress}
