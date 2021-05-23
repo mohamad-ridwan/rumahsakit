@@ -1,5 +1,11 @@
 @import '../../utils/variable.scss';
 
+@mixin mobile {
+    @media (max-width: $mobile) {
+        @content;
+    }
+}
+
 .wrapp-find-a-doctor{
     display: flex;
     flex-direction: column;
@@ -8,6 +14,10 @@
     padding: 50px 20%;
     background-size: cover;
     background-image: $color4;
+
+    @include mobile(){
+        padding: 50px 10px;
+    }
 
     .img-main-konten-find-doctor{
         display: flex;
@@ -29,6 +39,11 @@
             font-family: "Crimson Text",serif;
             margin-bottom: 40px;
             line-height: $lineHeight2;
+            text-align: start;
+
+            @include mobile(){
+                font-size: 20px;
+            }
         }
 
         .deskripsi-find-doctor{
@@ -37,6 +52,10 @@
             color: $color3;
             text-align: start;
             line-height: $lineHeight;
+
+            @include mobile(){
+                font-size: $font3;
+            }
         }
 
         .box-pink-search-find-doctor{
@@ -50,15 +69,29 @@
             background-color: $color10;
             border-radius: 5px;
 
+            @include mobile(){
+                padding: 20px;
+            }
+
             .container-input-find-doctor{
                 display: flex;
                 width: 100%;
+
+                @include mobile(){
+                    flex-direction: column;
+                }
 
                 .column-input-find-doctor{
                     display: flex;
                     height: auto;
                     width: calc(100%/3);
                     margin-right: 20px;
+
+                    @include mobile(){
+                        width: 100%;
+                        margin-right: 0;
+                        margin-bottom: 10px;
+                    }
                 }
             }
 
@@ -77,6 +110,10 @@
                 transition: .3s ease-in-out;
                 &:hover{
                     color: $color3;
+                }
+
+                @include mobile(){
+                    font-size: 17px;
                 }
 
                 i{
@@ -162,6 +199,11 @@
             margin-top: 40px;
             padding-top: 40px;
 
+            @include mobile(){
+                flex-wrap: nowrap;
+                flex-direction: column;
+            }
+
             .doctors-found{
                 display: flex;
                 position: absolute;
@@ -169,6 +211,15 @@
                 right: 0;
                 font-size: 14px;
                 color: $color2;
+            }
+
+            .column-card-find-a-doctor{
+                display: flex;
+                width: calc(100%/3);
+
+                @include mobile(){
+                    width: 100%;
+                }
             }
         }
     }

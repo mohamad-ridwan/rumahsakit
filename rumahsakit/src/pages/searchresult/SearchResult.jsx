@@ -122,6 +122,13 @@ function SearchResult() {
         setTitleMenuFaq(title)
     }
 
+    const widthBody = document.body.getBoundingClientRect().width
+    const minimizeValue = Math.floor(widthBody)
+
+    // Article
+    const heightCardImgArticle = minimizeValue < 767 ? 'auto' : '213px'
+    const widthCardImgArticle = minimizeValue < 767 ? 'auto' : '425'
+
     return (
         <>
             <HelmetCard
@@ -196,21 +203,23 @@ function SearchResult() {
 
                                     return (
                                         <>
-                                            <Card
-                                                key={e._id}
-                                                widthCard="calc(90%/2)"
-                                                heightImg="213px"
-                                                heightCardImg="213"
-                                                widthCardImg="425"
-                                                paddingCard="0"
-                                                marginCard="0 0 40px 0"
-                                                nameBtnReadMore="Read More"
-                                                img={`${Endpoint}/images/${e.image}`}
-                                                title={e.title}
-                                                date={e.date}
-                                                deskripsi={removeTagHTML}
-                                                clickToPage={() => toPage(`/articles/read/${e.path}`)}
-                                            />
+                                            <div className="column-card-article-search-result">
+                                                <Card
+                                                    key={e._id}
+                                                    widthCard="100%"
+                                                    heightImg={heightCardImgArticle}
+                                                    heightCardImg="213"
+                                                    widthCardImg={widthCardImgArticle}
+                                                    paddingCard="0"
+                                                    marginCard="0 0 40px 0"
+                                                    nameBtnReadMore="Read More"
+                                                    img={`${Endpoint}/images/${e.image}`}
+                                                    title={e.title}
+                                                    date={e.date}
+                                                    deskripsi={removeTagHTML}
+                                                    clickToPage={() => toPage(`/articles/read/${e.path}`)}
+                                                />
+                                            </div>
                                         </>
                                     )
                                 })}
@@ -230,25 +239,27 @@ function SearchResult() {
                                 {searchPublication.map((e) => {
                                     return (
                                         <>
-                                            <Card
-                                                key={e._id}
-                                                widthCard="calc(90%/2)"
-                                                flexDirection="row"
-                                                heightImg="180px"
-                                                heightCardImg="180"
-                                                widthCardImg="120"
-                                                paddingCard="0"
-                                                displayReadMore="none"
-                                                marginImg="0 20px 0 0"
-                                                marginCard="0 0 40px 0"
-                                                displayBtnDownload="flex"
-                                                img={`${Endpoint}/images/${e.image}`}
-                                                title={e.title}
-                                                date={e.date}
-                                                deskripsi={e.deskripsi}
-                                                iconPdf={`${Endpoint}/images/${e.icon}`}
-                                                linkDownloadPdf={e.link}
-                                            />
+                                            <div className="column-card-publication-search-result">
+                                                <Card
+                                                    key={e._id}
+                                                    widthCard="100%"
+                                                    flexDirection="row"
+                                                    heightImg="180px"
+                                                    heightCardImg="180"
+                                                    widthCardImg="120"
+                                                    paddingCard="0"
+                                                    displayReadMore="none"
+                                                    marginImg="0 20px 0 0"
+                                                    marginCard="0 0 40px 0"
+                                                    displayBtnDownload="flex"
+                                                    img={`${Endpoint}/images/${e.image}`}
+                                                    title={e.title}
+                                                    date={e.date}
+                                                    deskripsi={e.deskripsi}
+                                                    iconPdf={`${Endpoint}/images/${e.icon}`}
+                                                    linkDownloadPdf={e.link}
+                                                />
+                                            </div>
                                         </>
                                     )
                                 })}
@@ -268,26 +279,28 @@ function SearchResult() {
                                 {searchDoctor.map((e) => {
                                     return (
                                         <>
-                                            <Card
-                                                key={e._id}
-                                                widthCard="calc(100%/3)"
-                                                displayReadMore="none"
-                                                flexDirection="row"
-                                                displayIcon="none"
-                                                heightImg="80px"
-                                                heightCardImg="213"
-                                                widthCardImg="80"
-                                                radiusImg="0"
-                                                paddingCard="0"
-                                                fontFamilyTitle="Mulish, sans-serif"
-                                                fontTitle="16px"
-                                                marginImg="0 10px 0 0"
-                                                marginCard="0px 0px 40px 0"
-                                                img={`${Endpoint}/images/${e.image}`}
-                                                title={e.name}
-                                                date={e.speciality}
-                                                clickToPage={() => toPage(`/doctor/${e.path}`)}
-                                            />
+                                            <div className="column-card-doctor-search-result">
+                                                <Card
+                                                    key={e._id}
+                                                    widthCard="100%"
+                                                    displayReadMore="none"
+                                                    flexDirection="row"
+                                                    displayIcon="none"
+                                                    heightImg="80px"
+                                                    heightCardImg="213"
+                                                    widthCardImg="80"
+                                                    radiusImg="0"
+                                                    paddingCard="0"
+                                                    fontFamilyTitle="Mulish, sans-serif"
+                                                    fontTitle="16px"
+                                                    marginImg="0 10px 0 0"
+                                                    marginCard="0px 0px 40px 0"
+                                                    img={`${Endpoint}/images/${e.image}`}
+                                                    title={e.name}
+                                                    date={e.speciality}
+                                                    clickToPage={() => toPage(`/doctor/${e.path}`)}
+                                                />
+                                            </div>
                                         </>
                                     )
                                 })}
@@ -307,22 +320,24 @@ function SearchResult() {
                                 {searchLayananAndFasilitas.map((e) => {
                                     return (
                                         <>
-                                            <Card
-                                                key={e._id}
-                                                widthCard="calc(90%/2)"
-                                                flexDirection="row"
-                                                displayIcon="none"
-                                                radiusImg="0"
-                                                paddingCard="0"
-                                                fontStyle="italic"
-                                                marginImg="0 10px 0 0"
-                                                marginCard="0px 0px 40px 0"
-                                                displayImg="none"
-                                                nameBtnReadMore="Read More"
-                                                title={e.title}
-                                                deskripsi={e.konten}
-                                                clickToPage={() => toPage(`/our-hospital/content/${e.path}`)}
-                                            />
+                                            <div className="column-card-layanan-fasilitas-search-result">
+                                                <Card
+                                                    key={e._id}
+                                                    widthCard="100%"
+                                                    flexDirection="row"
+                                                    displayIcon="none"
+                                                    radiusImg="0"
+                                                    paddingCard="0"
+                                                    fontStyle="italic"
+                                                    marginImg="0 10px 0 0"
+                                                    marginCard="0px 0px 40px 0"
+                                                    displayImg="none"
+                                                    nameBtnReadMore="Read More"
+                                                    title={e.title}
+                                                    deskripsi={e.konten}
+                                                    clickToPage={() => toPage(`/our-hospital/content/${e.path}`)}
+                                                />
+                                            </div>
                                         </>
                                     )
                                 })}
@@ -342,21 +357,23 @@ function SearchResult() {
                                 {searchPromo.map((e) => {
                                     return (
                                         <>
-                                            <Card
-                                                key={e._id}
-                                                widthCard="calc(90%/2)"
-                                                heightImg="213px"
-                                                heightCardImg="213"
-                                                widthCardImg="425"
-                                                paddingCard="0"
-                                                marginCard="0 0 40px 0"
-                                                nameBtnReadMore="Read More"
-                                                img={`${Endpoint}/images/${e.image}`}
-                                                title={e.title}
-                                                date={e.date}
-                                                deskripsi={e.deskripsi}
-                                                clickToPage={() => toPage(`/promo/details/${e.path}`)}
-                                            />
+                                            <div className="column-card-promo-search-result">
+                                                <Card
+                                                    key={e._id}
+                                                    widthCard="100%"
+                                                    heightImg={heightCardImgArticle}
+                                                    heightCardImg="213"
+                                                    widthCardImg={widthCardImgArticle}
+                                                    paddingCard="0"
+                                                    marginCard="0 0 40px 0"
+                                                    nameBtnReadMore="Read More"
+                                                    img={`${Endpoint}/images/${e.image}`}
+                                                    title={e.title}
+                                                    date={e.date}
+                                                    deskripsi={e.deskripsi}
+                                                    clickToPage={() => toPage(`/promo/details/${e.path}`)}
+                                                />
+                                            </div>
                                         </>
                                     )
                                 })}
@@ -376,20 +393,22 @@ function SearchResult() {
                                 {searchCareer.map((e) => {
                                     return (
                                         <>
-                                            <Card
-                                                key={e._id}
-                                                widthCard="calc(90%/2)"
-                                                displayImg="none"
-                                                paddingCard="0"
-                                                fontTitle="18px"
-                                                marginCard="0 0 40px 0"
-                                                fontFamilyTitle="Mulish, sans-serif"
-                                                nameBtnReadMore="View Detail"
-                                                title={e.titleBidang}
-                                                date={e.dateLamaran}
-                                                deskripsi={e.deskripsi}
-                                                clickToPage={() => toPage(`/career/details/${e.path}`)}
-                                            />
+                                            <div className="column-card-career-search-result">
+                                                <Card
+                                                    key={e._id}
+                                                    widthCard="100%"
+                                                    displayImg="none"
+                                                    paddingCard="0"
+                                                    fontTitle="18px"
+                                                    marginCard="0 0 40px 0"
+                                                    fontFamilyTitle="Mulish, sans-serif"
+                                                    nameBtnReadMore="View Detail"
+                                                    title={e.titleBidang}
+                                                    date={e.dateLamaran}
+                                                    deskripsi={e.deskripsi}
+                                                    clickToPage={() => toPage(`/career/details/${e.path}`)}
+                                                />
+                                            </div>
                                         </>
                                     )
                                 })}

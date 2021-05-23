@@ -1,5 +1,11 @@
 @import '../../utils/variable.scss';
 
+@mixin mobile {
+    @media (max-width: $mobile) {
+        @content;
+    }
+}
+
 .wrapp-card-testimonial{
     display: flex;
     flex-direction: column;
@@ -21,12 +27,20 @@
         background-position: center;
         border-radius: 6px;
 
+        @include mobile(){
+            min-height: 0;
+        }
+
         .column-deskripsi-konten{
             display: flex;
             flex-direction: column;
             height: auto;
             width: auto;
             padding: 60px 108px;
+
+            @include mobile(){
+                padding: 40px;
+            }
 
             i{
                 display: flex;
@@ -43,6 +57,10 @@
                 z-index: 11;
                 line-height: $lineHeight;
                 margin-top: 20px;
+
+                @include mobile(){
+                    font-size: $font3
+                }
             }
         }
 
@@ -66,6 +84,10 @@
         font-weight: 500;
         justify-content: center;
         text-align: center;
+
+        @include mobile(){
+            font-size: 17px;
+        }
     }
 
     .title-profil-card-testimonial{
@@ -77,6 +99,10 @@
         justify-content: center;
         align-items: center;
         margin-top: 10px;
+
+        @include mobile(){
+            font-size: $font3;
+        }
 
         .border-label{
             display: flex;

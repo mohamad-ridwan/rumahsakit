@@ -1,5 +1,11 @@
 @import '../../utils/variable.scss';
 
+@mixin mobile {
+    @media (max-width: $mobile) {
+        @content;
+    }
+}
+
 .wrapp-disclaimer{
     display: flex;
     flex-direction: column;
@@ -9,11 +15,19 @@
     background-image: $color4;
     background-size: cover;
 
+    @include mobile(){
+        padding: 50px 10px;
+    }
+
     .konten-disclaimer{
         display: flex;
         font-size: 14px;
         color: $color3;
         text-align: justify;
         line-height: $lineHeight;
+
+        @include mobile(){
+            font-size: $font3;
+        }
     }
 }

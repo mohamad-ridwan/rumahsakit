@@ -96,6 +96,10 @@
                     font-family: "Crimson Text",serif;
                     font-weight: normal;
                     text-align: start;
+
+                    @include mobile(){
+                        font-size: 17px;
+                    }
                 }
 
                 i{
@@ -119,6 +123,10 @@
                     font-size: 14px;
                     justify-content: center;
                     line-height: $lineHeight;
+
+                    @include mobile(){
+                        font-size: $font3;
+                    }
                 }
 
                 small{

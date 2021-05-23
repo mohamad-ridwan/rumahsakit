@@ -1,5 +1,11 @@
 @import '../../utils/variable.scss';
 
+@mixin mobile {
+    @media (max-width: $mobile) {
+        @content;
+    }
+}
+
 .wrapp-publication{
     display: flex;
     flex-direction: column;
@@ -8,12 +14,27 @@
     padding: 50px 20%;
     background-image: $color4;
 
+    @include mobile(){
+        padding: 50px 10px;
+    }
+
     .konten-publication{
         display: flex;
         flex-wrap: wrap;
         height: auto;
         width: 100%;
         justify-content: space-between;
+
+        .column-card-publication{
+            display: flex;
+            width: calc(90%/2);
+
+            @include mobile(){
+                flex-wrap: nowrap;
+                flex-direction: column;
+                width: 100%;
+            }
+        }
     }
 
     .column-btn-publication{

@@ -1,5 +1,11 @@
 @import '../../utils/variable.scss';
 
+@mixin mobile {
+    @media (max-width: $mobile) {
+        @content;
+    }
+}
+
 .wrapp-detail-career{
     display: flex;
     flex-direction: column;
@@ -8,6 +14,10 @@
     padding: 50px 20%;
     background-size: cover;
     background-image: $color4;
+
+    @include mobile(){
+        padding: 50px 10px;
+    }
 
     .main-konten-detail-career{
         display: flex;
@@ -20,6 +30,11 @@
             font-family: "Crimson Text",serif;
             margin-bottom: 50px;
             line-height: $lineHeight;
+            text-align: start;
+
+            @include mobile(){
+                font-size: 20px;
+            }
         }
     
         .main-deskripsi-detail-career{
@@ -28,6 +43,10 @@
             color: $color3;
             text-align: start;
             line-height: $lineHeight;
+
+            @include mobile(){
+                font-size: $font3;
+            }
         }
     
         .title-name-rs-detail-career{
@@ -37,6 +56,11 @@
             font-weight: bold;
             margin: 10px 0 20px 0;
             line-height: $lineHeight;
+            text-align: start;
+
+            @include mobile(){
+                font-size: 17px;
+            }
         }
     
         .hrd-rs-detail-career{
@@ -45,6 +69,11 @@
             color: $color3;
             line-height: $lineHeight;
             font-weight: bold;
+            text-align: start;
+
+            @include mobile(){
+                font-size: $font3;
+            }
         }
     
         .address-detail-career{
@@ -53,15 +82,24 @@
             color: $color3;
             line-height: $lineHeight;
             margin: 10px 0;
+            text-align: start;
+
+            @include mobile(){
+                font-size: $font3;
+            }
         }
     
         .email-detail-career{
-            display: flex;
             font-size: 14px;
             color: $color3;
             line-height: $lineHeight;
+            text-align: start;
+
+            @include mobile(){
+                font-size: $font3;
+            }
+
             .konten-email-detail-career{
-                display: flex;
                 font-size: 14px;
                 color: $color1;
                 line-height: $lineHeight;
@@ -70,6 +108,10 @@
                 text-decoration: none;
                 &:hover{
                     text-decoration: 1px solid $color1;
+                }
+
+                @include mobile(){
+                    font-size: $font3;
                 }
             }
         }
@@ -91,11 +133,20 @@
                 background-color: transparent;
                 border: 1px solid $color3;
 
+                @include mobile(){
+                    width: 100%;
+                }
+
                 .title-bidang-detail-career{
                     display: flex;
                     font-size: 18px;
                     color: $color1;
                     line-height: $lineHeight;
+                    text-align: start;
+
+                    @include mobile(){
+                        font-size: 17px;
+                    }
                 }
 
                 .container-date-detail-career{
@@ -115,6 +166,10 @@
                         color: $color3;
                         line-height: $lineHeight;
                         margin-right: 15px;
+
+                        @include mobile(){
+                            font-size: $font3;
+                        }
                     }
                 }
 
@@ -123,6 +178,11 @@
                     font-size: 14px;
                     color: $color1;
                     margin-top: 50px;
+
+                    @include mobile(){
+                        font-size: $font3;
+                        margin-top: 30px;
+                    }
                 }
 
                 .deskripsi-job-detail-career{
@@ -132,6 +192,10 @@
                     color: $color3;
                     line-height: $lineHeight;
                     margin: 30px 0 30px 0;
+
+                    @include mobile(){
+                        font-size: $font3;
+                    }
                 }
             }
         }   

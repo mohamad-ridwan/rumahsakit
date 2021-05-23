@@ -1,5 +1,11 @@
 @import '../../utils/variable.scss';
 
+@mixin mobile {
+    @media (max-width: $mobile) {
+        @content;
+    }
+}
+
 .wrapp-search-result{
     display: flex;
     flex-direction: column;
@@ -7,6 +13,10 @@
     width: 100%;
     padding: 50px 20%;
     background-image: $color4;
+
+    @include mobile(){
+        padding: 50px 10px;
+    }
 
     .konten-search-result{
         display: flex;
@@ -20,6 +30,10 @@
             color: $color1;
             font-family: "Crimson Text",serif;
             margin-bottom: 20px;
+
+            @include mobile(){
+                font-size: 20px;
+            }
         }
 
         .konten-group-search-result{
@@ -33,6 +47,20 @@
             height: auto;
             width: 100%;
             justify-content: space-between;
+
+            @include mobile(){
+                flex-wrap: nowrap;
+                flex-direction: column;
+            }
+
+            .column-card-article-search-result{
+                display: flex;
+                width: calc(90%/2);
+
+                @include mobile(){
+                    width: 100%;
+                }
+            }
         }
 
         .konten-publication-search-result{
@@ -40,30 +68,101 @@
             flex-wrap: wrap;
             width: 100%;
             justify-content: space-between;
+
+            @include mobile(){
+                flex-wrap: nowrap;
+                flex-direction: column;
+            }
+
+            .column-card-publication-search-result{
+                display: flex;
+                width: calc(90%/2);
+
+                @include mobile(){
+                    display: flex;
+                    width: 100%;
+                }
+            }
         }
 
         .konten-doctor-search-result{
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
+
+            @include mobile(){
+                flex-wrap: nowrap;
+                flex-direction: column;
+            }
+
+            .column-card-doctor-search-result{
+                display: flex;
+                width: calc(100%/3);
+
+                @include mobile(){
+                    width: 100%;
+                }
+            }
         }
 
         .konten-layanan-and-fasilitas-search-result{
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
+
+            @include mobile(){
+                flex-wrap: nowrap;
+                flex-direction: column;
+            }
+
+            .column-card-layanan-fasilitas-search-result{
+                display: flex;
+                width: calc(90%/2);
+
+                @include mobile(){
+                    width: 100%;
+                }
+            }
         }
 
         .konten-promo-search-result{
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
+
+            @include mobile(){
+                flex-wrap: nowrap;
+                flex-direction: column;
+            }
+
+            .column-card-promo-search-result{
+                display: flex;
+                width: calc(90%/2);
+
+                @include mobile(){
+                    width: 100%;
+                }
+            }
         }
 
         .konten-career-search-result{
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
+
+            @include mobile(){
+                flex-wrap: nowrap;
+                flex-direction: column;
+            }
+
+            .column-card-career-search-result{
+                display: flex;
+                width: calc(90%/2);
+
+                @include mobile(){
+                    width: 100%;
+                }
+            }
         }
     }
 }

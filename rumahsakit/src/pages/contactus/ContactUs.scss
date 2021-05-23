@@ -1,5 +1,11 @@
 @import '../../utils/variable.scss';
 
+@mixin mobile {
+    @media (max-width: $mobile) {
+        @content;
+    }
+}
+
 .wrapp-contact-us{
     display: flex;
     flex-direction: column;
@@ -9,11 +15,20 @@
     background-size: cover;
     background-image: $color4;
 
+    @include mobile(){
+        padding: 50px 10px;
+    }
+
     .title-contact-us{
         display: flex;
         font-size: 26px;
         color: $color1;
         font-family: "Crimson Text",serif;
+        text-align: start;
+
+        @include mobile(){
+            font-size: 20px;
+        }
     }
 
     .container-konten-contact-us{
@@ -21,6 +36,10 @@
         height: auto;
         width: 100%;
         margin-top: 40px;
+
+        @include mobile(){
+            flex-direction: column;
+        }
 
         .form-kiri-online-cu{
             display: flex;
@@ -31,21 +50,44 @@
             padding: 20px 35px 35px 35px;
             margin-right: 20px;
 
+            @include mobile(){
+                width: 100%;
+                margin-bottom: 40px;
+            }
+
             .container-form-contact-us{
                 display: flex;
+
+                @include mobile(){
+                    flex-direction: column;
+                }
                 
                 .column-kiri-form-contact-us{
                     display: flex;
                     flex-direction: column;
                     width: calc(100%/2);
                     margin-right: 20px;
+
+                    @include mobile(){
+                        width: 100%;
+                        margin-right: 0;
+                    }
                 }
     
                 .column-kanan-form-contact-us{
                     display: flex;
                     flex-direction: column;
                     width: calc(100%/2);
+
+                    @include mobile(){
+                        width: 100%;
+                    }
                 }
+            }
+
+            .container-btn-contact-us{
+                display: flex;
+                margin-top: 40px;
             }
         }
 
@@ -55,6 +97,11 @@
             width: 50%;
             background-color: #fff;
             margin-right: 20px;
+
+            @include mobile(){
+                width: 100%;
+                margin-right: 0;
+            }
 
             .container-google-maps{
                 display: flex;
@@ -76,6 +123,10 @@
                 transition: 0.3s ease-in-out;
                 &:hover{
                     color: $color3;
+                }
+
+                @include mobile(){
+                    font-size: $font3;
                 }
 
                 i{
@@ -105,10 +156,5 @@
             background-color: #fff;
             font-family: 'Mulish', sans-serif;
         }
-    }
-    
-    .container-btn-contact-us{
-        display: flex;
-        margin-top: 40px;
     }
 }

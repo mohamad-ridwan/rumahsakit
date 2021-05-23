@@ -41,6 +41,7 @@ function ProfilDoctor() {
     }
 
     useEffect(() => {
+        window.scrollTo(0, 0)
         setAllAPI();
         activeNavbar();
         setIndexActive();

@@ -83,7 +83,7 @@
         justify-content: space-between;
 
         @include mobile(){
-            flex-wrap: wrap;
+            flex-direction: column;
             padding: 13px 10px;
         }
 

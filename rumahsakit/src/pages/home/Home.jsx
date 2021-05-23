@@ -189,7 +189,9 @@ function Home() {
     const widthBody = document.body.getBoundingClientRect().width
     const minimizeValue = Math.floor(widthBody)
 
-    const topSuccessMessage = minimizeValue < 769 ? '110px' : '170px'
+    const topSuccessMessage = minimizeValue < 767 ? '110px' : '170px'
+
+    const heightImgCard = minimizeValue < 767 ? 'auto' : '200px'
 
     return (
         <>
@@ -268,7 +270,7 @@ function Home() {
                                             title={`${minimizeTitle}...`}
                                             date={e.date}
                                             deskripsi={`${minimizeDescription}...`}
-                                            heightImg="200px"
+                                            heightImg={heightImgCard}
                                             nameBtnReadMore="Read More"
                                             clickToPage={() => toPageBlogArticles(e)}
                                         />

@@ -1,5 +1,11 @@
 @import '../../utils/variable.scss';
 
+@mixin mobile {
+    @media (max-width: $mobile) {
+        @content;
+    }
+}
+
 .wrapp-profil-doctor{
     display: flex;
     flex-direction: column;
@@ -9,12 +15,20 @@
     background-size: cover;
     background-image: $color4;
 
+    @include mobile(){
+        padding: 50px 10px;
+    }
+
     .container-main-profil-doctor{
         display: flex;
         height: auto;
         width: 100%;
         align-items: center;
         margin-top: 40px;
+
+        @include mobile(){
+            flex-direction: column;
+        }
 
         .img-profil-doctor{
             display: flex;
@@ -26,17 +40,30 @@
             border: 3.5px solid $color10;
             box-sizing: content-box;
             border-radius: 5px;
+
+            @include mobile(){
+                margin-bottom: 10px;
+            }
         }
         
         .container-bio-profil-doctor{
             display: flex;
             flex-direction: column;
+
+            @include mobile(){
+                align-items: center;
+            }
             
             .name-profil-doctor{
                 display: flex;
                 text-align: start;
                 font-size: 30px;
                 color: $color1;
+
+                @include mobile(){
+                    font-size: 20px;
+                    text-align: center;
+                }
             }
 
             .speciality-profil-doctor{
@@ -45,6 +72,10 @@
                 color: $color2;
                 font-style: italic;
                 margin: 10px 0;
+
+                @include mobile(){
+                    font-size: $font3;
+                }
             }
         }
     }
@@ -60,6 +91,10 @@
             font-size: 24px;
             color: $color1;
             font-family: "Crimson Text",serif;
+
+            @include mobile(){
+                font-size: 17px;
+            }
         }
 
         ul{
@@ -70,6 +105,11 @@
             padding-left: 15px;
             margin-top: 5px;
 
+            @include mobile(){
+                flex-wrap: nowrap;
+                flex-direction: column;
+            }
+
             li{
                 display: flex;
                 position: relative;
@@ -79,12 +119,23 @@
                 margin: 10px 0;
                 justify-content: space-between;
 
+                @include mobile(){
+                    font-size: $font3;
+                    width: 100%;
+                }
+
                 .time-doctor{
                     display: flex;
                     width: 100px;
                     text-align: start;
                     margin-left: 20px;
                     margin-right: 80px;
+
+                    @include mobile(){
+                        margin-left: 0;
+                        margin-right: 0;
+                        width: auto;
+                    }
                 }
             }
 

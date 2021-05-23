@@ -276,6 +276,14 @@ function ContactUs() {
                         <textarea name="message" className="input-form-online-rv" cols="30" rows="10"
                             onChange={inputValue}
                         ></textarea>
+
+                        <div className="container-btn-contact-us">
+                            <ButtonCard
+                                nameClassBtn="btn-card-two"
+                                title="CONTACT US"
+                                clickBtn={submitForm}
+                            />
+                        </div>
                     </div>
 
                     <div className="form-kanan-online-cu">
@@ -301,14 +309,6 @@ function ContactUs() {
                             {dataContactRS && dataContactRS.emailRS}
                         </a>
                     </div>
-                </div>
-
-                <div className="container-btn-contact-us">
-                    <ButtonCard
-                        nameClassBtn="btn-card-two"
-                        title="CONTACT US"
-                        clickBtn={submitForm}
-                    />
                 </div>
             </div>
 

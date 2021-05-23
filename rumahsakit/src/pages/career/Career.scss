@@ -1,5 +1,11 @@
 @import '../../utils/variable.scss';
 
+@mixin mobile {
+    @media (max-width: $mobile) {
+        @content;
+    }
+}
+
 .wrapp-career{
     display: flex;
     flex-direction: column;
@@ -8,6 +14,10 @@
     padding: 50px 20%;
     background-size: cover;
     background-image: $color4;
+
+    @include mobile(){
+        padding: 50px 10px;
+    }
 
     .main-konten-career{
         display: flex;
@@ -22,6 +32,11 @@
             font-family: "Crimson Text",serif;
             margin-bottom: 50px;
             line-height: $lineHeight;
+            text-align: start;
+
+            @include mobile(){
+                font-size: 20px;
+            }
         }
     
         .main-deskripsi-career{
@@ -30,6 +45,10 @@
             color: $color3;
             text-align: start;
             line-height: $lineHeight;
+
+            @include mobile(){
+                font-size: $font3;
+            }
         }
     
         .title-name-rs-career{
@@ -39,6 +58,10 @@
             font-weight: bold;
             margin: 10px 0 20px 0;
             line-height: $lineHeight;
+
+            @include mobile(){
+                font-size: 17px;
+            }
         }
     
         .hrd-rs-career{
@@ -47,6 +70,10 @@
             color: $color3;
             line-height: $lineHeight;
             font-weight: bold;
+
+            @include mobile(){
+                font-size: $font3;
+            }
         }
     
         .address-career{
@@ -55,15 +82,23 @@
             color: $color3;
             line-height: $lineHeight;
             margin: 10px 0;
+            text-align: start;
+
+            @include mobile(){
+                font-size: $font3;
+            }
         }
     
         .email-career{
-            display: flex;
             font-size: 14px;
             color: $color3;
             line-height: $lineHeight;
+            text-align: start;
+
+            @include mobile(){
+                font-size: $font3;
+            }
             .konten-email-career{
-                display: flex;
                 font-size: 14px;
                 color: $color1;
                 line-height: $lineHeight;
@@ -72,6 +107,10 @@
                 text-decoration: none;
                 &:hover{
                     text-decoration: 1px solid $color1;
+                }
+                
+                @include mobile(){
+                    font-size: $font3;
                 }
             }
         }
@@ -92,11 +131,19 @@
                 border-radius: 5px;
                 background-color: $color17;
 
+                @include mobile(){
+                    width: 100%;
+                }
+
                 .title-bidang-career{
                     display: flex;
                     font-size: 18px;
                     color: $color1;
                     line-height: $lineHeight;
+
+                    @include mobile(){
+                        font-size: 17px;
+                    }
                 }
 
                 .container-date-career{
@@ -126,6 +173,10 @@
                     color: $color3;
                     line-height: $lineHeight;
                     margin: 15px 0 30px 0;
+
+                    @include mobile(){
+                        font-size: $font3;
+                    }
                 }
 
                 .view-detail{
@@ -139,6 +190,10 @@
                     transition: 0.3s ease-in-out;
                     &:hover{
                         color: $color3;
+                    }
+
+                    @include mobile(){
+                        font-size: $font3;
                     }
                 }
             }

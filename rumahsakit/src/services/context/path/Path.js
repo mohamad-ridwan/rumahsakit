@@ -22,7 +22,7 @@ const PathProvider = ({ children }) => {
         const widthBody = document.body.getBoundingClientRect().width
         const minimizeWidth = Math.floor(widthBody)
 
-        if (minimizeWidth > 768 && buttonNavbar.length > 0) {
+        if (minimizeWidth > 766 && buttonNavbar.length > 0) {
             for (let i = 0; i < buttonNavbar.length; i++) {
                 const checkLocation = buttonNavbar[i].textContent.toLocaleLowerCase()
                 buttonNavbar[i].classList.remove('is-active-navbar')
@@ -46,7 +46,7 @@ const PathProvider = ({ children }) => {
                     buttonNavbar[0].classList.add('is-active-navbar')
                 }
             }
-        } else if (minimizeWidth < 769) {
+        } else if (minimizeWidth < 767) {
             setTimeout(() => {
                 activeNavMobile();
             }, 1000);

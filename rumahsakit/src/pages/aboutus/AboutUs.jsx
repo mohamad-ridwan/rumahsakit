@@ -65,41 +65,20 @@ function AboutUs() {
         window.scrollBy({ top: getTopElement - 185 })
     }
 
+    const widthBody = document.body.getBoundingClientRect().width
+    const minimizeValue = Math.floor(widthBody)
+
     window.addEventListener('scroll', () => {
-        const pageYOffset = window.pageYOffset
-        const minimize = Math.floor(pageYOffset)
+        if (minimizeValue > 766) {
+            const pageYOffset = window.pageYOffset
+            const minimize = Math.floor(pageYOffset)
 
-        if (minimize > 320) {
-            setFixed(true)
-        } else if (minimize < 320) {
-            setFixed(false)
+            if (minimize > 320) {
+                setFixed(true)
+            } else if (minimize < 320) {
+                setFixed(false)
+            }
         }
-
-        // if (pathElement.length > 0) {
-        //     const path1 = document.getElementById(pathElement[0]).getBoundingClientRect().top
-        //     const minimizePath1 = Math.floor(path1)
-
-        //     const path2 = document.getElementById(pathElement[1]).getBoundingClientRect().top
-        //     const minimizePath2 = Math.floor(path2)
-
-        //     const path3 = document.getElementById(pathElement[2]).getBoundingClientRect().top
-        //     const minimizePath3 = Math.floor(path3)
-
-        //     const path4 = document.getElementById(pathElement[3]).getBoundingClientRect().top
-        //     const minimizePath4 = Math.floor(path4)
-
-        //     if (minimize > minimizePath1) {
-        //         setIndexBtn(0)
-        //         clickBtnNavmenu(0);
-        //     } else if (minimize < minimizePath1) {
-        //         clickBtnNavmenu();
-        //     }
-
-        //     if (minimize > minimizePath2) {
-        //         setIndexBtn(1)
-        //         clickBtnNavmenu(1);
-        //     }
-        // }
     })
 
     function mouseEnterNavmenu(index) {

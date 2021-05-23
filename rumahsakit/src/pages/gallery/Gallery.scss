@@ -1,5 +1,11 @@
 @import '../../utils/variable.scss';
 
+@mixin mobile {
+    @media (max-width: $mobile) {
+        @content;
+    }
+}
+
 .wrapp-gallery{
     display: flex;
     flex-direction: column;
@@ -8,16 +14,30 @@
     padding: 50px 20%;
     background-image: $color4;
 
+    @include mobile(){
+        padding: 50px 10px;
+    }
+
     .konten-gallery{
         display: flex;
         height: auto;
         width: 100%;
+        justify-content: space-between;
+
+        @include mobile(){
+            flex-wrap: wrap;
+        }
 
         .box-img-gallery{
             display: flex;
             flex-direction: column;
             width: calc(100%/3);
             margin-right: 20px;
+
+            @include mobile(){
+                width: calc(90%/2);
+                margin-right: 0;
+            }
 
             .btn-view-img{
                 display: flex;

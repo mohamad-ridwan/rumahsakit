@@ -1,5 +1,11 @@
 @import '../../utils/variable.scss';
 
+@mixin mobile {
+    @media (max-width: $mobile) {
+        @content;
+    }
+}
+
 .wrapp-testimonial{
     display: flex;
     flex-direction: column;
@@ -8,6 +14,10 @@
     padding: 50px 20%;
     background-size: cover;
     background-image: $color4;
+
+    @include mobile(){
+        padding: 50px 10px;
+    }
 
     .konten-testimonial{
         display: flex;

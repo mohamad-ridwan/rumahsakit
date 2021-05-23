@@ -30,6 +30,7 @@ function FindADoctor() {
     const [currentPage, setCurrentPage] = useState(1)
     const [perPage, setPerPage] = useState(6)
     const [indexPaginate, setIndexPaginate] = useState(1)
+    const [searchDocSpeciality, setSearchDocSpeciality] = useState('')
 
     const location = window.location.pathname.toString().split('/')[1]
 
@@ -208,6 +209,12 @@ function FindADoctor() {
         setIndexPaginate(number)
     }
 
+    const filterSearchDocSpeciality = listSpeciality.filter((e) => e.toLowerCase().includes(searchDocSpeciality.toLocaleLowerCase()))
+
+    function inputSearchDocSpeciality(e) {
+        setSearchDocSpeciality(e.target.value)
+    }
+
     return (
         <>
             <HelmetCard
@@ -252,8 +259,9 @@ function FindADoctor() {
                                             displayBtn="flex"
                                             nameBtn={nameBtn}
                                             nameClass="list-speciality"
-                                            data={listSpeciality}
+                                            data={filterSearchDocSpeciality}
                                             topModal="40px"
+                                            searchMenuInput={inputSearchDocSpeciality}
                                             displayModal={modalList ? 'flex' : 'none'}
                                             clickBtnInput={showDoctorSpeciality}
                                             clickCloseModal={closeModalDoctorSpeciality}
@@ -327,26 +335,28 @@ function FindADoctor() {
                                     currentList.map((e) => {
                                         return (
                                             <>
-                                                <Card
-                                                    key={e._id}
-                                                    widthCard="calc(100%/3)"
-                                                    displayReadMore="none"
-                                                    flexDirection="row"
-                                                    displayIcon="none"
-                                                    heightImg="80px"
-                                                    heightCardImg="213"
-                                                    widthCardImg="80"
-                                                    radiusImg="0"
-                                                    paddingCard="0"
-                                                    fontFamilyTitle="Mulish, sans-serif"
-                                                    fontTitle="16px"
-                                                    marginImg="0 10px 0 0"
-                                                    marginCard="0px 0px 40px 0"
-                                                    img={`${Endpoint}/images/${e.image}`}
-                                                    title={e.name}
-                                                    date={e.speciality}
-                                                    clickToPage={() => toPage(`/doctor/${e.path}`)}
-                                                />
+                                                <div className="column-card-find-a-doctor">
+                                                    <Card
+                                                        key={e._id}
+                                                        widthCard="100%"
+                                                        displayReadMore="none"
+                                                        flexDirection="row"
+                                                        displayIcon="none"
+                                                        heightImg="80px"
+                                                        heightCardImg="213"
+                                                        widthCardImg="80"
+                                                        radiusImg="0"
+                                                        paddingCard="0"
+                                                        fontFamilyTitle="Mulish, sans-serif"
+                                                        fontTitle="16px"
+                                                        marginImg="0 10px 0 0"
+                                                        marginCard="0px 0px 40px 0"
+                                                        img={`${Endpoint}/images/${e.image}`}
+                                                        title={e.name}
+                                                        date={e.speciality}
+                                                        clickToPage={() => toPage(`/doctor/${e.path}`)}
+                                                    />
+                                                </div>
                                             </>
                                         )
                                     }) : (

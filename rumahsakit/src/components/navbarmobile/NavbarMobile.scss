@@ -89,6 +89,7 @@
         transition: 0.3s ease-in-out;
         overflow: hidden;
         z-index: 1;
+        padding-right: 5px;
         
         .line-white-nav-mobile{
             display: flex;
@@ -163,6 +164,19 @@
                     color: $color1;
                 }
             }
+        }
+
+        .container-scroll-dropdown-nav-mobile::-webkit-scrollbar{
+            width: 3px;
+        }
+
+        .container-scroll-dropdown-nav-mobile::-webkit-scrollbar-track{
+            border-radius: 10px;
+        }
+
+        .container-scroll-dropdown-nav-mobile::-webkit-scrollbar-thumb{
+            background-color: $color8;
+            border-radius: 10px;
         }
     }
 

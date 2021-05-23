@@ -1,9 +1,20 @@
 @import '../../utils/variable.scss';
 
+@mixin mobile {
+    @media (max-width: $mobile) {
+        @content;
+    }
+}
+
 .wrapp-about-us{
     display: flex;
     position: relative;
     padding: 50px 20%;
+
+    @include mobile(){
+        flex-direction: column;
+        padding: 50px 10px;
+    }
 
     .kolom-kiri-about-us{
         display: flex;
@@ -13,6 +24,12 @@
         width: 25%;
         margin-right: 20px;
 
+        @include mobile(){
+            width: 100%;
+            margin-right: 0;
+            margin-bottom: 20px;
+        }
+
         .title-rs-permata-keluarga{
             display: flex;
             font-size: 18px;
@@ -20,6 +37,10 @@
             color: $color1;
             margin-bottom: 18px;
             text-align: start;
+
+            @include mobile(){
+                font-size: 17px;
+            }
         }
 
         .box-fixed-navmenu{
@@ -29,7 +50,6 @@
             width: auto;
             top: 0;
             transition: 0.3s ease-in-out;
-            // margin-top: 210px;
         }        
     }
 
@@ -38,6 +58,10 @@
         flex-direction: column;
         height: auto;
         width: 75%;
+
+        @include mobile(){
+            width: 100%;
+        }
 
         .konten-about-us{
             display: flex;
@@ -52,6 +76,10 @@
                 font-size: 18px;
                 color: $color1;
                 margin-bottom: 10px;
+
+                @include mobile(){
+                    font-size: 17px;
+                }
             }
 
             .text-konten-about-us{
@@ -59,6 +87,10 @@
                 color: $color3;
                 text-align: justify;
                 line-height: $lineHeight;
+
+                @include mobile(){
+                    font-size: $font3;
+                }
 
                 ol{
                     margin-left: 15px;
@@ -69,6 +101,10 @@
 
                 h4{
                     font-size: 18px;
+                    
+                    @include mobile(){
+                        font-size: 17px;
+                    }
                 }
 
                 span{

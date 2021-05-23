@@ -86,25 +86,27 @@ function Publication() {
                     {currentList && currentList.length > 0 ? currentList.map((e) => {
                         return (
                             <>
-                                <Card
-                                    key={e._id}
-                                    widthCard="calc(90%/2)"
-                                    flexDirection="row"
-                                    heightImg="180px"
-                                    heightCardImg="180"
-                                    widthCardImg="120"
-                                    paddingCard="0"
-                                    displayReadMore="none"
-                                    marginImg="0 20px 0 0"
-                                    marginCard="0 0 40px 0"
-                                    displayBtnDownload="flex"
-                                    img={`${Endpoint}/images/${e.image}`}
-                                    title={e.title}
-                                    date={e.date}
-                                    deskripsi={e.deskripsi}
-                                    iconPdf={`${Endpoint}/images/${e.icon}`}
-                                    linkDownloadPdf={e.link}
-                                />
+                                <div className="column-card-publication">
+                                    <Card
+                                        key={e._id}
+                                        widthCard="100%"
+                                        flexDirection="row"
+                                        heightImg="180px"
+                                        heightCardImg="180"
+                                        widthCardImg="120"
+                                        paddingCard="0"
+                                        displayReadMore="none"
+                                        marginImg="0 20px 0 0"
+                                        marginCard="0 0 40px 0"
+                                        displayBtnDownload="flex"
+                                        img={`${Endpoint}/images/${e.image}`}
+                                        title={e.title}
+                                        date={e.date}
+                                        deskripsi={e.deskripsi}
+                                        iconPdf={`${Endpoint}/images/${e.icon}`}
+                                        linkDownloadPdf={e.link}
+                                    />
+                                </div>
                             </>
                         )
                     }) : (

@@ -33,6 +33,7 @@ function OurHospital() {
     const [currentPage, setCurrentPage] = useState(1)
     const [perPage, setPerPage] = useState(3)
     const [indexPaginate, setIndexPaginate] = useState(1)
+    const [value, setValue] = useState('')
 
     const location = window.location.pathname.toString().split('/')[3]
     const location2 = window.location.pathname.toString().split('/')[1]
@@ -321,6 +322,12 @@ function OurHospital() {
         setIndexPaginate(number)
     }
 
+    const filterSearchSpesialisDoctor = listSpesialisDoctor.filter((e) => e.toLowerCase().includes(value.toLowerCase()))
+
+    function searchSpesialisDoctor(e) {
+        setValue(e.target.value)
+    }
+
     return (
         <>
             <HelmetCard
@@ -396,9 +403,10 @@ function OurHospital() {
                                                 nameBtn={nameBtnSelect}
                                                 nameClass="speciality-jadwal-doctor"
                                                 borderBtn="1px solid #ddd"
+                                                searchMenuInput={searchSpesialisDoctor}
                                                 displayModal={modalSelectSpesialisDoctor ? 'flex' : 'none'}
                                                 topModal="40px"
-                                                data={listSpesialisDoctor}
+                                                data={filterSearchSpesialisDoctor}
                                                 clickBtnInput={(e) => showModalSpesialisDoctor(e)}
                                                 clickCloseModal={closeModalSpesialisDoctor}
                                                 clickNameMenu={(data, index) => selectSpesialisDoctor(data, index, true)}
@@ -409,7 +417,7 @@ function OurHospital() {
                                             <thead>
                                                 <tr className="t-name">
                                                     Name
-                                            </tr>
+                                                </tr>
 
                                                 <div className="column-list-day-table">
                                                     {arrayDay.map((e, i) => {

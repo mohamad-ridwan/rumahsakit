@@ -72,6 +72,11 @@ function DetailPromo() {
         }
     }
 
+    const widthBody = document.body.getBoundingClientRect().width
+    const minimizeValue = Math.floor(widthBody)
+
+    const heightImgCard = minimizeValue < 767 ? 'auto' : '150px'
+
     return (
         <>
             <HelmetCard
@@ -132,17 +137,19 @@ function DetailPromo() {
                         {currentList && currentList.length > 0 ? currentList.map((e) => {
                             return (
                                 <>
-                                    <Card
-                                        key={e._id}
-                                        widthCard="calc(100%/3)"
-                                        nameBtnReadMore="Read More"
-                                        img={`${Endpoint}/images/${e.image}`}
-                                        title={e.title}
-                                        date={e.date}
-                                        deskripsi={e.deskripsi}
-                                        heightImg="150px"
-                                        clickToPage={() => toPage(`/promo/details/${e.path}`)}
-                                    />
+                                    <div className="column-card-detail-promo">
+                                        <Card
+                                            key={e._id}
+                                            widthCard="100%"
+                                            nameBtnReadMore="Read More"
+                                            img={`${Endpoint}/images/${e.image}`}
+                                            title={e.title}
+                                            date={e.date}
+                                            deskripsi={e.deskripsi}
+                                            heightImg={heightImgCard}
+                                            clickToPage={() => toPage(`/promo/details/${e.path}`)}
+                                        />
+                                    </div>
                                 </>
                             )
                         }) : (
