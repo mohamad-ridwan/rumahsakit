@@ -6,6 +6,12 @@
     }
 }
 
+@mixin tablet {
+    @media (min-width: $mobile) and (max-width: $tablet) {
+        @content;
+    }
+}
+
 .wrapp-profil-doctor{
     display: flex;
     flex-direction: column;
@@ -19,134 +25,149 @@
         padding: 50px 10px;
     }
 
-    .container-main-profil-doctor{
-        display: flex;
-        height: auto;
-        width: 100%;
+    @include tablet(){
+        padding: 50px 0;
         align-items: center;
-        margin-top: 40px;
-
-        @include mobile(){
-            flex-direction: column;
-        }
-
-        .img-profil-doctor{
-            display: flex;
-            height: 120px;
-            width: 120px;
-            object-fit: cover;
-            object-position: center;
-            margin-right: 10px;
-            border: 3.5px solid $color10;
-            box-sizing: content-box;
-            border-radius: 5px;
-
-            @include mobile(){
-                margin-bottom: 10px;
-            }
-        }
-        
-        .container-bio-profil-doctor{
-            display: flex;
-            flex-direction: column;
-
-            @include mobile(){
-                align-items: center;
-            }
-            
-            .name-profil-doctor{
-                display: flex;
-                text-align: start;
-                font-size: 30px;
-                color: $color1;
-
-                @include mobile(){
-                    font-size: 20px;
-                    text-align: center;
-                }
-            }
-
-            .speciality-profil-doctor{
-                display: flex;
-                font-size: 14px;
-                color: $color2;
-                font-style: italic;
-                margin: 10px 0;
-
-                @include mobile(){
-                    font-size: $font3;
-                }
-            }
-        }
     }
 
-    .profil-doctor-schedule{
+    .container-konten-profil-doctor{
         display: flex;
         flex-direction: column;
         width: 100%;
-        margin-top: 40px;
 
-        .title-doctor-schedule{
-            display: flex;
-            font-size: 24px;
-            color: $color1;
-            font-family: "Crimson Text",serif;
-
-            @include mobile(){
-                font-size: 17px;
-            }
+        @include tablet(){
+            width: 740px;
         }
 
-        ul{
+        .container-main-profil-doctor{
             display: flex;
-            flex-wrap: wrap;
+            height: auto;
             width: 100%;
-            justify-content: space-between;
-            padding-left: 15px;
-            margin-top: 5px;
-
+            align-items: center;
+            margin-top: 40px;
+    
             @include mobile(){
-                flex-wrap: nowrap;
                 flex-direction: column;
             }
-
-            li{
+    
+            .img-profil-doctor{
                 display: flex;
-                position: relative;
-                font-size: 14px;
-                width: calc(100%/2);
-                color: $color3;
-                margin: 10px 0;
-                justify-content: space-between;
-
+                height: 120px;
+                width: 120px;
+                object-fit: cover;
+                object-position: center;
+                margin-right: 10px;
+                border: 3.5px solid $color10;
+                box-sizing: content-box;
+                border-radius: 5px;
+    
                 @include mobile(){
-                    font-size: $font3;
-                    width: 100%;
+                    margin-bottom: 10px;
                 }
-
-                .time-doctor{
+            }
+            
+            .container-bio-profil-doctor{
+                display: flex;
+                flex-direction: column;
+    
+                @include mobile(){
+                    align-items: center;
+                }
+                
+                .name-profil-doctor{
                     display: flex;
-                    width: 100px;
                     text-align: start;
-                    margin-left: 20px;
-                    margin-right: 80px;
-
+                    font-size: 30px;
+                    color: $color1;
+    
                     @include mobile(){
-                        margin-left: 0;
-                        margin-right: 0;
-                        width: auto;
+                        font-size: 20px;
+                        text-align: center;
+                    }
+                }
+    
+                .speciality-profil-doctor{
+                    display: flex;
+                    font-size: 14px;
+                    color: $color2;
+                    font-style: italic;
+                    margin: 10px 0;
+    
+                    @include mobile(){
+                        font-size: $font3;
                     }
                 }
             }
-
-            li::before{
-                content: '';
-                position: absolute;
-                top: 6px;
-                left: -15px;
-                border: 3px solid transparent;
-                border-left-width: 5px;
-                border-left-color: $color8;
+        }
+    
+        .profil-doctor-schedule{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            margin-top: 40px;
+    
+            .title-doctor-schedule{
+                display: flex;
+                font-size: 24px;
+                color: $color1;
+                font-family: "Crimson Text",serif;
+    
+                @include mobile(){
+                    font-size: 17px;
+                }
+            }
+    
+            ul{
+                display: flex;
+                flex-wrap: wrap;
+                width: 100%;
+                justify-content: space-between;
+                padding-left: 15px;
+                margin-top: 5px;
+    
+                @include mobile(){
+                    flex-wrap: nowrap;
+                    flex-direction: column;
+                }
+    
+                li{
+                    display: flex;
+                    position: relative;
+                    font-size: 14px;
+                    width: calc(100%/2);
+                    color: $color3;
+                    margin: 10px 0;
+                    justify-content: space-between;
+    
+                    @include mobile(){
+                        font-size: $font3;
+                        width: 100%;
+                    }
+    
+                    .time-doctor{
+                        display: flex;
+                        width: 100px;
+                        text-align: start;
+                        margin-left: 20px;
+                        margin-right: 80px;
+    
+                        @include mobile(){
+                            margin-left: 0;
+                            margin-right: 0;
+                            width: auto;
+                        }
+                    }
+                }
+    
+                li::before{
+                    content: '';
+                    position: absolute;
+                    top: 6px;
+                    left: -15px;
+                    border: 3px solid transparent;
+                    border-left-width: 5px;
+                    border-left-color: $color8;
+                }
             }
         }
     }

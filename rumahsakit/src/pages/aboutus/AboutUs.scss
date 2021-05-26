@@ -6,115 +6,185 @@
     }
 }
 
+@mixin tablet {
+    @media (min-width: $mobile) and (max-width: $tablet) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: $desktop) {
+        @content;
+    }
+}
+
 .wrapp-about-us{
     display: flex;
     position: relative;
     padding: 50px 20%;
 
     @include mobile(){
-        flex-direction: column;
         padding: 50px 10px;
     }
 
-    .kolom-kiri-about-us{
-        display: flex;
-        flex-direction: column;
-        position: relative;
-        height: auto;
-        width: 25%;
-        margin-right: 20px;
-
-        @include mobile(){
-            width: 100%;
-            margin-right: 0;
-            margin-bottom: 20px;
-        }
-
-        .title-rs-permata-keluarga{
-            display: flex;
-            font-size: 18px;
-            font-family: "Crimson Text",serif;
-            color: $color1;
-            margin-bottom: 18px;
-            text-align: start;
-
-            @include mobile(){
-                font-size: 17px;
-            }
-        }
-
-        .box-fixed-navmenu{
-            display: flex;
-            flex-direction: column;
-            height: auto;
-            width: auto;
-            top: 0;
-            transition: 0.3s ease-in-out;
-        }        
+    @include tablet(){
+        padding: 50px 0;
+        justify-content: center;
     }
 
-    .kolom-kanan-about-us{
+    @include desktop(){
+        padding: 50px 0;
+        justify-content: center;
+    }
+
+    .container-about-us{
         display: flex;
-        flex-direction: column;
-        height: auto;
-        width: 75%;
+        width: 100%;
 
         @include mobile(){
-            width: 100%;
+            flex-direction: column;
         }
 
-        .konten-about-us{
+        @include tablet(){
+            width: 740px;
+        }
+
+        @include desktop(){
+            width: 960px;
+        }
+
+        .kolom-kiri-about-us{
             display: flex;
             flex-direction: column;
-            width: 100%;
-            border-bottom: 1px solid #eee;
-            margin-bottom: 40px;
-            padding-bottom: 40px;
-
-            .title-konten-about-us{
+            position: relative;
+            height: auto;
+            width: 25%;
+            margin-right: 20px;
+    
+            @include mobile(){
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+    
+            .title-rs-permata-keluarga{
                 display: flex;
                 font-size: 18px;
+                font-family: "Crimson Text",serif;
                 color: $color1;
-                margin-bottom: 10px;
-
+                margin-bottom: 18px;
+                text-align: start;
+    
                 @include mobile(){
                     font-size: 17px;
                 }
             }
+    
+            .container-box-fixed-navmenu{
+                display: flex;
+                width: 100%;
+                top: 0;
+                left: 0;
+                transition: 0.3s ease-in-out;
 
-            .text-konten-about-us{
-                font-size: 14px;
-                color: $color3;
-                text-align: justify;
-                line-height: $lineHeight;
-
-                @include mobile(){
-                    font-size: $font3;
+                @include tablet(){
+                    justify-content: center;
                 }
 
-                ol{
-                    margin-left: 15px;
-                    li{
-                        padding-left: 5px;
+                @include desktop(){
+                    justify-content: center;
+                }
+
+                .column-box-fixed-navmenu{
+                    display: flex;
+                    width: 100%;
+
+                    @include tablet(){
+                        width: 740px;
+                    }
+
+                    @include desktop(){
+                        width: 960px;
+                    }
+
+                    .box-fixed-navmenu{
+                        display: flex;
+                        flex-direction: column;
+                        height: auto;
+                        width: auto;
+                        transition: 0.3s ease-in-out;
+
+                        @include mobile(){
+                            width: 100%;
+                        }
                     }
                 }
-
-                h4{
+            }   
+        }
+    
+        .kolom-kanan-about-us{
+            display: flex;
+            flex-direction: column;
+            height: auto;
+            width: 75%;
+    
+            @include mobile(){
+                width: 100%;
+            }
+    
+            .konten-about-us{
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                border-bottom: 1px solid #eee;
+                margin-bottom: 40px;
+                padding-bottom: 40px;
+    
+                .title-konten-about-us{
+                    display: flex;
                     font-size: 18px;
-                    
+                    color: $color1;
+                    margin-bottom: 10px;
+    
                     @include mobile(){
                         font-size: 17px;
                     }
                 }
-
-                span{
-                    display: flex;
-                    flex-direction: column;
-                }
-
-                img{
-                    height: auto;
-                    max-width: 100%;
+    
+                .text-konten-about-us{
+                    font-size: 14px;
+                    color: $color3;
+                    text-align: justify;
+                    line-height: $lineHeight;
+    
+                    @include mobile(){
+                        font-size: $font3;
+                    }
+    
+                    ol{
+                        margin-left: 15px;
+                        li{
+                            padding-left: 5px;
+                        }
+                    }
+    
+                    h4{
+                        font-size: 18px;
+                        
+                        @include mobile(){
+                            font-size: 17px;
+                        }
+                    }
+    
+                    span{
+                        display: flex;
+                        flex-direction: column;
+                    }
+    
+                    img{
+                        height: auto;
+                        max-width: 100%;
+                    }
                 }
             }
         }

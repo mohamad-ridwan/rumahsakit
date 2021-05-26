@@ -73,7 +73,7 @@ function FindADoctor() {
     }
 
     useEffect(() => {
-        window.scrollTo(0, 0)
+        window.scrollTo(0, 0);
         setAllAPI();
         activeNavbar();
     }, [])
@@ -237,144 +237,146 @@ function FindADoctor() {
                     click1={() => toPage('/')}
                 />
 
-                {findADoctor && Object.keys(findADoctor).length > 0 ? (
-                    <>
-                        <img src={`${Endpoint}/images/${findADoctor.image}`} alt="background top page" className="img-main-konten-find-doctor" width="960" height="470" />
+                <div className="container-find-a-doctor">
+                    {findADoctor && Object.keys(findADoctor).length > 0 ? (
+                        <>
+                            <img src={`${Endpoint}/images/${findADoctor.image}`} alt="background top page" className="img-main-konten-find-doctor" width="960" height="470" />
 
-                        <div className="container-konten-find-doctor">
-                            <p className="title-konten-find-doctor">
-                                {findADoctor.titleKonten}
-                            </p>
-
-                            <p className="deskripsi-find-doctor">
-                                {findADoctor.deskripsi}
-                            </p>
-
-                            <div className="box-pink-search-find-doctor">
-                                <div className="container-input-find-doctor">
-                                    <div className="column-input-find-doctor">
-                                        <Input
-                                            displayLabel="none"
-                                            displayInput="none"
-                                            displayBtn="flex"
-                                            nameBtn={nameBtn}
-                                            nameClass="list-speciality"
-                                            data={filterSearchDocSpeciality}
-                                            topModal="40px"
-                                            searchMenuInput={inputSearchDocSpeciality}
-                                            displayModal={modalList ? 'flex' : 'none'}
-                                            clickBtnInput={showDoctorSpeciality}
-                                            clickCloseModal={closeModalDoctorSpeciality}
-                                            clickNameMenu={(data, index) => selectNameSpeciality(data, index)}
-                                        />
-                                    </div>
-
-                                    <div className="column-input-find-doctor">
-                                        <Input
-                                            displayLabel="none"
-                                            placeholder="Doctor Name"
-                                            value={valueNameDr}
-                                            handleChange={searchNameDoctor}
-                                        />
-                                    </div>
-
-                                    <div className="column-input-find-doctor">
-                                        <ButtonCard
-                                            displayBtn={displayBtn ? 'flex' : 'none'}
-                                            nameClassBtn="btn-card-two"
-                                            title="FIND A DOCTOR"
-                                            clickBtn={getListDoctor}
-                                        />
-                                    </div>
-                                </div>
-
-                                <button className="btn-personalized-search"
-                                    onClick={showPersonalizedSearch}
-                                >
-                                    Personalized Search
-                                    <i class="fas fa-sort-down"></i>
-                                </button>
-
-                                <div className="container-detail-personalized" style={styleDetailPersonalized}>
-                                    <p className="choose-clinic-day"
-                                    >
-                                        Choose Clinic Day <span className="unselect-day" style={styleUnselectDay}
-                                            onClick={unselect}
-                                        >
-                                            UNSELECT
-                                        </span>
-                                    </p>
-
-                                    <div className="container-btn-choose">
-                                        {arrDay.map((e, i) => {
-                                            return (
-                                                <button key={i} className="btn-choose" onClick={() => clickBtnChoose(i, e)}>
-                                                    {e}
-                                                    <i class="fas fa-check-circle"></i>
-                                                </button>
-                                            )
-                                        })}
-                                    </div>
-
-                                    <div className="container-btn-search-choose">
-                                        <ButtonCard
-                                            nameClassBtn="btn-card-two"
-                                            title="FIND A DOCTOR"
-                                            clickBtn={getListDoctor}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="container-list-find-doctor">
-                                <p className="doctors-found">
-                                    {listDoctor.length} Doctors Found
+                            <div className="container-konten-find-doctor">
+                                <p className="title-konten-find-doctor">
+                                    {findADoctor.titleKonten}
                                 </p>
 
-                                {currentList && currentList.length > 0 ?
-                                    currentList.map((e) => {
-                                        return (
-                                            <>
-                                                <div className="column-card-find-a-doctor">
-                                                    <Card
-                                                        key={e._id}
-                                                        widthCard="100%"
-                                                        displayReadMore="none"
-                                                        flexDirection="row"
-                                                        displayIcon="none"
-                                                        heightImg="80px"
-                                                        heightCardImg="213"
-                                                        widthCardImg="80"
-                                                        radiusImg="0"
-                                                        paddingCard="0"
-                                                        fontFamilyTitle="Mulish, sans-serif"
-                                                        fontTitle="16px"
-                                                        marginImg="0 10px 0 0"
-                                                        marginCard="0px 0px 40px 0"
-                                                        img={`${Endpoint}/images/${e.image}`}
-                                                        title={e.name}
-                                                        date={e.speciality}
-                                                        clickToPage={() => toPage(`/doctor/${e.path}`)}
-                                                    />
-                                                </div>
-                                            </>
-                                        )
-                                    }) : (
-                                        <div></div>
-                                    )}
-                            </div>
+                                <p className="deskripsi-find-doctor">
+                                    {findADoctor.deskripsi}
+                                </p>
 
-                            <Pagination
-                                perPage={perPage}
-                                totalData={listDoctor.length}
-                                indexPaginate={indexPaginate}
-                                clickBtn={(number) => numberPaginate(number)}
-                            />
-                        </div>
-                    </>
-                ) : (
-                    <div></div>
-                )}
+                                <div className="box-pink-search-find-doctor">
+                                    <div className="container-input-find-doctor">
+                                        <div className="column-input-find-doctor">
+                                            <Input
+                                                displayLabel="none"
+                                                displayInput="none"
+                                                displayBtn="flex"
+                                                nameBtn={nameBtn}
+                                                nameClass="list-speciality"
+                                                data={filterSearchDocSpeciality}
+                                                topModal="40px"
+                                                searchMenuInput={inputSearchDocSpeciality}
+                                                displayModal={modalList ? 'flex' : 'none'}
+                                                clickBtnInput={showDoctorSpeciality}
+                                                clickCloseModal={closeModalDoctorSpeciality}
+                                                clickNameMenu={(data, index) => selectNameSpeciality(data, index)}
+                                            />
+                                        </div>
+
+                                        <div className="column-input-find-doctor">
+                                            <Input
+                                                displayLabel="none"
+                                                placeholder="Doctor Name"
+                                                value={valueNameDr}
+                                                handleChange={searchNameDoctor}
+                                            />
+                                        </div>
+
+                                        <div className="column-input-find-doctor">
+                                            <ButtonCard
+                                                displayBtn={displayBtn ? 'flex' : 'none'}
+                                                nameClassBtn="btn-card-two"
+                                                title="FIND A DOCTOR"
+                                                clickBtn={getListDoctor}
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <button className="btn-personalized-search"
+                                        onClick={showPersonalizedSearch}
+                                    >
+                                        Personalized Search
+                                    <i class="fas fa-sort-down"></i>
+                                    </button>
+
+                                    <div className="container-detail-personalized" style={styleDetailPersonalized}>
+                                        <p className="choose-clinic-day"
+                                        >
+                                            Choose Clinic Day <span className="unselect-day" style={styleUnselectDay}
+                                                onClick={unselect}
+                                            >
+                                                UNSELECT
+                                        </span>
+                                        </p>
+
+                                        <div className="container-btn-choose">
+                                            {arrDay.map((e, i) => {
+                                                return (
+                                                    <button key={i} className="btn-choose" onClick={() => clickBtnChoose(i, e)}>
+                                                        {e}
+                                                        <i class="fas fa-check-circle"></i>
+                                                    </button>
+                                                )
+                                            })}
+                                        </div>
+
+                                        <div className="container-btn-search-choose">
+                                            <ButtonCard
+                                                nameClassBtn="btn-card-two"
+                                                title="FIND A DOCTOR"
+                                                clickBtn={getListDoctor}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="container-list-find-doctor">
+                                    <p className="doctors-found">
+                                        {listDoctor.length} Doctors Found
+                                </p>
+
+                                    {currentList && currentList.length > 0 ?
+                                        currentList.map((e) => {
+                                            return (
+                                                <>
+                                                    <div className="column-card-find-a-doctor">
+                                                        <Card
+                                                            key={e._id}
+                                                            widthCard="100%"
+                                                            displayReadMore="none"
+                                                            flexDirection="row"
+                                                            displayIcon="none"
+                                                            heightImg="80px"
+                                                            heightCardImg="213"
+                                                            widthCardImg="80"
+                                                            radiusImg="0"
+                                                            paddingCard="0"
+                                                            fontFamilyTitle="Mulish, sans-serif"
+                                                            fontTitle="16px"
+                                                            marginImg="0 10px 0 0"
+                                                            marginCard="0px 0px 40px 0"
+                                                            img={`${Endpoint}/images/${e.image}`}
+                                                            title={e.name}
+                                                            date={e.speciality}
+                                                            clickToPage={() => toPage(`/doctor/${e.path}`)}
+                                                        />
+                                                    </div>
+                                                </>
+                                            )
+                                        }) : (
+                                            <div></div>
+                                        )}
+                                </div>
+
+                                <Pagination
+                                    perPage={perPage}
+                                    totalData={listDoctor.length}
+                                    indexPaginate={indexPaginate}
+                                    clickBtn={(number) => numberPaginate(number)}
+                                />
+                            </div>
+                        </>
+                    ) : (
+                        <div></div>
+                    )}
+                </div>
             </div>
 
             <Loading

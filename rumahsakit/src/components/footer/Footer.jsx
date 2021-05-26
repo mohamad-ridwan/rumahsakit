@@ -39,67 +39,72 @@ function Footer() {
     return (
         <>
             <div className="wrapp-footer">
-                <div className="container-menu-footer">
-                    {dataFooter && dataFooter.length > 0 ? dataFooter.map((e, i) => {
+                <div className="wrapp-menu-footer">
+                    <div className="container-menu-footer">
+                        {dataFooter && dataFooter.length > 0 ? dataFooter.map((e, i) => {
 
-                        const getPages = e.pages
+                            const getPages = e.pages
 
-                        return (
-                            <>
-                                <ul key={e._id}>
-                                    <p className="title-menu-footer">
-                                        {e.title}
-                                    </p>
-                                    {getPages.length > 0 ? getPages.map((e, i) => {
-                                        return (
-                                            <>
-                                                <li key={e._id} className="link-page-footer"
-                                                    onClick={() => toPage(e.path)}
-                                                >
-                                                    {e.name}
-                                                </li>
-                                            </>
-                                        )
-                                    }) : (
-                                        <div></div>
-                                    )}
-                                </ul>
-                            </>
-                        )
-                    }) : (
-                        <div></div>
-                    )}
+                            return (
+                                <>
+                                    <ul key={e._id}>
+                                        <p className="title-menu-footer">
+                                            {e.title}
+                                        </p>
+                                        {getPages.length > 0 ? getPages.map((e, i) => {
+                                            return (
+                                                <>
+                                                    <li key={e._id} className="link-page-footer"
+                                                        onClick={() => toPage(e.path)}
+                                                    >
+                                                        {e.name}
+                                                    </li>
+                                                </>
+                                            )
+                                        }) : (
+                                            <div></div>
+                                        )}
+                                    </ul>
+                                </>
+                            )
+                        }) : (
+                            <div></div>
+                        )}
+                    </div>
                 </div>
 
-                <div className="footer-copy-right">
-                    <p className="title-footer-copy-right">
-                        © {dataFooterTwo && dataFooterTwo.copyRight}. Developed by : {dataFooterTwo && dataFooterTwo.developedBy}
-                    </p>
+                <div className="wrapp-footer-copy-right">
+                    <div className="container-footer-copy-right">
+                        <div className="footer-copy-right">
+                            <p className="title-footer-copy-right">
+                                © {dataFooterTwo && dataFooterTwo.copyRight}. Developed by : {dataFooterTwo && dataFooterTwo.developedBy}
+                            </p>
 
-                    <div className="container-contact-us">
-                        <p className="title-footer-copy-right">
-                            Contact us on
-                        </p>
+                            <div className="container-contact-us">
+                                <p className="title-footer-copy-right">
+                                    Contact us on
+                                </p>
 
-                        <ul>
-                            <li>
-                                <a target='_blank' href={dataFooterTwo && dataFooterTwo.urlFacebook}>
-                                    <i className="fab fa-facebook-f"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a target='_blank' href={dataFooterTwo && dataFooterTwo.urlInstagram}>
-                                    <i className="fab fa-instagram"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a target='_blank' href={dataFooterTwo && dataFooterTwo.urlTwitter}>
-                                    <i className="fab fa-twitter"></i>
-                                </a>
-                            </li>
-                        </ul>
+                                <ul>
+                                    <li>
+                                        <a target='_blank' href={dataFooterTwo && dataFooterTwo.urlFacebook}>
+                                            <i className="fab fa-facebook-f"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a target='_blank' href={dataFooterTwo && dataFooterTwo.urlInstagram}>
+                                            <i className="fab fa-instagram"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a target='_blank' href={dataFooterTwo && dataFooterTwo.urlTwitter}>
+                                            <i className="fab fa-twitter"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-
                 </div>
             </div>
         </>

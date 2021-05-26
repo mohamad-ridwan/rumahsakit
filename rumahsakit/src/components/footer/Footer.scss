@@ -6,6 +6,18 @@
     }
 }
 
+@mixin tablet {
+    @media (min-width: $mobile) and (max-width: $tablet) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: $desktop) {
+        @content;
+    }
+}
+
 .wrapp-footer{
     display: flex;
     flex-direction: column;
@@ -19,111 +31,183 @@
         padding: 20px 0 0 0;
     }
 
-    .container-menu-footer{
-        display: flex;
-        height: auto;
-        width: 100%;
-        padding: 0 20% 40px 20%;
+    @include tablet(){
+        align-items: center;
+    }
 
-        @include mobile(){
-            flex-wrap: wrap;
-            padding: 0 10px 40px 10px;
+    @include desktop(){
+        align-items: center;
+    }
+
+    .wrapp-menu-footer{
+        display: flex;
+        width: 100%;
+
+        @include tablet(){
+            width: 740px;
         }
 
-        ul{
+        @include desktop(){
+            width: 960px;
+        }
+
+        .container-menu-footer{
             display: flex;
-            flex-direction: column;
             height: auto;
-            width: calc(100%/4);
-
+            width: 100%;
+            padding: 0 20% 40px 20%;
+    
             @include mobile(){
-                width: calc(100%/2);
-                margin-top: 20px;
+                flex-wrap: wrap;
+                padding: 0 10px 40px 10px;
             }
 
-            .title-menu-footer{
-                display: flex;
-                font-size: 16px;
-                margin-bottom: 15px;
-                color: #fff;
-
-                @include mobile(){
-                    justify-content: center;
-                }
+            @include tablet(){
+                padding: 0 0 40px 0;
             }
 
-            .link-page-footer{
+            @include desktop(){
+                padding: 0 0 40px 0;
+            }
+    
+            ul{
                 display: flex;
-                font-size: 14px;
-                margin-bottom: 10px;
-                cursor: pointer;
-                transition: 0.3s ease-in-out;
-                list-style: none;
-                color: #fff;
-                text-decoration: none;
-                &:hover{
-                    color: $color3;
-                }
-
+                flex-direction: column;
+                height: auto;
+                width: calc(100%/4);
+    
                 @include mobile(){
-                    font-size: $font3;
-                    justify-content: center;
+                    width: calc(100%/2);
+                    margin-top: 20px;
+                }
+    
+                .title-menu-footer{
+                    display: flex;
+                    font-size: 16px;
+                    margin-bottom: 15px;
+                    color: #fff;
+    
+                    @include mobile(){
+                        justify-content: center;
+                    }
+                }
+    
+                .link-page-footer{
+                    display: flex;
+                    font-size: 14px;
+                    margin-bottom: 10px;
+                    cursor: pointer;
+                    transition: 0.3s ease-in-out;
+                    list-style: none;
+                    color: #fff;
+                    text-decoration: none;
+                    &:hover{
+                        color: $color3;
+                    }
+    
+                    @include mobile(){
+                        font-size: $font3;
+                        justify-content: center;
+                    }
+
+                    @include tablet(){
+                        font-size: $font3;
+                    }
                 }
             }
         }
     }
 
-    .footer-copy-right{
+    .wrapp-footer-copy-right{
         display: flex;
-        height: auto;
         width: 100%;
-        padding: 13px 20%;
         background-color: $color15;
-        align-items: center;
-        justify-content: space-between;
 
-        @include mobile(){
-            flex-direction: column;
-            padding: 13px 10px;
+        @include tablet(){
+            justify-content: center;
         }
 
-        .title-footer-copy-right{
-            display: flex;
-            font-size: 14px;
-            color: #fff;
-
-            @include mobile(){
-                font-size: 12px;
-            }
+        @include desktop(){
+            justify-content: center;
         }
 
-        .container-contact-us{
+        .container-footer-copy-right{
             display: flex;
-            align-items: center;
+            width: 100%;
 
-            @include mobile(){
-                width: 100%;
-                margin-top: 5px;
-                justify-content: center;
+            @include tablet(){
+                width: 740px;
             }
 
-            ul{
+            @include desktop(){
+                width: 960px;
+            }
+
+            .footer-copy-right{
                 display: flex;
-                
-                li{
+                height: auto;
+                width: 100%;
+                padding: 13px 20%;
+                background-color: $color15;
+                align-items: center;
+                justify-content: space-between;
+        
+                @include mobile(){
+                    flex-direction: column;
+                    padding: 13px 10px;
+                }
+
+                @include tablet(){
+                    padding: 13px 0;
+                }
+
+                @include desktop(){
+                    padding: 13px 0;
+                }
+        
+                .title-footer-copy-right{
                     display: flex;
-                    margin-left: 15px;
-                    font-size: 15px;
-                    list-style: none;
-                    cursor: pointer;
-                    
-                    a{
-                        text-decoration: none;
-                        font-size: 13px;
-                        color: #fff;
-                        transition: 0.3s ease-in-out;
-                        &:hover{
-                            color: $color3;
+                    font-size: 14px;
+                    color: #fff;
+        
+                    @include mobile(){
+                        font-size: 12px;
+                    }
+
+                    @include tablet(){
+                        font-size: $font3;
+                    }
+                }
+        
+                .container-contact-us{
+                    display: flex;
+                    align-items: center;
+        
+                    @include mobile(){
+                        width: 100%;
+                        margin-top: 5px;
+                        justify-content: center;
+                    }
+        
+                    ul{
+                        display: flex;
+                        
+                        li{
+                            display: flex;
+                            margin-left: 15px;
+                            font-size: 15px;
+                            list-style: none;
+                            cursor: pointer;
+                            
+                            a{
+                                text-decoration: none;
+                                font-size: 13px;
+                                color: #fff;
+                                transition: 0.3s ease-in-out;
+                                &:hover{
+                                    color: $color3;
+                                }
+                            }
                         }
                     }
                 }

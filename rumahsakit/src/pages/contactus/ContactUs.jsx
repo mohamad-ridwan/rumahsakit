@@ -82,7 +82,7 @@ function ContactUs() {
     }
 
     useEffect(() => {
-        window.scrollTo(0, 0)
+        window.scrollTo(0, 0);
         setAllAPI();
         activeNavbar();
     }, [])
@@ -197,7 +197,9 @@ function ContactUs() {
     const widthBody = document.body.getBoundingClientRect().width
     const minimizeValue = Math.floor(widthBody)
 
-    const topSuccessMessage = minimizeValue < 767 ? '110px' : '170px'
+    const topSuccessMessage1024 = minimizeValue > 766 && minimizeValue < 1024 ? '150px' : '170px'
+
+    const topSuccessMessage = minimizeValue < 767 ? '110px' : topSuccessMessage1024
 
     return (
         <>

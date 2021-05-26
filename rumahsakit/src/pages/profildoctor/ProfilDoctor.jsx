@@ -74,48 +74,50 @@ function ProfilDoctor() {
                     click1={toPageHome}
                 />
 
-                {Object.keys(dataDoctor).length > 0 ? (
-                    <>
-                        <div className="container-main-profil-doctor">
-                            <img src={`${Endpoint}/images/${dataDoctor.image}`} alt="image profil doctor" className="img-profil-doctor" />
+                <div className="container-konten-profil-doctor">
+                    {Object.keys(dataDoctor).length > 0 ? (
+                        <>
+                            <div className="container-main-profil-doctor">
+                                <img src={`${Endpoint}/images/${dataDoctor.image}`} alt="image profil doctor" className="img-profil-doctor" />
 
-                            <div className="container-bio-profil-doctor">
-                                <p className="name-profil-doctor">
-                                    {dataDoctor.name}
-                                </p>
+                                <div className="container-bio-profil-doctor">
+                                    <p className="name-profil-doctor">
+                                        {dataDoctor.name}
+                                    </p>
 
-                                <p className="speciality-profil-doctor">
-                                    {dataDoctor.speciality}
-                                </p>
+                                    <p className="speciality-profil-doctor">
+                                        {dataDoctor.speciality}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                    </>
-                ) : (
-                    <div></div>
-                )}
+                        </>
+                    ) : (
+                        <div></div>
+                    )}
 
-                <div className="profil-doctor-schedule">
-                    <p className="title-doctor-schedule">
-                        Doctor Schedule:
-                    </p>
+                    <div className="profil-doctor-schedule">
+                        <p className="title-doctor-schedule">
+                            Doctor Schedule:
+                        </p>
 
-                    <ul>
-                        {Object.keys(scheduleDoctor).length > 0 ?
-                            Object.entries(scheduleDoctor).map((e, i) => {
-                                return (
-                                    <>
-                                        <li key={i}>
-                                            {e[0]}
-                                            <p className="time-doctor">
-                                                {e[1]}
-                                            </p>
-                                        </li>
-                                    </>
-                                )
-                            }) : (
-                                <div></div>
-                            )}
-                    </ul>
+                        <ul>
+                            {Object.keys(scheduleDoctor).length > 0 ?
+                                Object.entries(scheduleDoctor).map((e, i) => {
+                                    return (
+                                        <>
+                                            <li key={i}>
+                                                {e[0]}
+                                                <p className="time-doctor">
+                                                    {e[1]}
+                                                </p>
+                                            </li>
+                                        </>
+                                    )
+                                }) : (
+                                    <div></div>
+                                )}
+                        </ul>
+                    </div>
                 </div>
             </div>
 

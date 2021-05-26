@@ -40,6 +40,7 @@ function Publication() {
     }
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         setAllAPI();
         setIndexActive();
         activeNavbar();
@@ -59,6 +60,16 @@ function Publication() {
             setPerPage(perPage + 6)
         }
     }
+
+    const widthBody = document.body.getBoundingClientRect().width
+    const minimizeValue = Math.floor(widthBody)
+
+    const heightImgCard1024 = minimizeValue > 766 && minimizeValue < 1024 ? '225px' : '180px'
+
+    const widthImgCard1024 = minimizeValue > 766 && minimizeValue < 1024 ? '160' : '120'
+
+    const heightImgCard = minimizeValue < 767 ? '180px' : heightImgCard1024
+    const widthImgCard = minimizeValue < 767 ? '120' : widthImgCard1024
 
     return (
         <>
@@ -91,9 +102,9 @@ function Publication() {
                                         key={e._id}
                                         widthCard="100%"
                                         flexDirection="row"
-                                        heightImg="180px"
+                                        heightImg={heightImgCard}
                                         heightCardImg="180"
-                                        widthCardImg="120"
+                                        widthCardImg={widthImgCard}
                                         paddingCard="0"
                                         displayReadMore="none"
                                         marginImg="0 20px 0 0"

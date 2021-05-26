@@ -6,6 +6,18 @@
     }
 }
 
+@mixin tablet {
+    @media (min-width: $mobile) and (max-width: $tablet) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: $desktop) {
+        @content;
+    }
+}
+
 .wrapp-search-result{
     display: flex;
     flex-direction: column;
@@ -18,11 +30,29 @@
         padding: 50px 10px;
     }
 
+    @include tablet(){
+        padding: 50px 0;
+        align-items: center;
+    }
+
+    @include desktop(){
+        padding: 50px 0;
+        align-items: center;
+    }
+
     .konten-search-result{
         display: flex;
         flex-direction: column;
         height: auto;
         line-height: $lineHeight;
+
+        @include tablet(){
+            width: 740px;
+        }
+
+        @include desktop(){
+            width: 960px;
+        }
 
         .title-faq-search-result{
             display: flex;
@@ -53,11 +83,20 @@
                 flex-direction: column;
             }
 
+            @include tablet(){
+                flex-wrap: nowrap;
+                flex-direction: column;
+            }
+
             .column-card-article-search-result{
                 display: flex;
                 width: calc(90%/2);
 
                 @include mobile(){
+                    width: 100%;
+                }
+
+                @include tablet(){
                     width: 100%;
                 }
             }
@@ -74,12 +113,20 @@
                 flex-direction: column;
             }
 
+            @include tablet(){
+                flex-wrap: nowrap;
+                flex-direction: column;
+            }
+
             .column-card-publication-search-result{
                 display: flex;
                 width: calc(90%/2);
 
                 @include mobile(){
-                    display: flex;
+                    width: 100%;
+                }
+
+                @include tablet(){
                     width: 100%;
                 }
             }
@@ -102,6 +149,10 @@
                 @include mobile(){
                     width: 100%;
                 }
+
+                @include tablet(){
+                    width: calc(90%/2);
+                }
             }
         }
 
@@ -115,11 +166,20 @@
                 flex-direction: column;
             }
 
+            @include tablet(){
+                flex-wrap: nowrap;
+                flex-direction: column;
+            }
+
             .column-card-layanan-fasilitas-search-result{
                 display: flex;
                 width: calc(90%/2);
 
                 @include mobile(){
+                    width: 100%;
+                }
+
+                @include tablet(){
                     width: 100%;
                 }
             }
@@ -135,11 +195,20 @@
                 flex-direction: column;
             }
 
+            @include tablet(){
+                flex-wrap: nowrap;
+                flex-direction: column;
+            }
+
             .column-card-promo-search-result{
                 display: flex;
                 width: calc(90%/2);
 
                 @include mobile(){
+                    width: 100%;
+                }
+
+                @include tablet(){
                     width: 100%;
                 }
             }
@@ -155,11 +224,20 @@
                 flex-direction: column;
             }
 
+            @include tablet(){
+                flex-wrap: nowrap;
+                flex-direction: column;
+            }
+
             .column-card-career-search-result{
                 display: flex;
                 width: calc(90%/2);
 
                 @include mobile(){
+                    width: 100%;
+                }
+
+                @include tablet(){
                     width: 100%;
                 }
             }

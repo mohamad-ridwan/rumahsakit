@@ -6,6 +6,18 @@
     }
 }
 
+@mixin tablet {
+    @media (min-width: $mobile) and (max-width: $tablet) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: $desktop) {
+        @content;
+    }
+}
+
 .wrapp-contact-us{
     display: flex;
     flex-direction: column;
@@ -19,15 +31,35 @@
         padding: 50px 10px;
     }
 
+    @include tablet(){
+        padding: 50px 0;
+        align-items: center;
+    }
+
+    @include desktop(){
+        padding: 50px 0;
+        align-items: center;
+    }
+
     .title-contact-us{
         display: flex;
+        width: 100%;
         font-size: 26px;
         color: $color1;
         font-family: "Crimson Text",serif;
         text-align: start;
+        justify-content: flex-start;
 
         @include mobile(){
             font-size: 20px;
+        }
+
+        @include tablet(){
+            width: 740px;
+        }
+
+        @include desktop(){
+            width: 960px;
         }
     }
 
@@ -39,6 +71,14 @@
 
         @include mobile(){
             flex-direction: column;
+        }
+
+        @include tablet(){
+            width: 740px;
+        }
+
+        @include desktop(){
+            width: 960px;
         }
 
         .form-kiri-online-cu{
@@ -66,11 +106,11 @@
                     display: flex;
                     flex-direction: column;
                     width: calc(100%/2);
-                    margin-right: 20px;
+                    padding-right: 10px;
 
                     @include mobile(){
                         width: 100%;
-                        margin-right: 0;
+                        padding-right: 0;
                     }
                 }
     
@@ -78,9 +118,11 @@
                     display: flex;
                     flex-direction: column;
                     width: calc(100%/2);
+                    padding-left: 10px;
 
                     @include mobile(){
                         width: 100%;
+                        padding-left: 0;
                     }
                 }
             }

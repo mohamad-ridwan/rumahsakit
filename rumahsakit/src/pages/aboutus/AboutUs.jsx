@@ -25,6 +25,9 @@ function AboutUs() {
 
     const elementNavmenu = document.getElementsByClassName('wrapp-navmenu')
 
+    const widthBody = document.body.getBoundingClientRect().width
+    const minimizeValue = Math.floor(widthBody)
+
     let pathElement = []
 
     function setAllAPI() {
@@ -49,13 +52,21 @@ function AboutUs() {
     }
 
     useEffect(() => {
+        window.scrollTo(0, 0)
         setAllAPI();
         activeNavbar();
     }, [])
 
     const styleNavmenu = {
         position: fixed ? 'fixed' : 'static',
-        marginTop: fixed ? '190px' : '0'
+        marginTop: fixed ? '190px' : '0',
+    }
+
+    const checkFixedNavmenu = fixed ? '23%' : 'auto'
+    const sizeMobileNavmenu = minimizeValue < 767 ? '100%' : 'auto'
+
+    const styleBoxFixedNavmenu = {
+        width: minimizeValue > 766 && minimizeValue < 1024 ? checkFixedNavmenu : sizeMobileNavmenu
     }
 
     function toElement(path) {
@@ -64,9 +75,6 @@ function AboutUs() {
 
         window.scrollBy({ top: getTopElement - 185 })
     }
-
-    const widthBody = document.body.getBoundingClientRect().width
-    const minimizeValue = Math.floor(widthBody)
 
     window.addEventListener('scroll', () => {
         if (minimizeValue > 766) {
@@ -147,62 +155,68 @@ function AboutUs() {
             />
 
             <div className="wrapp-about-us">
-                <div className="kolom-kiri-about-us">
-                    <p className="title-rs-permata-keluarga">
-                        RS PERMATA KELUARGA
-                    </p>
-                    <div className="box-fixed-navmenu" style={styleNavmenu}
-                        onMouseLeave={mouseLeaveNavmenu}
-                    >
+                <div className="container-about-us">
+                    <div className="kolom-kiri-about-us">
+                        <p className="title-rs-permata-keluarga">
+                            RS PERMATA KELUARGA
+                        </p>
+                        <div className="container-box-fixed-navmenu" style={styleNavmenu}>
+                            <div className="column-box-fixed-navmenu">
+                                <div className="box-fixed-navmenu" style={styleBoxFixedNavmenu}
+                                    onMouseLeave={mouseLeaveNavmenu}
+                                >
+                                    {dataKonten && dataKonten.length > 0 ?
+                                        dataKonten.map((e, i) => {
+
+                                            const getPath = e.path.split(' ').join('-')
+                                            pathElement.push(getPath)
+
+                                            return (
+                                                <NavMenu
+                                                    key={e._id}
+                                                    name={e.path}
+                                                    clickNav={() => toElement(getPath)}
+                                                    mouseEnter={() => mouseEnterNavmenu(i)}
+                                                    clickBtn={() => clickBtnNavmenu(i)}
+                                                />
+                                            )
+                                        }) : (
+                                            <div></div>
+                                        )}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="kolom-kanan-about-us">
+                        <Headers
+                            header1="Home"
+                            arrow=">"
+                            header2={dataHeader && dataHeader.namePage}
+                            cursor1="pointer"
+                            colorHeader2="#7e7e7e"
+                            click1={toPageHome}
+                        />
+
                         {dataKonten && dataKonten.length > 0 ?
-                            dataKonten.map((e, i) => {
+                            dataKonten.map((e) => {
 
                                 const getPath = e.path.split(' ').join('-')
-                                pathElement.push(getPath)
 
                                 return (
-                                    <NavMenu
-                                        key={e._id}
-                                        name={e.path}
-                                        clickNav={() => toElement(getPath)}
-                                        mouseEnter={() => mouseEnterNavmenu(i)}
-                                        clickBtn={() => clickBtnNavmenu(i)}
-                                    />
+                                    <>
+                                        <div key={e._id} className="konten-about-us" id={getPath}>
+                                            <p className="title-konten-about-us">{e.title}</p>
+                                            <RenderHTML
+                                                data={e.konten}
+                                                title={e.title}
+                                            />
+                                        </div>
+                                    </>
                                 )
                             }) : (
                                 <div></div>
                             )}
                     </div>
-                </div>
-                <div className="kolom-kanan-about-us">
-                    <Headers
-                        header1="Home"
-                        arrow=">"
-                        header2={dataHeader && dataHeader.namePage}
-                        cursor1="pointer"
-                        colorHeader2="#7e7e7e"
-                        click1={toPageHome}
-                    />
-
-                    {dataKonten && dataKonten.length > 0 ?
-                        dataKonten.map((e) => {
-
-                            const getPath = e.path.split(' ').join('-')
-
-                            return (
-                                <>
-                                    <div key={e._id} className="konten-about-us" id={getPath}>
-                                        <p className="title-konten-about-us">{e.title}</p>
-                                        <RenderHTML
-                                            data={e.konten}
-                                            title={e.title}
-                                        />
-                                    </div>
-                                </>
-                            )
-                        }) : (
-                            <div></div>
-                        )}
                 </div>
             </div>
 

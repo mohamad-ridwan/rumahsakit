@@ -38,6 +38,7 @@ function DetailCareer() {
     }
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         setAllAPI();
     }, [])
 
@@ -72,63 +73,65 @@ function DetailCareer() {
                     click2={() => toPage('/career')}
                 />
 
-                {career && Object.keys(career).length > 0 ?
-                    (
-                        <>
-                            <div className="main-konten-detail-career">
-                                <p className="title-konten-detail-career">
-                                    {career.title}
-                                </p>
+                <div className="container-detail-career">
+                    {career && Object.keys(career).length > 0 ?
+                        (
+                            <>
+                                <div className="main-konten-detail-career">
+                                    <p className="title-konten-detail-career">
+                                        {career.title}
+                                    </p>
 
-                                <p className="main-deskripsi-detail-career">
-                                    {career.mainDeskripsi}
-                                </p>
+                                    <p className="main-deskripsi-detail-career">
+                                        {career.mainDeskripsi}
+                                    </p>
 
-                                <p className="title-name-rs-detail-career">
-                                    {career.nameRs}
-                                </p>
+                                    <p className="title-name-rs-detail-career">
+                                        {career.nameRs}
+                                    </p>
 
-                                <p className="hrd-rs-detail-career">
-                                    {career.hrd}
-                                </p>
+                                    <p className="hrd-rs-detail-career">
+                                        {career.hrd}
+                                    </p>
 
-                                <p className="address-detail-career">
-                                    {career.address}
-                                </p>
+                                    <p className="address-detail-career">
+                                        {career.address}
+                                    </p>
 
-                                <p className="email-detail-career">
-                                    atau email ke:
+                                    <p className="email-detail-career">
+                                        atau email ke:
                                         <a href={`mailto:${career.email}`} className="konten-email-detail-career">
-                                        {career.email} </a>
-                                </p>
+                                            {career.email} </a>
+                                    </p>
 
-                                <div className="container-box-grey-detail-career">
-                                    <div className="box-grey-detail-career">
-                                        <p className="title-bidang-detail-career">
-                                            {career.titleBidang}
-                                        </p>
+                                    <div className="container-box-grey-detail-career">
+                                        <div className="box-grey-detail-career">
+                                            <p className="title-bidang-detail-career">
+                                                {career.titleBidang}
+                                            </p>
 
-                                        <div className="container-date-detail-career">
-                                            <i className="far fa-calendar-alt"></i>
-                                            <p className="date-job-career font-detail-career-group">
-                                                {career.dateLamaran}
+                                            <div className="container-date-detail-career">
+                                                <i className="far fa-calendar-alt"></i>
+                                                <p className="date-job-career font-detail-career-group">
+                                                    {career.dateLamaran}
+                                                </p>
+                                            </div>
+
+                                            <p className="qualification">
+                                                Qualification
+                                            </p>
+
+                                            <p className="deskripsi-job-detail-career">
+                                                {career.qualification}
                                             </p>
                                         </div>
-
-                                        <p className="qualification">
-                                            Qualification
-                                            </p>
-
-                                        <p className="deskripsi-job-detail-career">
-                                            {career.qualification}
-                                        </p>
                                     </div>
                                 </div>
-                            </div>
-                        </>
-                    ) : (
-                        <div></div>
-                    )}
+                            </>
+                        ) : (
+                            <div></div>
+                        )}
+                </div>
             </div>
 
             <Loading

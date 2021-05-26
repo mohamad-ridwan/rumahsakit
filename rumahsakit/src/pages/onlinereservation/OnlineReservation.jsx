@@ -549,7 +549,9 @@ function OnlineReservation() {
     const widthBody = document.body.getBoundingClientRect().width
     const minimizeValue = Math.floor(widthBody)
 
-    const topSuccessMessage = minimizeValue < 769 ? '110px' : '170px'
+    const topSuccessMessage1024 = minimizeValue > 766 && minimizeValue < 1024 ? '150px' : '170px'
+
+    const topSuccessMessage = minimizeValue < 769 ? '110px' : topSuccessMessage1024
 
     return (
         <>
@@ -580,217 +582,219 @@ function OnlineReservation() {
                 />
 
                 <div className="container-konten-online-reservation">
-                    <div className="form-kiri-online-rv">
-                        <Input
-                            displayTitle="flex"
-                            title="Data Pribadi"
-                            label="Nama"
-                            nameInput="nama"
-                            typeInput="text"
-                            value={value.nama}
-                            handleChange={inputDataPribadi}
-                            errorMessage={errForm && errForm.nama}
-                        />
+                    <div className="column-konten-online-reservation">
+                        <div className="form-kiri-online-rv">
+                            <Input
+                                displayTitle="flex"
+                                title="Data Pribadi"
+                                label="Nama"
+                                nameInput="nama"
+                                typeInput="text"
+                                value={value.nama}
+                                handleChange={inputDataPribadi}
+                                errorMessage={errForm && errForm.nama}
+                            />
 
-                        <Input
-                            label="Nomor Telepon"
-                            nameInput="nomorTelepon"
-                            typeInput="tel"
-                            value={value.nomorTelepon}
-                            handleChange={inputDataPribadi}
-                            errorMessage={errForm && errForm.nomorTelepon}
-                        />
+                            <Input
+                                label="Nomor Telepon"
+                                nameInput="nomorTelepon"
+                                typeInput="tel"
+                                value={value.nomorTelepon}
+                                handleChange={inputDataPribadi}
+                                errorMessage={errForm && errForm.nomorTelepon}
+                            />
 
-                        <Input
-                            label="Tanggal Lahir"
-                            placeholder="Tanggal/Bulan/Tahun"
-                            nameInput="tanggalLahir"
-                            typeInput="text"
-                            value={value.tanggalLahir}
-                            handleChange={inputDataPribadi}
-                            errorMessage={errForm && errForm.tanggalLahir}
-                        />
+                            <Input
+                                label="Tanggal Lahir"
+                                placeholder="Tanggal/Bulan/Tahun"
+                                nameInput="tanggalLahir"
+                                typeInput="text"
+                                value={value.tanggalLahir}
+                                handleChange={inputDataPribadi}
+                                errorMessage={errForm && errForm.tanggalLahir}
+                            />
 
-                        <Input
-                            label="Email"
-                            nameInput="email"
-                            typeInput="email"
-                            value={value.email}
-                            handleChange={inputDataPribadi}
-                            errorMessage={errForm && errForm.email}
-                        />
+                            <Input
+                                label="Email"
+                                nameInput="email"
+                                typeInput="email"
+                                value={value.email}
+                                handleChange={inputDataPribadi}
+                                errorMessage={errForm && errForm.email}
+                            />
 
-                        <div className="container-group-answer">
-                            <p className="question-form-kanan-online-rv">
-                                Apakah Anda pernah berobat di RS Permata sebelumnya?
+                            <div className="container-group-answer">
+                                <p className="question-form-kanan-online-rv">
+                                    Apakah Anda pernah berobat di RS Permata sebelumnya?
                             </p>
 
-                            <div className="column-indicator-answer">
-                                <IndicatorAnswer
-                                    answer="Ya"
-                                    bgColorAnswer={answerPernahBerobat === 'Ya' ? '#b04579' : 'transparent'}
-                                    borderAnswer={answerPernahBerobat === 'Ya' ? '1px solid #b04579' : '1px solid #999'}
-                                    clickAnswer={answerYes}
-                                />
+                                <div className="column-indicator-answer">
+                                    <IndicatorAnswer
+                                        answer="Ya"
+                                        bgColorAnswer={answerPernahBerobat === 'Ya' ? '#b04579' : 'transparent'}
+                                        borderAnswer={answerPernahBerobat === 'Ya' ? '1px solid #b04579' : '1px solid #999'}
+                                        clickAnswer={answerYes}
+                                    />
 
-                                <IndicatorAnswer
-                                    answer="Tidak"
-                                    bgColorAnswer={answerPernahBerobat === 'Tidak' ? '#b04579' : 'transparent'}
-                                    borderAnswer={answerPernahBerobat === 'Tidak' ? '1px solid #b04579' : '1px solid #999'}
-                                    clickAnswer={answerNo}
-                                />
+                                    <IndicatorAnswer
+                                        answer="Tidak"
+                                        bgColorAnswer={answerPernahBerobat === 'Tidak' ? '#b04579' : 'transparent'}
+                                        borderAnswer={answerPernahBerobat === 'Tidak' ? '1px solid #b04579' : '1px solid #999'}
+                                        clickAnswer={answerNo}
+                                    />
+                                </div>
+                            </div>
+
+                            <Input
+                                displayWrapp={answerPernahBerobat === 'Ya' ? 'flex' : 'none'}
+                                displayBintangWajib="none"
+                                label="Nomor Rekam Medis"
+                                nameInput="nomorRekamMedis"
+                                typeInput="text"
+                                value={value.nomorRekamMedis}
+                                handleChange={inputDataPribadi}
+                            />
+
+                            <div className="container-group-answer">
+                                <p className="question-form-kanan-online-rv">
+                                    Pilih Tipe Pembayaran
+                            </p>
+
+                                <div className="column-indicator-answer">
+                                    <IndicatorAnswer
+                                        answer="Biaya Pribadi"
+                                        bgColorAnswer={answerTipePembayaran === 'Biaya Pribadi' ? '#b04579' : 'transparent'}
+                                        borderAnswer={answerTipePembayaran === 'Biaya Pribadi' ? '1px solid #b04579' : '1px solid #999'}
+                                        clickAnswer={answerBiayaPribadi}
+                                    />
+
+                                    <IndicatorAnswer
+                                        answer={'Asuransi'}
+                                        bgColorAnswer={answerTipePembayaran !== 'Biaya Pribadi' ? '#b04579' : 'transparent'}
+                                        borderAnswer={answerTipePembayaran !== 'Biaya Pribadi' ? '1px solid #b04579' : '1px solid #999'}
+                                        clickAnswer={answerBiayaAsuransi}
+                                    />
+                                </div>
                             </div>
                         </div>
 
-                        <Input
-                            displayWrapp={answerPernahBerobat === 'Ya' ? 'flex' : 'none'}
-                            displayBintangWajib="none"
-                            label="Nomor Rekam Medis"
-                            nameInput="nomorRekamMedis"
-                            typeInput="text"
-                            value={value.nomorRekamMedis}
-                            handleChange={inputDataPribadi}
-                        />
+                        <div className="form-kanan-online-rv">
+                            <Input
+                                displayTitle="flex"
+                                title="Waktu Kunjungan Anda"
+                                displayInput="none"
+                                label="Spesialisasi Dokter"
+                                errorMessage={errForm && errForm.spesialisDokter}
+                                displayBtn="flex"
+                                nameBtn={nameBtnSpesialisDoctor}
+                                data={filterSpesialisDoctor}
+                                displayModal={modalSpesialisDoctor ? 'flex' : 'none'}
+                                topModal={topModal}
+                                nameClass="spesialis"
+                                searchMenuInput={inputSpesialisDoctor}
+                                clickBtnInput={(e) => showModalSpesialisDoctor(e)}
+                                clickNameMenu={(data, index) => selectSpesialisDoctor(data, index)}
+                                clickCloseModal={closeModalSpesialisDoctor}
+                            />
 
-                        <div className="container-group-answer">
-                            <p className="question-form-kanan-online-rv">
-                                Pilih Tipe Pembayaran
+                            <Input
+                                displayTitle="none"
+                                displayInput="none"
+                                label="Nama Dokter"
+                                errorMessage={errForm && errForm.namaDokter}
+                                displayBtn="flex"
+                                nameBtn={nameBtnPilihDoctor}
+                                data={filterNameDoctor}
+                                displayModal={modalPilihDoctor ? 'flex' : 'none'}
+                                topModal={topModalPilihDoctor}
+                                nameClass="nameDoctor"
+                                cursorBtn={nameBtnSpesialisDoctor === 'Pilih Spesialisasi Dokter' ? 'not-allowed' : 'pointer'}
+                                searchMenuInput={inputSpesialisDoctor}
+                                clickBtnInput={(e) => showModalNameDoctor(e)}
+                                clickCloseModal={closeModalNameDoctor}
+                                clickNameMenu={(data, index) => selectNameDoctor(data, index)}
+                            />
+
+                            <div className="container-group-answer" style={styleGroupAnswer}>
+                                <p className="question-form-kanan-online-rv">
+                                    Pilih Jadwal Praktek Dokter
                             </p>
 
-                            <div className="column-indicator-answer">
-                                <IndicatorAnswer
-                                    answer="Biaya Pribadi"
-                                    bgColorAnswer={answerTipePembayaran === 'Biaya Pribadi' ? '#b04579' : 'transparent'}
-                                    borderAnswer={answerTipePembayaran === 'Biaya Pribadi' ? '1px solid #b04579' : '1px solid #999'}
-                                    clickAnswer={answerBiayaPribadi}
-                                />
+                                <div className="column-indicator-answer" style={styleColumnIndicatorAnswer}>
+                                    {Object.entries(jadwalDokter).map((e, i) => {
 
-                                <IndicatorAnswer
-                                    answer={'Asuransi'}
-                                    bgColorAnswer={answerTipePembayaran !== 'Biaya Pribadi' ? '#b04579' : 'transparent'}
-                                    borderAnswer={answerTipePembayaran !== 'Biaya Pribadi' ? '1px solid #b04579' : '1px solid #999'}
-                                    clickAnswer={answerBiayaAsuransi}
-                                />
+                                        const removeNonSchedule = e[1].includes('.') ? e[1] : ''
+
+                                        return (
+                                            <>
+                                                <IndicatorAnswer
+                                                    key={i}
+                                                    displayWrapp={removeNonSchedule !== '' ? 'flex' : 'none'}
+                                                    answer={removeNonSchedule}
+                                                    classAnswer="jadwal-praktek"
+                                                    clickAnswer={() => answerJadwalPraktek(e, i)}
+                                                />
+                                            </>
+                                        )
+                                    })}
+                                </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div className="form-kanan-online-rv">
-                        <Input
-                            displayTitle="flex"
-                            title="Waktu Kunjungan Anda"
-                            displayInput="none"
-                            label="Spesialisasi Dokter"
-                            errorMessage={errForm && errForm.spesialisDokter}
-                            displayBtn="flex"
-                            nameBtn={nameBtnSpesialisDoctor}
-                            data={filterSpesialisDoctor}
-                            displayModal={modalSpesialisDoctor ? 'flex' : 'none'}
-                            topModal={topModal}
-                            nameClass="spesialis"
-                            searchMenuInput={inputSpesialisDoctor}
-                            clickBtnInput={(e) => showModalSpesialisDoctor(e)}
-                            clickNameMenu={(data, index) => selectSpesialisDoctor(data, index)}
-                            clickCloseModal={closeModalSpesialisDoctor}
-                        />
-
-                        <Input
-                            displayTitle="none"
-                            displayInput="none"
-                            label="Nama Dokter"
-                            errorMessage={errForm && errForm.namaDokter}
-                            displayBtn="flex"
-                            nameBtn={nameBtnPilihDoctor}
-                            data={filterNameDoctor}
-                            displayModal={modalPilihDoctor ? 'flex' : 'none'}
-                            topModal={topModalPilihDoctor}
-                            nameClass="nameDoctor"
-                            cursorBtn={nameBtnSpesialisDoctor === 'Pilih Spesialisasi Dokter' ? 'not-allowed' : 'pointer'}
-                            searchMenuInput={inputSpesialisDoctor}
-                            clickBtnInput={(e) => showModalNameDoctor(e)}
-                            clickCloseModal={closeModalNameDoctor}
-                            clickNameMenu={(data, index) => selectNameDoctor(data, index)}
-                        />
-
-                        <div className="container-group-answer" style={styleGroupAnswer}>
-                            <p className="question-form-kanan-online-rv">
-                                Pilih Jadwal Praktek Dokter
+                            <p className="error-message-form-online-rv">
+                                {nameBtnPilihDoctor !== 'Pilih Dokter' ? errForm && errForm.jadwalDokter : ''}
                             </p>
 
-                            <div className="column-indicator-answer" style={styleColumnIndicatorAnswer}>
-                                {Object.entries(jadwalDokter).map((e, i) => {
+                            <Input
+                                label="Tanggal Kunjungan"
+                                placeholder="Tanggal/Bulan/Tahun"
+                                errorMessage={errForm && errForm.tanggalKunjungan}
+                                nameInput="tanggalKunjungan"
+                                typeInput="text"
+                                value={value.tanggalKunjungan}
+                                handleChange={inputDataPribadi}
+                                cursorInputForm={value.jadwalDokter.length > 1 ? 'text' : 'not-allowed'}
+                                idInputForm="tanggal-kunjungan"
+                            />
 
-                                    const removeNonSchedule = e[1].includes('.') ? e[1] : ''
-
-                                    return (
-                                        <>
-                                            <IndicatorAnswer
-                                                key={i}
-                                                displayWrapp={removeNonSchedule !== '' ? 'flex' : 'none'}
-                                                answer={removeNonSchedule}
-                                                classAnswer="jadwal-praktek"
-                                                clickAnswer={() => answerJadwalPraktek(e, i)}
-                                            />
-                                        </>
-                                    )
-                                })}
-                            </div>
-                        </div>
-
-                        <p className="error-message-form-online-rv">
-                            {nameBtnPilihDoctor !== 'Pilih Dokter' ? errForm && errForm.jadwalDokter : ''}
-                        </p>
-
-                        <Input
-                            label="Tanggal Kunjungan"
-                            placeholder="Tanggal/Bulan/Tahun"
-                            errorMessage={errForm && errForm.tanggalKunjungan}
-                            nameInput="tanggalKunjungan"
-                            typeInput="text"
-                            value={value.tanggalKunjungan}
-                            handleChange={inputDataPribadi}
-                            cursorInputForm={value.jadwalDokter.length > 1 ? 'text' : 'not-allowed'}
-                            idInputForm="tanggal-kunjungan"
-                        />
-
-                        <label htmlFor="label" className="label-form-online-rv">
-                            Message
+                            <label htmlFor="label" className="label-form-online-rv">
+                                Message
                         </label>
 
-                        <textarea name="message" className="input-form-online-rv" cols="30" rows="10"
-                            onChange={inputDataPribadi}
-                        ></textarea>
+                            <textarea name="message" className="input-form-online-rv" cols="30" rows="10"
+                                onChange={inputDataPribadi}
+                            ></textarea>
 
-                        <p className="note-form-online-rv">
-                            Note : Dokter sewaktu waktu dapat membatalkan jadwal praktek dikarenakan cuti atau berhalangan, kami akan mengkonfirmasi anda via sms/telepon jika ada perubahan tersebut. Terima Kasih dan harap maklum
-                        </p>
+                            <p className="note-form-online-rv">
+                                Note : Dokter sewaktu waktu dapat membatalkan jadwal praktek dikarenakan cuti atau berhalangan, kami akan mengkonfirmasi anda via sms/telepon jika ada perubahan tersebut. Terima Kasih dan harap maklum
+                            </p>
 
-                        <div className="container-agree-form-online-rv">
-                            <div className="checkbox-agree-form-online-rv"
-                                onClick={clickAgreeSubmit}
-                            >
-                                <i className="fas fa-check"
-                                    style={styleIconCheck}
-                                ></i>
+                            <div className="container-agree-form-online-rv">
+                                <div className="checkbox-agree-form-online-rv"
+                                    onClick={clickAgreeSubmit}
+                                >
+                                    <i className="fas fa-check"
+                                        style={styleIconCheck}
+                                    ></i>
+                                </div>
+
+                                <p className="deskripsi-agree-form-online-rv"
+                                    onClick={clickAgreeSubmit}
+                                >
+                                    Saya setuju bahwa data saya akan digunakan oleh rumah sakit untuk keperluan yang berhubungan dengan pelayanan kesehatan saya
+                            </p>
                             </div>
 
-                            <p className="deskripsi-agree-form-online-rv"
-                                onClick={clickAgreeSubmit}
-                            >
-                                Saya setuju bahwa data saya akan digunakan oleh rumah sakit untuk keperluan yang berhubungan dengan pelayanan kesehatan saya
+                            <p className="error-message-form-online-rv">
+                                {errForm && errForm.agreeSubmit}
                             </p>
-                        </div>
 
-                        <p className="error-message-form-online-rv">
-                            {errForm && errForm.agreeSubmit}
-                        </p>
-
-                        <div className="column-btn-form-online-rv">
-                            <ButtonCard
-                                nameClassBtn="btn-card-two"
-                                title="SUBMIT"
-                                clickBtn={handleSubmit}
-                            />
+                            <div className="column-btn-form-online-rv">
+                                <ButtonCard
+                                    nameClassBtn="btn-card-two"
+                                    title="SUBMIT"
+                                    clickBtn={handleSubmit}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -91,6 +91,7 @@ function Faq() {
     }
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         heightAccordion();
         setAllAPI();
         activeNavbar();
@@ -200,59 +201,61 @@ function Faq() {
             />
 
             <div className="wrapp-faq">
-                <div className="column-kiri-faq">
-                    {navMenu && navMenu.length > 0 ?
-                        navMenu.map((e, i) => {
-                            return (
-                                <>
-                                    <NavMenu
-                                        key={e._id}
-                                        name={e.title}
-                                        mouseEnter={() => mouseEnterNavmenu(i)}
-                                        mouseLeave={() => mouseLeaveNavmenu()}
-                                        marginLeft={activeNavMenu === i ? '-7px' : '0'}
-                                        colorBtn={activeNavMenu === i ? '#333' : '#b04579'}
-                                        clickBtn={() => toPageFromNavmenu(i, e, true)}
-                                    />
-                                </>
-                            )
-                        }) : (
-                            <div></div>
-                        )}
-                </div>
+                <div className="container-faq">
+                    <div className="column-kiri-faq">
+                        {navMenu && navMenu.length > 0 ?
+                            navMenu.map((e, i) => {
+                                return (
+                                    <>
+                                        <NavMenu
+                                            key={e._id}
+                                            name={e.title}
+                                            mouseEnter={() => mouseEnterNavmenu(i)}
+                                            mouseLeave={() => mouseLeaveNavmenu()}
+                                            marginLeft={activeNavMenu === i ? '-7px' : '0'}
+                                            colorBtn={activeNavMenu === i ? '#333' : '#b04579'}
+                                            clickBtn={() => toPageFromNavmenu(i, e, true)}
+                                        />
+                                    </>
+                                )
+                            }) : (
+                                <div></div>
+                            )}
+                    </div>
 
-                <div className="column-kanan-faq">
-                    <Headers
-                        header1="Home"
-                        arrow=">"
-                        header2={dataHeader && dataHeader.namePage}
-                        cursor1="pointer"
-                        colorHeader2="#7e7e7e"
-                        click1={toPageHome}
-                    />
+                    <div className="column-kanan-faq">
+                        <Headers
+                            header1="Home"
+                            arrow=">"
+                            header2={dataHeader && dataHeader.namePage}
+                            cursor1="pointer"
+                            colorHeader2="#7e7e7e"
+                            click1={toPageHome}
+                        />
 
-                    {dataFaq && dataFaq.length > 0 ?
-                        dataFaq.map((e, i) => {
-                            return (
-                                <>
-                                    <div key={e._id} className="box-accordion-faq">
-                                        <button className="btn-accordion-faq"
-                                            onClick={() => btnAccordion(i)}
-                                        >
-                                            {e.question}
-                                            <i className="fas fa-sort-up icon-accordion"></i>
-                                        </button>
+                        {dataFaq && dataFaq.length > 0 ?
+                            dataFaq.map((e, i) => {
+                                return (
+                                    <>
+                                        <div key={e._id} className="box-accordion-faq">
+                                            <button className="btn-accordion-faq"
+                                                onClick={() => btnAccordion(i)}
+                                            >
+                                                {e.question}
+                                                <i className="fas fa-sort-up icon-accordion"></i>
+                                            </button>
 
-                                        <div className="column-deskripsi-accordion-faq"
-                                        >
-                                            <RenderHTML answer={e.answer} />
+                                            <div className="column-deskripsi-accordion-faq"
+                                            >
+                                                <RenderHTML answer={e.answer} />
+                                            </div>
                                         </div>
-                                    </div>
-                                </>
-                            )
-                        }) : (
-                            <div></div>
-                        )}
+                                    </>
+                                )
+                            }) : (
+                                <div></div>
+                            )}
+                    </div>
                 </div>
             </div>
 

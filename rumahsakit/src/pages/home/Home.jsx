@@ -189,9 +189,13 @@ function Home() {
     const widthBody = document.body.getBoundingClientRect().width
     const minimizeValue = Math.floor(widthBody)
 
-    const topSuccessMessage = minimizeValue < 767 ? '110px' : '170px'
+    const topSuccessMessage1024 = minimizeValue > 766 && minimizeValue < 1024 ? '150px' : '170px'
 
-    const heightImgCard = minimizeValue < 767 ? 'auto' : '200px'
+    const topSuccessMessage = minimizeValue < 767 ? '110px' : topSuccessMessage1024
+
+    const heightImgCard1024 = minimizeValue > 766 && minimizeValue < 1024 ? 'auto' : '200px'
+
+    const heightImgCard = minimizeValue < 767 ? 'auto' : heightImgCard1024
 
     return (
         <>
@@ -236,12 +240,14 @@ function Home() {
                 {Object.keys(bannerSelamatDatang).length > 0 ? (
                     <>
                         <div className="banner-selamat-datang" style={styleBannerWelcome}>
-                            <p className="title-selamat-datang">
-                                {bannerSelamatDatang.title}
-                            </p>
-                            <p className="deskripsi-selamat-datang">
-                                {bannerSelamatDatang.deskripsi}
-                            </p>
+                            <div className="column-banner-selamat-datang">
+                                <p className="title-selamat-datang">
+                                    {bannerSelamatDatang.title}
+                                </p>
+                                <p className="deskripsi-selamat-datang">
+                                    {bannerSelamatDatang.deskripsi}
+                                </p>
+                            </div>
                         </div>
                     </>
                 ) : (
@@ -264,16 +270,19 @@ function Home() {
 
                                 return (
                                     <>
-                                        <Card
-                                            key={e._id}
-                                            img={`${Endpoint}/images/${e.image}`}
-                                            title={`${minimizeTitle}...`}
-                                            date={e.date}
-                                            deskripsi={`${minimizeDescription}...`}
-                                            heightImg={heightImgCard}
-                                            nameBtnReadMore="Read More"
-                                            clickToPage={() => toPageBlogArticles(e)}
-                                        />
+                                        <div className="column-card-article-home">
+                                            <Card
+                                                key={e._id}
+                                                img={`${Endpoint}/images/${e.image}`}
+                                                widthCard="100%"
+                                                title={`${minimizeTitle}...`}
+                                                date={e.date}
+                                                deskripsi={`${minimizeDescription}...`}
+                                                heightImg={heightImgCard}
+                                                nameBtnReadMore="Read More"
+                                                clickToPage={() => toPageBlogArticles(e)}
+                                            />
+                                        </div>
                                     </>
                                 )
                             }) : (
@@ -291,88 +300,92 @@ function Home() {
                 </div>
 
                 <div className="container-banner-subscribe-home" style={styleBannerSubscribe}>
-                    <div className="konten-banner-subscribe">
-                        {Object.keys(dataBannerNewsletter).length > 0 ? (
-                            <>
-                                <p className="txt-konten-banner">
-                                    {dataBannerNewsletter.title}
-                                    <br />
-                                    <em>{dataBannerNewsletter.deskripsi}</em>
-                                </p>
-                            </>
-                        ) : (
-                            <div></div>
-                        )}
+                    <div className="column-banner-subscribe-home">
+                        <div className="konten-banner-subscribe">
+                            {Object.keys(dataBannerNewsletter).length > 0 ? (
+                                <>
+                                    <p className="txt-konten-banner">
+                                        {dataBannerNewsletter.title}
+                                        <br />
+                                        <em>{dataBannerNewsletter.deskripsi}</em>
+                                    </p>
+                                </>
+                            ) : (
+                                <div></div>
+                            )}
 
-                        <form onSubmit={submitSubscribe}
-                            className="form-input-subscribe">
-                            <input type="email" className="input-subscribe" value={inputSubscribe.email} placeholder="Enter your email address"
-                                onChange={changeInputSubscribe}
-                            />
+                            <form onSubmit={submitSubscribe}
+                                className="form-input-subscribe">
+                                <input type="email" className="input-subscribe" value={inputSubscribe.email} placeholder="Enter your email address"
+                                    onChange={changeInputSubscribe}
+                                />
 
-                            <div className="container-btn-subscribe">
-                                <button className="btn-subscribe"
-                                    onClick={submitSubscribe}
-                                >
-                                    SUBSCRIBE
+                                <div className="container-btn-subscribe">
+                                    <button className="btn-subscribe"
+                                        onClick={submitSubscribe}
+                                    >
+                                        SUBSCRIBE
                                 </button>
-                                <div className="container-loading-btn-subscribe" style={styleLoadingBtnSubscribe}>
-                                    <div className="loading-btn-subscribe">
+                                    <div className="container-loading-btn-subscribe" style={styleLoadingBtnSubscribe}>
+                                        <div className="loading-btn-subscribe">
 
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
 
-                        {errorMessage.length > 0 ? (
-                            <>
-                                <p className="txt-error-input">
-                                    {errorMessage}
-                                </p>
-                            </>
-                        ) : (
-                            <div></div>
-                        )}
+                            {errorMessage.length > 0 ? (
+                                <>
+                                    <p className="txt-error-input">
+                                        {errorMessage}
+                                    </p>
+                                </>
+                            ) : (
+                                <div></div>
+                            )}
+                        </div>
                     </div>
                 </div>
 
                 <div className="container-our-patient-testimony">
-                    <div className="kolom-kanan-our-patient">
-                        <p className="title-our-patient">
-                            {Object.keys(dataOurPatientTestimony).length > 0 ? dataOurPatientTestimony.title : ''}
-                        </p>
+                    <div className="column-our-patient-testimony">
+                        <div className="kolom-kanan-our-patient">
+                            <p className="title-our-patient">
+                                {Object.keys(dataOurPatientTestimony).length > 0 ? dataOurPatientTestimony.title : ''}
+                            </p>
 
-                        <CarouselMain
-                            displayCarouselTestimony="flex"
-                            dataTestimoni={dataTestimoni}
-                            iconQuotes={Object.keys(dataOurPatientTestimony).length > 0 ? `${Endpoint}/images/${dataOurPatientTestimony.image}` : ''}
-                        />
-                    </div>
-                    <div className="kolom-kiri-our-patient">
-                        {Object.keys(dataReserveNow).length > 0 ? (
-                            <>
-                                <p className="title-our-patient">
-                                    {dataReserveNow.title}
-                                </p>
-
-                                <div className="box-pink-reserve-now">
-                                    <img src={`${Endpoint}/images/${dataReserveNow.image}`} alt="background pink reserve now" className="img-reserve-now" />
-
-                                    <p className="deskripsi-box-pink">
-                                        {dataReserveNow.deskripsi}
+                            <CarouselMain
+                                displayCarouselTestimony="flex"
+                                dataTestimoni={dataTestimoni}
+                                iconQuotes={Object.keys(dataOurPatientTestimony).length > 0 ? `${Endpoint}/images/${dataOurPatientTestimony.image}` : ''}
+                            />
+                        </div>
+                        <div className="kolom-kiri-our-patient">
+                            {Object.keys(dataReserveNow).length > 0 ? (
+                                <>
+                                    <p className="title-our-patient">
+                                        {dataReserveNow.title}
                                     </p>
 
-                                    <ButtonCard
-                                        nameClassBtn="btn-card-two"
-                                        title="RESERVE NOW"
-                                        clickBtn={toPageOnlineReservation}
-                                    />
-                                </div>
-                            </>
-                        ) : (
-                            <div></div>
-                        )}
+                                    <div className="box-pink-reserve-now">
+                                        <img src={`${Endpoint}/images/${dataReserveNow.image}`} alt="background pink reserve now" className="img-reserve-now" />
 
+                                        <p className="deskripsi-box-pink">
+                                            {dataReserveNow.deskripsi}
+                                        </p>
+
+                                        <ButtonCard
+                                            nameClassBtn="btn-card-two"
+                                            title="RESERVE NOW"
+                                            clickBtn={toPageOnlineReservation}
+                                        />
+                                    </div>
+                                </>
+                            ) : (
+                                <div></div>
+                            )}
+
+                        </div>
                     </div>
                 </div>
             </div>

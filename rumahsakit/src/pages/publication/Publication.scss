@@ -6,6 +6,18 @@
     }
 }
 
+@mixin tablet {
+    @media (min-width: $mobile) and (max-width: $tablet) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: $desktop) {
+        @content;
+    }
+}
+
 .wrapp-publication{
     display: flex;
     flex-direction: column;
@@ -18,12 +30,32 @@
         padding: 50px 10px;
     }
 
+    @include tablet(){
+        padding: 50px 0;
+        align-items: center;
+    }
+
+    @include desktop(){
+        padding: 50px 0;
+        align-items: center;
+    }
+
     .konten-publication{
         display: flex;
         flex-wrap: wrap;
         height: auto;
         width: 100%;
         justify-content: space-between;
+
+        @include tablet(){
+            flex-wrap: nowrap;
+            flex-direction: column;
+            width: 740px;
+        }
+
+        @include desktop(){
+            width: 960px;
+        }
 
         .column-card-publication{
             display: flex;
@@ -32,6 +64,10 @@
             @include mobile(){
                 flex-wrap: nowrap;
                 flex-direction: column;
+                width: 100%;
+            }
+
+            @include tablet(){
                 width: 100%;
             }
         }

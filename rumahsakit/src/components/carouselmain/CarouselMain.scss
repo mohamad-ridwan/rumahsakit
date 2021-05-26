@@ -105,6 +105,7 @@
                         font-style: italic;
                         color: $color3;
                         margin: 10px 0;
+                        text-align: start;
 
                         @include mobile(){
                             font-size: 13px;

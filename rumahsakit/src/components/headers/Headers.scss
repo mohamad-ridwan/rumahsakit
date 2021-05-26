@@ -6,36 +6,71 @@
     }
 }
 
+@mixin tablet {
+    @media (min-width: $mobile) and (max-width: $tablet) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: $desktop) {
+        @content;
+    }
+}
+
 .wrapp-headers{
     display: flex;
     height: auto;
     width: 100%;
     margin-bottom: 18px;
-
-    @include mobile(){
-        flex-wrap: wrap;
+    
+    @include tablet(){
+        justify-content: center;
     }
 
-    .btn-headers-group{
+    @include desktop(){
+        justify-content: center;
+    }
+
+    .column-headers{
         display: flex;
-        font-size: 13px;
-        transition: 0.2s ease-in-out;
-        color: $color1;
-        border: none;
-        outline: none;
-        background-color: transparent;
-        margin-right: 10px;
-        font-family: 'Mulish', sans-serif;
-        &:hover{
-            color: $color3;
-        }
+        width: 100%;
 
         @include mobile(){
-            text-align: start;
+            flex-wrap: wrap;
         }
-    }
 
-    .arrow{
-        margin-left: 10px;
+        @include tablet(){
+            width: 740px;
+            flex-wrap: wrap;
+        }
+
+        @include desktop(){
+            width: 960px;
+            flex-wrap: wrap;
+        }
+
+        .btn-headers-group{
+            display: flex;
+            font-size: 13px;
+            transition: 0.2s ease-in-out;
+            color: $color1;
+            border: none;
+            outline: none;
+            background-color: transparent;
+            margin-right: 10px;
+            font-family: 'Mulish', sans-serif;
+            &:hover{
+                color: $color3;
+            }
+    
+            @include mobile(){
+                text-align: start;
+            }
+        }
+    
+        .arrow{
+            margin-left: 10px;
+        }
     }
 }

@@ -342,179 +342,183 @@ function OurHospital() {
 
             <div className="wrapp-our-hospital">
                 <div className="wrapp-content-our-hospital">
-                    <div className="column-kiri-our-hospital">
-                        {pageNavMenu && pageNavMenu.length > 0 ?
-                            pageNavMenu.map((e, i) => {
-                                return (
-                                    <>
-                                        <NavMenu
-                                            key={e._id}
-                                            name={e.title}
-                                            mouseEnter={() => mouseEnterNavmenu(i)}
-                                            mouseLeave={() => mouseLeaveNavmenu()}
-                                            marginLeft={activeNavMenu === i ? '-7px' : '0'}
-                                            colorBtn={activeNavMenu === i ? '#333' : '#b04579'}
-                                            dataModalMenu={e.title === 'Layanan & Fasilitas' ? pageModalNavMenu : []}
-                                            clickBtn={() => toPageFromNavmenu(e, i)}
-                                            btnModalMenu={(data, idx) => toPageFromModalNavmenu(data, idx, i)}
-                                            mouseEnterModal={(idx) => mouseEnterModal(idx)}
-                                            mouseLeaveModal={(idx) => mouseLeaveModal(idx)}
-                                        />
-                                    </>
-                                )
-                            }) : (
-                                <div></div>
-                            )}
-                    </div>
+                    <div className="column-content-our-hospital">
+                        <div className="column-kiri-our-hospital">
+                            {pageNavMenu && pageNavMenu.length > 0 ?
+                                pageNavMenu.map((e, i) => {
+                                    return (
+                                        <>
+                                            <NavMenu
+                                                key={e._id}
+                                                name={e.title}
+                                                mouseEnter={() => mouseEnterNavmenu(i)}
+                                                mouseLeave={() => mouseLeaveNavmenu()}
+                                                marginLeft={activeNavMenu === i ? '-7px' : '0'}
+                                                colorBtn={activeNavMenu === i ? '#333' : '#b04579'}
+                                                dataModalMenu={e.title === 'Layanan & Fasilitas' ? pageModalNavMenu : []}
+                                                clickBtn={() => toPageFromNavmenu(e, i)}
+                                                btnModalMenu={(data, idx) => toPageFromModalNavmenu(data, idx, i)}
+                                                mouseEnterModal={(idx) => mouseEnterModal(idx)}
+                                                mouseLeaveModal={(idx) => mouseLeaveModal(idx)}
+                                            />
+                                        </>
+                                    )
+                                }) : (
+                                    <div></div>
+                                )}
+                        </div>
 
-                    <div className="column-kanan-our-hospital">
-                        <Headers
-                            header1="Home"
-                            arrow=">"
-                            arrow2=">"
-                            header2={dataHeader && dataHeader.namePage}
-                            header3={ourHospital && ourHospital.title}
-                            cursor1="pointer"
-                            cursor2="pointer"
-                            colorHeader3="#7e7e7e"
-                            click1={() => toPage('/')}
-                            click2={toPageTop}
-                        />
+                        <div className="column-kanan-our-hospital">
+                            <Headers
+                                header1="Home"
+                                arrow=">"
+                                arrow2=">"
+                                header2={dataHeader && dataHeader.namePage}
+                                header3={ourHospital && ourHospital.title}
+                                cursor1="pointer"
+                                cursor2="pointer"
+                                colorHeader3="#7e7e7e"
+                                click1={() => toPage('/')}
+                                click2={toPageTop}
+                            />
 
-                        {Object.keys(ourHospital).length > 0 ? (
-                            <>
-                                <p className="title-page-our-hospital">
-                                    {ourHospital.title}
-                                </p>
-                            </>
-                        ) : (
-                            <div></div>
-                        )}
-
-                        <div className="content-our-hospital">
                             {Object.keys(ourHospital).length > 0 ? (
                                 <>
-                                    <div className="container-table-jadwal-doctor" style={styleTableJadwalDoctor}>
-                                        <div className="column-select-jadwal-doctor-table">
-                                            <Input
-                                                displayLabel="none"
-                                                displayInput="none"
-                                                displayBtn="flex"
-                                                nameBtn={nameBtnSelect}
-                                                nameClass="speciality-jadwal-doctor"
-                                                borderBtn="1px solid #ddd"
-                                                searchMenuInput={searchSpesialisDoctor}
-                                                displayModal={modalSelectSpesialisDoctor ? 'flex' : 'none'}
-                                                topModal="40px"
-                                                data={filterSearchSpesialisDoctor}
-                                                clickBtnInput={(e) => showModalSpesialisDoctor(e)}
-                                                clickCloseModal={closeModalSpesialisDoctor}
-                                                clickNameMenu={(data, index) => selectSpesialisDoctor(data, index, true)}
-                                            />
-                                        </div>
-
-                                        <div className="wrapp-table-jadwal">
-                                            <thead>
-                                                <tr className="t-name">
-                                                    Name
-                                                </tr>
-
-                                                <div className="column-list-day-table">
-                                                    {arrayDay.map((e, i) => {
-                                                        return (
-                                                            <tr key={i}>
-                                                                {e}
-                                                            </tr>
-                                                        )
-                                                    })}
-                                                </div>
-                                            </thead>
-
-                                            <tbody>
-                                                {currentList && currentList.length > 0 ? currentList.map((e) => {
-                                                    return (
-                                                        <>
-                                                            <div key={e._id} className="column-list-jadwal-doctor">
-                                                                <div className="tbody-name-jadwal-doctor">
-                                                                    <p className="name-doctor">
-                                                                        {e.name}
-                                                                    </p>
-                                                                    <p className="spesialis-doctor">
-                                                                        {e.speciality}
-                                                                    </p>
-                                                                </div>
-                                                                <div className="tbody-jadwal-doctor">
-                                                                    <p className="jadwal-doctor-group">
-                                                                        {e.Mon}
-                                                                    </p>
-                                                                    <p className="jadwal-doctor-group">
-                                                                        {e.Tue}
-                                                                    </p>
-                                                                    <p className="jadwal-doctor-group">
-                                                                        {e.Wed}
-                                                                    </p>
-                                                                    <p className="jadwal-doctor-group">
-                                                                        {e.Thu}
-                                                                    </p>
-                                                                    <p className="jadwal-doctor-group">
-                                                                        {e.Fri}
-                                                                    </p>
-                                                                    <p className="jadwal-doctor-group">
-                                                                        {e.Sat}
-                                                                    </p>
-                                                                    <p className="jadwal-doctor-group">
-                                                                        {e.Sun}
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </>
-                                                    )
-                                                }) : (
-                                                    <div></div>
-                                                )}
-                                            </tbody>
-                                        </div>
-                                    </div>
-
-                                    <RenderHTML
-                                        konten={ourHospital.konten}
-                                    />
-
-                                    <div className="container-paginate-jadwal-doctor" style={stylePaginate}>
-                                        <Pagination
-                                            perPage={perPage}
-                                            totalData={selectListJadwalDoctor.length}
-                                            indexPaginate={indexPaginate}
-                                            clickBtn={(number) => numberPaginate(number)}
-                                        />
-                                    </div>
+                                    <p className="title-page-our-hospital">
+                                        {ourHospital.title}
+                                    </p>
                                 </>
                             ) : (
                                 <div></div>
                             )}
+
+                            <div className="content-our-hospital">
+                                {Object.keys(ourHospital).length > 0 ? (
+                                    <>
+                                        <div className="container-table-jadwal-doctor" style={styleTableJadwalDoctor}>
+                                            <div className="column-select-jadwal-doctor-table">
+                                                <Input
+                                                    displayLabel="none"
+                                                    displayInput="none"
+                                                    displayBtn="flex"
+                                                    nameBtn={nameBtnSelect}
+                                                    nameClass="speciality-jadwal-doctor"
+                                                    borderBtn="1px solid #ddd"
+                                                    searchMenuInput={searchSpesialisDoctor}
+                                                    displayModal={modalSelectSpesialisDoctor ? 'flex' : 'none'}
+                                                    topModal="40px"
+                                                    data={filterSearchSpesialisDoctor}
+                                                    clickBtnInput={(e) => showModalSpesialisDoctor(e)}
+                                                    clickCloseModal={closeModalSpesialisDoctor}
+                                                    clickNameMenu={(data, index) => selectSpesialisDoctor(data, index, true)}
+                                                />
+                                            </div>
+
+                                            <div className="wrapp-table-jadwal">
+                                                <thead>
+                                                    <tr className="t-name">
+                                                        Name
+                                                </tr>
+
+                                                    <div className="column-list-day-table">
+                                                        {arrayDay.map((e, i) => {
+                                                            return (
+                                                                <tr key={i}>
+                                                                    {e}
+                                                                </tr>
+                                                            )
+                                                        })}
+                                                    </div>
+                                                </thead>
+
+                                                <tbody>
+                                                    {currentList && currentList.length > 0 ? currentList.map((e) => {
+                                                        return (
+                                                            <>
+                                                                <div key={e._id} className="column-list-jadwal-doctor">
+                                                                    <div className="tbody-name-jadwal-doctor">
+                                                                        <p className="name-doctor">
+                                                                            {e.name}
+                                                                        </p>
+                                                                        <p className="spesialis-doctor">
+                                                                            {e.speciality}
+                                                                        </p>
+                                                                    </div>
+                                                                    <div className="tbody-jadwal-doctor">
+                                                                        <p className="jadwal-doctor-group">
+                                                                            {e.Mon}
+                                                                        </p>
+                                                                        <p className="jadwal-doctor-group">
+                                                                            {e.Tue}
+                                                                        </p>
+                                                                        <p className="jadwal-doctor-group">
+                                                                            {e.Wed}
+                                                                        </p>
+                                                                        <p className="jadwal-doctor-group">
+                                                                            {e.Thu}
+                                                                        </p>
+                                                                        <p className="jadwal-doctor-group">
+                                                                            {e.Fri}
+                                                                        </p>
+                                                                        <p className="jadwal-doctor-group">
+                                                                            {e.Sat}
+                                                                        </p>
+                                                                        <p className="jadwal-doctor-group">
+                                                                            {e.Sun}
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </>
+                                                        )
+                                                    }) : (
+                                                        <div></div>
+                                                    )}
+                                                </tbody>
+                                            </div>
+                                        </div>
+
+                                        <RenderHTML
+                                            konten={ourHospital.konten}
+                                        />
+
+                                        <div className="container-paginate-jadwal-doctor" style={stylePaginate}>
+                                            <Pagination
+                                                perPage={perPage}
+                                                totalData={selectListJadwalDoctor.length}
+                                                indexPaginate={indexPaginate}
+                                                clickBtn={(number) => numberPaginate(number)}
+                                            />
+                                        </div>
+                                    </>
+                                ) : (
+                                    <div></div>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div className="container-carousel-our-hospital">
-                <p className="title-our-doctors">
-                    OUR DOCTORS
-                </p>
+                <div className="column-bawah-carousel-our-hospital">
+                    <p className="title-our-doctors">
+                        OUR DOCTORS
+                    </p>
 
-                <div className="column-carousel-our-hospital">
-                    <CarouselMain
-                        displayCarouselListDoctor="flex"
-                        dataListDoctor={listDoctor}
-                    />
-                </div>
+                    <div className="column-carousel-our-hospital">
+                        <CarouselMain
+                            displayCarouselListDoctor="flex"
+                            dataListDoctor={listDoctor}
+                        />
+                    </div>
 
-                <div className="container-btn-our-hospital">
-                    <ButtonCard
-                        nameClassBtn="btn-card-two"
-                        title="FIND A DOCTOR"
-                        clickBtn={() => toPage('/findadoctor')}
-                    />
+                    <div className="container-btn-our-hospital">
+                        <ButtonCard
+                            nameClassBtn="btn-card-two"
+                            title="FIND A DOCTOR"
+                            clickBtn={() => toPage('/findadoctor')}
+                        />
+                    </div>
                 </div>
             </div>
 

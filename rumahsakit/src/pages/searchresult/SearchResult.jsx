@@ -126,8 +126,19 @@ function SearchResult() {
     const minimizeValue = Math.floor(widthBody)
 
     // Article
-    const heightCardImgArticle = minimizeValue < 767 ? 'auto' : '213px'
-    const widthCardImgArticle = minimizeValue < 767 ? 'auto' : '425'
+    const heightCardImgArticle1024 = minimizeValue > 766 && minimizeValue < 1024 ? 'auto' : '213px'
+    const widthCardImgArticle1024 = minimizeValue > 766 && minimizeValue < 1024 ? 'auto' : '425'
+
+    const heightCardImgArticle = minimizeValue < 767 ? 'auto' : heightCardImgArticle1024
+    const widthCardImgArticle = minimizeValue < 767 ? 'auto' : widthCardImgArticle1024
+
+    // Publication
+    const heightImgCard1024Publication = minimizeValue > 766 && minimizeValue < 1024 ? '225px' : '180px'
+
+    const widthImgCard1024Publication = minimizeValue > 766 && minimizeValue < 1024 ? '160' : '120'
+
+    const heightImgCardPublication = minimizeValue < 767 ? '180px' : heightImgCard1024Publication
+    const widthImgCardPublication = minimizeValue < 767 ? '120' : widthImgCard1024Publication
 
     return (
         <>
@@ -244,9 +255,9 @@ function SearchResult() {
                                                     key={e._id}
                                                     widthCard="100%"
                                                     flexDirection="row"
-                                                    heightImg="180px"
+                                                    heightImg={heightImgCardPublication}
                                                     heightCardImg="180"
-                                                    widthCardImg="120"
+                                                    widthCardImg={widthImgCardPublication}
                                                     paddingCard="0"
                                                     displayReadMore="none"
                                                     marginImg="0 20px 0 0"

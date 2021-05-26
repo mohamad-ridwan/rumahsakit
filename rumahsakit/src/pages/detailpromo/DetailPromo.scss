@@ -6,6 +6,18 @@
     }
 }
 
+@mixin tablet {
+    @media (min-width: $mobile) and (max-width: $tablet) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: $desktop) {
+        @content;
+    }
+}
+
 .wrapp-detail-promo{
     display: flex;
     flex-direction: column;
@@ -19,101 +31,125 @@
         padding: 50px 10px;
     }
 
-    .main-konten-detail-promo{
+    @include tablet(){
+        padding: 50px 0;
+        align-items: center;
+    }
+
+    @include desktop(){
+        padding: 50px 0;
+        align-items: center;
+    }
+
+    .container-detail-promo{
         display: flex;
         flex-direction: column;
-        height: auto;
         width: 100%;
 
-        .img-detail-promo{
+        @include tablet(){
+            width: 740px;
+        }
+
+        @include desktop(){
+            width: 960px;
+        }
+
+        .main-konten-detail-promo{
             display: flex;
+            flex-direction: column;
             height: auto;
-            max-width: 100%;
-            margin-bottom: 30px;
-        }
-
-        .title-detail-promo{
-            display: flex;
-            font-size: 24px;
-            color: $color1;
-            font-family: "Crimson Text",serif;
-            margin-bottom: 10px;
-            line-height: $lineHeight2;
-            text-align: start;
-
-            @include mobile(){
-                font-size: 20px;
-            }
-        }
-
-        .date-detail-promo{
-            display: flex;
-            font-size: 13px;
-            align-items: center;
-            color: $color3;
-            line-height: $lineHeight;
-
-            i{
-                color: $color1;
-                margin-right: 5px;
-            }
-        }
-    }
-
-    .konten-detail-promo{
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        margin-top: 20px;
-        border-bottom: 1px solid #ddd;
-        padding-bottom: 40px;
-
-        .txt-konten-detail-promo{
-            font-size: 14px;
-            color: $color3;
-            text-align: justify;
-            line-height: $lineHeight;
-
-            @include mobile(){
-                font-size: $font3;
-            }
-        }
-    }
-
-    .container-promo-lainnya{
-        display: flex;
-        flex-direction: column;
-        height: auto;
-        width: 100%;
-        margin: 30px 0 0 0;
-
-        .promo-lainnya{
-            display: flex;
-            font-size: 30px;
-            color: $color1;
-            font-family: "Crimson Text",serif;
-            margin-bottom: 30px;
-
-            @include mobile(){
-                font-size: 20px;
-            }
-        }
-
-        .column-card-promo-lainnya{
-            display: flex;
             width: 100%;
-
-            @include mobile(){
-                flex-direction: column;
-            }
-
-            .column-card-detail-promo{
+    
+            .img-detail-promo{
                 display: flex;
-                width: calc(100%/3);
-
+                height: auto;
+                max-width: 100%;
+                margin-bottom: 30px;
+            }
+    
+            .title-detail-promo{
+                display: flex;
+                font-size: 24px;
+                color: $color1;
+                font-family: "Crimson Text",serif;
+                margin-bottom: 10px;
+                line-height: $lineHeight2;
+                text-align: start;
+    
                 @include mobile(){
-                    width: 100%;
-                    margin-bottom: 20px;
+                    font-size: 20px;
+                }
+            }
+    
+            .date-detail-promo{
+                display: flex;
+                font-size: 13px;
+                align-items: center;
+                color: $color3;
+                line-height: $lineHeight;
+    
+                i{
+                    color: $color1;
+                    margin-right: 5px;
+                }
+            }
+        }
+    
+        .konten-detail-promo{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            margin-top: 20px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 40px;
+    
+            .txt-konten-detail-promo{
+                font-size: 14px;
+                color: $color3;
+                text-align: justify;
+                line-height: $lineHeight;
+    
+                @include mobile(){
+                    font-size: $font3;
+                }
+            }
+        }
+    
+        .container-promo-lainnya{
+            display: flex;
+            flex-direction: column;
+            height: auto;
+            width: 100%;
+            margin: 30px 0 0 0;
+    
+            .promo-lainnya{
+                display: flex;
+                font-size: 30px;
+                color: $color1;
+                font-family: "Crimson Text",serif;
+                margin-bottom: 30px;
+    
+                @include mobile(){
+                    font-size: 20px;
+                }
+            }
+    
+            .column-card-promo-lainnya{
+                display: flex;
+                width: 100%;
+    
+                @include mobile(){
+                    flex-direction: column;
+                }
+    
+                .column-card-detail-promo{
+                    display: flex;
+                    width: calc(100%/3);
+    
+                    @include mobile(){
+                        width: 100%;
+                        margin-bottom: 20px;
+                    }
                 }
             }
         }

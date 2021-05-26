@@ -6,6 +6,12 @@
     }
 }
 
+@mixin desktop {
+    @media (min-width: $desktop) {
+        @content;
+    }
+}
+
 .wrapp-navbar{
     display: none;
     position: fixed;
@@ -22,11 +28,19 @@
         display: flex;
     }
 
+    @include desktop(){
+        display: flex;
+    }
+
     .column-atas-navbar{
         display: flex;
         padding: 7px 0;
         justify-content: center;
-        padding: 7px 20%;
+        padding: 7px 0%;
+
+        @include tablet(){
+            padding: 7px 5%;
+        }
 
         .txt-group-information-navbar{
             display: flex;
@@ -35,148 +49,181 @@
             margin: 0 10px;
             cursor: pointer;
             text-decoration: none;
+
+            @include tablet(){
+                font-size: $font3;
+            }
         }
     }
 
-    .column-bawah-navbar{
+    .container-column-bawah-navbar{
         display: flex;
         width: 100%;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 20% 20px 20%;
-
-        .logo-rs{
+        justify-content: center;
+        
+        .column-bawah-navbar{
             display: flex;
-            height: auto;
-            max-width: 100%;
-            cursor: pointer;
-        }
+            width: 960px;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 0 20px 0;
 
-        .form-input-search{
-            display: flex;
-            position: relative;
-            height: 40px;
-            width: 200px;
-            border-radius: 5px;
-            border: 2px solid $color1;
-
-            .input-search-home{
-                display: flex;
-                height: 100%;
-                width: 150px;
-                padding: 7px 12px;
-                font-size: $font1;
-                color: $color2;
-                border: none;
-                outline: none;
-                font-family: 'Mulish', sans-serif;
+            @include tablet(){
+                width: 740px;
+                padding: 0 0 20px 0;
             }
-            .input-search-home::placeholder{
-                color: $color2;
-            }
-
-            i{
+    
+            .logo-rs{
                 display: flex;
-                position: absolute;
-                right: 0;
-                height: 38px;
-                width: 40px;
-                justify-content: center;
-                align-items: center;
-                transition: 0.2s ease-in-out;
-                color: $color1;
+                height: auto;
+                max-width: 100%;
                 cursor: pointer;
-                font-size: $font1;
-                margin-top: -1px;
-                &:hover{
-                    background-color: $color1;
-                    color: #fff;
+    
+                @include tablet(){
+                    width: 350px;
+                }
+            }
+    
+            .form-input-search{
+                display: flex;
+                position: relative;
+                height: 40px;
+                width: 200px;
+                border-radius: 5px;
+                border: 2px solid $color1;
+    
+                .input-search-home{
+                    display: flex;
+                    height: 100%;
+                    width: 150px;
+                    padding: 7px 12px;
+                    font-size: $font1;
+                    color: $color2;
+                    border: none;
+                    outline: none;
+                    font-family: 'Mulish', sans-serif;
+                }
+                .input-search-home::placeholder{
+                    color: $color2;
+                }
+    
+                i{
+                    display: flex;
+                    position: absolute;
+                    right: -1px;
+                    height: 38px;
+                    width: 40px;
+                    justify-content: center;
+                    align-items: center;
+                    transition: 0.2s ease-in-out;
+                    color: $color1;
+                    cursor: pointer;
+                    font-size: $font1;
+                    margin-top: -1px;
+                    &:hover{
+                        background-color: $color1;
+                        color: #fff;
+                    }
                 }
             }
         }
     }
 
-    .header-bottom-navbar{
+    .container-header-bottom-navbar{
         display: flex;
-        height: auto;
         width: 100%;
-        padding: 0 20%;
+        justify-content: center;
         background-color: $color1;
-        justify-content: space-between;
 
-        .btn-group-header-bottom-navbar{
+        .header-bottom-navbar{
             display: flex;
-            font-size: $font1;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-            padding: 11px 17px;
-            border: none;
-            outline: none;
-            background-color: transparent;
-            transition: 0.2s ease-in-out;
-            cursor: pointer;
-            font-family: 'Mulish', sans-serif;
-            align-items: center;
-            text-decoration: none;
-            z-index: 88;
-            &:hover{
-                background-color: $color8;
+            height: auto;
+            width: 960px;
+            background-color: $color1;
+            justify-content: space-between;
+    
+            @include tablet(){
+                width: 740px;
+                padding: 0;
             }
-
-            i{
-                margin-left: 5px;
-                margin-top: -2px;
-            }
-        }
-
-        .is-active-navbar{
-            background-color: $color8;
-        }
-
-        .modal-collapse-navbar{
-            display: flex;
-            flex-direction: column;
-            position: fixed;
-            width: auto;
-            background-color: transparent;
-            top: 173px;
-            border: 1px solid $color8;
-
-            .column-tambahan-collapse-nav{
-                display: none;
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                padding: 8px 17px;
-                color: transparent;
-                background: transparent;
-            }
-
-            .menu-collapse-navbar{
+    
+            .btn-group-header-bottom-navbar{
                 display: flex;
-                list-style: none;
-                padding: 8px 17px;
-                font-size: 14px;
-                cursor: pointer;
+                font-size: $font1;
+                justify-content: center;
+                align-items: center;
                 color: #fff;
+                padding: 11px 23.5px;
+                border: none;
+                outline: none;
+                background-color: transparent;
                 transition: 0.2s ease-in-out;
-                text-align: start;
+                cursor: pointer;
+                font-family: 'Mulish', sans-serif;
+                align-items: center;
                 text-decoration: none;
-                background-color: $color8;
-                z-index: 99;
+                z-index: 88;
                 &:hover{
+                    background-color: $color8;
+                }
+    
+                @include tablet(){
+                    font-size: $font3;
+                    padding: 11px 12.1px;
+                }
+    
+                i{
+                    margin-left: 5px;
+                    margin-top: -2px;
+                }
+            }
+    
+            .is-active-navbar{
+                background-color: $color8;
+            }
+    
+            .modal-collapse-navbar{
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                width: auto;
+                background-color: transparent;
+    
+                .column-tambahan-collapse-nav{
+                    display: none;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    padding: 8px 17px;
+                    color: transparent;
+                    background: transparent;
+                }
+    
+                .menu-collapse-navbar{
+                    display: flex;
+                    list-style: none;
+                    padding: 8px 17px;
+                    font-size: 14px;
+                    cursor: pointer;
+                    color: #fff;
+                    transition: 0.2s ease-in-out;
+                    text-align: start;
+                    text-decoration: none;
+                    background-color: $color8;
+                    z-index: 99;
+                    &:hover{
+                        background-color: #fff;
+                        color: $color1;
+                    }
+                }
+    
+                .active-menu-collapse-nav{
                     background-color: #fff;
                     color: $color1;
                 }
             }
-
-            .active-menu-collapse-nav{
-                background-color: #fff;
-                color: $color1;
-            }
         }
-    }
+    }   
 }

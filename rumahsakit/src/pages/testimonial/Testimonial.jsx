@@ -41,6 +41,7 @@ function Testimonial() {
     }
 
     useEffect(() => {
+        window.scrollTo(0, 0)
         setAllAPI();
         activeNavbar();
     }, [])
@@ -83,29 +84,31 @@ function Testimonial() {
                 />
 
                 <div className="konten-testimonial">
-                    {currentList && currentList.length > 0 ?
-                        currentList.map((e) => {
-                            return (
-                                <CardTestimonial
-                                    key={e._id}
-                                    background={`${Endpoint}/images/${e.background}`}
-                                    imgProfil={`${Endpoint}/images/${e.image}`}
-                                    label={e.label}
-                                    paragraph={e.deskripsi}
-                                    name={e.name}
-                                />
-                            )
-                        }) : (
-                            <div></div>
-                        )}
+                    <div className="container-konten-testimonial">
+                        {currentList && currentList.length > 0 ?
+                            currentList.map((e) => {
+                                return (
+                                    <CardTestimonial
+                                        key={e._id}
+                                        background={`${Endpoint}/images/${e.background}`}
+                                        imgProfil={`${Endpoint}/images/${e.image}`}
+                                        label={e.label}
+                                        paragraph={e.deskripsi}
+                                        name={e.name}
+                                    />
+                                )
+                            }) : (
+                                <div></div>
+                            )}
 
-                    <div className="column-bawah-konten-testimonial">
-                        <ButtonCard
-                            displayBtn={perPage === dataTestimonial.length || perPage > dataTestimonial.length ? 'none' : 'flex'}
-                            title="LOAD MORE"
-                            nameClassBtn="btn-card-two"
-                            clickBtn={loadMore}
-                        />
+                        <div className="column-bawah-konten-testimonial">
+                            <ButtonCard
+                                displayBtn={perPage === dataTestimonial.length || perPage > dataTestimonial.length ? 'none' : 'flex'}
+                                title="LOAD MORE"
+                                nameClassBtn="btn-card-two"
+                                clickBtn={loadMore}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

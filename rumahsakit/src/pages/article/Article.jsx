@@ -95,8 +95,11 @@ class Article extends Component {
         const widthBody = document.body.getBoundingClientRect().width
         const minimizeValue = Math.floor(widthBody)
 
-        const heightCardImg = minimizeValue < 769 ? 'auto' : '213px'
-        const widthCardImg = minimizeValue < 769 ? 'auto' : '425'
+        const heightCardImg1024 = minimizeValue > 766 && minimizeValue < 1024 ? 'auto' : '213px'
+        const widthCardImg1024 = minimizeValue > 766 && minimizeValue < 1024 ? 'auto' : '425'
+
+        const heightCardImg = minimizeValue < 767 ? 'auto' : heightCardImg1024
+        const widthCardImg = minimizeValue < 767 ? 'auto' : widthCardImg1024
 
         return (
             <>
@@ -123,35 +126,37 @@ class Article extends Component {
                         }}
                     />
 
-                    <div className="container-card-page-article">
-                        {currentList && currentList.length > 0 ? currentList.map((e) => {
+                    <div className="wrapp-card-page-article">
+                        <div className="container-card-page-article">
+                            {currentList && currentList.length > 0 ? currentList.map((e) => {
 
-                            const removeTagHTML = e.deskripsi.includes('<br/>') ? e.deskripsi.split('<br/>').join(' ') : e.deskripsi
+                                const removeTagHTML = e.deskripsi.includes('<br/>') ? e.deskripsi.split('<br/>').join(' ') : e.deskripsi
 
-                            return (
-                                <>
-                                    <div className="column-card-page-article">
-                                        <Card
-                                            key={e._id}
-                                            widthCard="100%"
-                                            heightImg={heightCardImg}
-                                            heightCardImg="213"
-                                            widthCardImg={widthCardImg}
-                                            paddingCard="0"
-                                            marginCard="0 0 40px 0"
-                                            nameBtnReadMore="Read More"
-                                            img={`${Endpoint}/images/${e.image}`}
-                                            title={e.title}
-                                            date={e.date}
-                                            deskripsi={removeTagHTML}
-                                            clickToPage={() => this.goToPage(e.path)}
-                                        />
-                                    </div>
-                                </>
-                            )
-                        }) : (
-                            <div></div>
-                        )}
+                                return (
+                                    <>
+                                        <div className="column-card-page-article">
+                                            <Card
+                                                key={e._id}
+                                                widthCard="100%"
+                                                heightImg={heightCardImg}
+                                                heightCardImg="213"
+                                                widthCardImg={widthCardImg}
+                                                paddingCard="0"
+                                                marginCard="0 0 40px 0"
+                                                nameBtnReadMore="Read More"
+                                                img={`${Endpoint}/images/${e.image}`}
+                                                title={e.title}
+                                                date={e.date}
+                                                deskripsi={removeTagHTML}
+                                                clickToPage={() => this.goToPage(e.path)}
+                                            />
+                                        </div>
+                                    </>
+                                )
+                            }) : (
+                                <div></div>
+                            )}
+                        </div>
                     </div>
 
                     <div className="container-btn-load-more-article">

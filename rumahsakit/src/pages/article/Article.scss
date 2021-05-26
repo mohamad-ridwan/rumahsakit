@@ -6,6 +6,18 @@
     }
 }
 
+@mixin tablet {
+    @media (min-width: $mobile) and (max-width: $tablet) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: $desktop) {
+        @content;
+    }
+}
+
 .wrapp-article{
     display: flex;
     flex-direction: column;
@@ -18,25 +30,58 @@
         padding: 50px 10px;
     }
 
-    .container-card-page-article{
-        display: flex;
-        flex-wrap: wrap;
-        height: auto;
-        width: 100%;
-        justify-content: space-between;
+    @include tablet(){
+        padding: 50px 0;
+    }
 
-        @include mobile(){
-            flex-wrap: nowrap;
-            flex-direction: column;
-            justify-content: flex-start;
+    @include desktop(){
+        padding: 50px 0;
+    } 
+
+    .wrapp-card-page-article{
+        display: flex;
+        width: 100%;
+
+        @include tablet(){
+            justify-content: center;
         }
 
-        .column-card-page-article{
+        @include desktop(){
+            justify-content: center;
+        }
+        
+        .container-card-page-article{
             display: flex;
-            width: calc(90%/2);
-
+            flex-wrap: wrap;
+            height: auto;
+            width: 100%;
+            justify-content: space-between;
+    
             @include mobile(){
-                width: 100%;
+                flex-wrap: nowrap;
+                flex-direction: column;
+                justify-content: flex-start;
+            }
+
+            @include tablet(){
+                width: 740px;
+            }
+
+            @include desktop(){
+                width: 960px;
+            }
+    
+            .column-card-page-article{
+                display: flex;
+                width: calc(90%/2);
+    
+                @include mobile(){
+                    width: 100%;
+                }
+
+                @include tablet(){
+                    width: 100%;
+                }
             }
         }
     }

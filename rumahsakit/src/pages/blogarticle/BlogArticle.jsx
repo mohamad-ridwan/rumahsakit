@@ -100,7 +100,9 @@ class BlogArticle extends Component {
         const widthBody = document.body.getBoundingClientRect().width
         const minimizeValue = Math.floor(widthBody)
 
-        const heightImgCard = minimizeValue < 769 ? 'auto' : '150px'
+        const heightImgCard1024 = minimizeValue > 766 && minimizeValue < 1024 ? '114px' : '150px'
+
+        const heightImgCard = minimizeValue < 769 ? 'auto' : heightImgCard1024
 
         return (
             <>
@@ -131,60 +133,62 @@ class BlogArticle extends Component {
                         click2={() => this.toPageArticles('/articles')}
                     />
 
-                    <div className="column-main-blog-article">
-                        <div className="column-deskripsi-main-blog-article">
-                            <p className="title-blog-article">
-                                {this.state.dataBlog && this.state.dataBlog.title}
-                            </p>
+                    <div className="container-blog-article">
+                        <div className="column-main-blog-article">
+                            <div className="column-deskripsi-main-blog-article">
+                                <p className="title-blog-article">
+                                    {this.state.dataBlog && this.state.dataBlog.title}
+                                </p>
 
-                            <p className="date-blog-article">
-                                <i className="far fa-calendar-alt"></i> {this.state.dataBlog && this.state.dataBlog.date}
-                            </p>
+                                <p className="date-blog-article">
+                                    <i className="far fa-calendar-alt"></i> {this.state.dataBlog && this.state.dataBlog.date}
+                                </p>
 
-                            <RenderHTML HTML={this.state.dataBlog && this.state.dataBlog.deskripsi} />
+                                <RenderHTML HTML={this.state.dataBlog && this.state.dataBlog.deskripsi} />
+                            </div>
+
+                            {this.state.dataBlog && this.state.dataBlog.image ? (
+                                <>
+                                    <img src={`${Endpoint}/images/${this.state.dataBlog.image}`} width="525" height="270" alt="image main blog articles" className="img-konten-column-main" />
+                                </>
+                            ) : (
+                                <div></div>
+                            )}
                         </div>
 
-                        {this.state.dataBlog && this.state.dataBlog.image ? (
-                            <>
-                                <img src={`${Endpoint}/images/${this.state.dataBlog.image}`} width="525" height="270" alt="image main blog articles" className="img-konten-column-main" />
-                            </>
-                        ) : (
-                            <div></div>
-                        )}
-                    </div>
-
-                    <div className="container-content-blog-article">
-                        {this.state.dataBlog && this.state.dataBlog.konten ? (
-                            <>
-                                <RenderHTML2 HTML={this.state.dataBlog.konten} />
-                            </>
-                        ) : (
-                            <div></div>
-                        )}
-                    </div>
-
-                    <div className="container-card-blog-article">
-                        {currentList && currentList.length > 0 ? currentList.map((e) => {
-                            return (
+                        <div className="container-content-blog-article">
+                            {this.state.dataBlog && this.state.dataBlog.konten ? (
                                 <>
-                                    <div className="column-card-blog-article">
-                                        <Card
-                                            key={e._id}
-                                            widthCard="100%"
-                                            nameBtnReadMore="Read More"
-                                            img={`${Endpoint}/images/${e.image}`}
-                                            title={e.title}
-                                            date={e.date}
-                                            deskripsi={e.deskripsi}
-                                            heightImg={heightImgCard}
-                                            clickToPage={() => this.toPageArticles(`/articles/read/${e.path}`)}
-                                        />
-                                    </div>
+                                    <RenderHTML2 HTML={this.state.dataBlog.konten} />
                                 </>
-                            )
-                        }) : (
-                            <div></div>
-                        )}
+                            ) : (
+                                <div></div>
+                            )}
+                        </div>
+
+                        <div className="container-card-blog-article">
+                            {currentList && currentList.length > 0 ? currentList.map((e) => {
+                                return (
+                                    <>
+                                        <div className="column-card-blog-article">
+                                            <Card
+                                                key={e._id}
+                                                widthCard="100%"
+                                                nameBtnReadMore="Read More"
+                                                img={`${Endpoint}/images/${e.image}`}
+                                                title={e.title}
+                                                date={e.date}
+                                                deskripsi={e.deskripsi}
+                                                heightImg={heightImgCard}
+                                                clickToPage={() => this.toPageArticles(`/articles/read/${e.path}`)}
+                                            />
+                                        </div>
+                                    </>
+                                )
+                            }) : (
+                                <div></div>
+                            )}
+                        </div>
                     </div>
                 </div>
 

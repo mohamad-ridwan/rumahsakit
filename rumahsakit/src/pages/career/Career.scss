@@ -6,6 +6,18 @@
     }
 }
 
+@mixin tablet {
+    @media (min-width: $mobile) and (max-width: $tablet) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: $desktop) {
+        @content;
+    }
+}
+
 .wrapp-career{
     display: flex;
     flex-direction: column;
@@ -19,184 +31,208 @@
         padding: 50px 10px;
     }
 
-    .main-konten-career{
+    @include tablet(){
+        padding: 50px 0;
+        align-items: center;
+    }
+
+    @include desktop(){
+        padding: 50px 0;
+        align-items: center;
+    }
+
+    .container-career{
         display: flex;
         flex-direction: column;
-        padding-bottom: 20px;
-        border-bottom: 1px solid #ddd;
+        width: 100%;
 
-        .title-konten-career{
-            display: flex;
-            font-size: 26px;
-            color: $color1;
-            font-family: "Crimson Text",serif;
-            margin-bottom: 50px;
-            line-height: $lineHeight;
-            text-align: start;
-
-            @include mobile(){
-                font-size: 20px;
-            }
+        @include tablet(){
+            width: 740px;
         }
-    
-        .main-deskripsi-career{
-            display: flex;
-            font-size: 14px;
-            color: $color3;
-            text-align: start;
-            line-height: $lineHeight;
 
-            @include mobile(){
-                font-size: $font3;
-            }
+        @include desktop(){
+            width: 960px;
         }
-    
-        .title-name-rs-career{
+
+        .main-konten-career{
             display: flex;
-            font-size: 18px;
-            color: $color3;
-            font-weight: bold;
-            margin: 10px 0 20px 0;
-            line-height: $lineHeight;
-
-            @include mobile(){
-                font-size: 17px;
-            }
-        }
+            flex-direction: column;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ddd;
     
-        .hrd-rs-career{
-            display: flex;
-            font-size: 14px;
-            color: $color3;
-            line-height: $lineHeight;
-            font-weight: bold;
-
-            @include mobile(){
-                font-size: $font3;
-            }
-        }
-    
-        .address-career{
-            display: flex;
-            font-size: 14px;
-            color: $color3;
-            line-height: $lineHeight;
-            margin: 10px 0;
-            text-align: start;
-
-            @include mobile(){
-                font-size: $font3;
-            }
-        }
-    
-        .email-career{
-            font-size: 14px;
-            color: $color3;
-            line-height: $lineHeight;
-            text-align: start;
-
-            @include mobile(){
-                font-size: $font3;
-            }
-            .konten-email-career{
-                font-size: 14px;
+            .title-konten-career{
+                display: flex;
+                font-size: 26px;
                 color: $color1;
+                font-family: "Crimson Text",serif;
+                margin-bottom: 50px;
                 line-height: $lineHeight;
-                cursor: pointer;
-                margin-left: 5px;
-                text-decoration: none;
-                &:hover{
-                    text-decoration: 1px solid $color1;
+                text-align: start;
+    
+                @include mobile(){
+                    font-size: 20px;
                 }
-                
+            }
+        
+            .main-deskripsi-career{
+                display: flex;
+                font-size: 14px;
+                color: $color3;
+                text-align: start;
+                line-height: $lineHeight;
+    
                 @include mobile(){
                     font-size: $font3;
                 }
             }
-        }
-
-        .container-box-grey{
-            display: flex;
-            width: 100%;
-            justify-content: center;
-            margin-top: 50px;
-
-            .box-grey-career{
+        
+            .title-name-rs-career{
                 display: flex;
-                flex-direction: column;
-                position: relative;
-                height: auto;
-                width: 70%;
-                padding: 20px;
-                border-radius: 5px;
-                background-color: $color17;
-
+                font-size: 18px;
+                color: $color3;
+                font-weight: bold;
+                margin: 10px 0 20px 0;
+                line-height: $lineHeight;
+    
                 @include mobile(){
-                    width: 100%;
+                    font-size: 17px;
                 }
-
-                .title-bidang-career{
-                    display: flex;
-                    font-size: 18px;
-                    color: $color1;
-                    line-height: $lineHeight;
-
-                    @include mobile(){
-                        font-size: 17px;
-                    }
+            }
+        
+            .hrd-rs-career{
+                display: flex;
+                font-size: 14px;
+                color: $color3;
+                line-height: $lineHeight;
+                font-weight: bold;
+    
+                @include mobile(){
+                    font-size: $font3;
                 }
-
-                .container-date-career{
-                    display: flex;
-                    align-items: center;
-                    margin-top: 10px;
-
-                    i{
-                        font-size: 11px;
-                        color: $color1;
-                        margin-right: 5px;
-                    }
-
-                    .font-career-group{
-                        display: flex;
-                        font-size: 11px;
-                        color: $color3;
-                        line-height: $lineHeight;
-                        margin-right: 15px;
-                    }
+            }
+        
+            .address-career{
+                display: flex;
+                font-size: 14px;
+                color: $color3;
+                line-height: $lineHeight;
+                margin: 10px 0;
+                text-align: start;
+    
+                @include mobile(){
+                    font-size: $font3;
                 }
-
-                .deskripsi-job{
-                    display: flex;
-                    text-align: start;
-                    font-size: 14px;
-                    color: $color3;
-                    line-height: $lineHeight;
-                    margin: 15px 0 30px 0;
-
-                    @include mobile(){
-                        font-size: $font3;
-                    }
+            }
+        
+            .email-career{
+                font-size: 14px;
+                color: $color3;
+                line-height: $lineHeight;
+                text-align: start;
+    
+                @include mobile(){
+                    font-size: $font3;
                 }
-
-                .view-detail{
-                    display: flex;
-                    position: absolute;
-                    bottom: 20px;
-                    right: 20px;
+                .konten-email-career{
                     font-size: 14px;
                     color: $color1;
+                    line-height: $lineHeight;
                     cursor: pointer;
-                    transition: 0.3s ease-in-out;
+                    margin-left: 5px;
+                    text-decoration: none;
                     &:hover{
-                        color: $color3;
+                        text-decoration: 1px solid $color1;
                     }
-
+                    
                     @include mobile(){
                         font-size: $font3;
                     }
                 }
             }
-        }   
+    
+            .container-box-grey{
+                display: flex;
+                width: 100%;
+                justify-content: center;
+                margin-top: 50px;
+    
+                .box-grey-career{
+                    display: flex;
+                    flex-direction: column;
+                    position: relative;
+                    height: auto;
+                    width: 70%;
+                    padding: 20px;
+                    border-radius: 5px;
+                    background-color: $color17;
+    
+                    @include mobile(){
+                        width: 100%;
+                    }
+    
+                    .title-bidang-career{
+                        display: flex;
+                        font-size: 18px;
+                        color: $color1;
+                        line-height: $lineHeight;
+    
+                        @include mobile(){
+                            font-size: 17px;
+                        }
+                    }
+    
+                    .container-date-career{
+                        display: flex;
+                        align-items: center;
+                        margin-top: 10px;
+    
+                        i{
+                            font-size: 11px;
+                            color: $color1;
+                            margin-right: 5px;
+                        }
+    
+                        .font-career-group{
+                            display: flex;
+                            font-size: 11px;
+                            color: $color3;
+                            line-height: $lineHeight;
+                            margin-right: 15px;
+                        }
+                    }
+    
+                    .deskripsi-job{
+                        display: flex;
+                        text-align: start;
+                        font-size: 14px;
+                        color: $color3;
+                        line-height: $lineHeight;
+                        margin: 15px 0 30px 0;
+    
+                        @include mobile(){
+                            font-size: $font3;
+                        }
+                    }
+    
+                    .view-detail{
+                        display: flex;
+                        position: absolute;
+                        bottom: 20px;
+                        right: 20px;
+                        font-size: 14px;
+                        color: $color1;
+                        cursor: pointer;
+                        transition: 0.3s ease-in-out;
+                        &:hover{
+                            color: $color3;
+                        }
+    
+                        @include mobile(){
+                            font-size: $font3;
+                        }
+                    }
+                }
+            }   
+        }
     }
 }

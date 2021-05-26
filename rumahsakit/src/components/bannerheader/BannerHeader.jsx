@@ -5,11 +5,13 @@ function BannerHeader({ img, title }) {
     return (
         <>
             <div className="wrapp-banner-header">
-                <img src={img} alt="" className="img-banner" />
+                <div className="container-banner-header">
+                    <img src={img} alt="" className="img-banner" />
 
-                <p className="title-banner-header">
-                    {title}
-                </p>
+                    <p className="title-banner-header">
+                        {title}
+                    </p>
+                </div>
             </div>
         </>
     )

@@ -65,8 +65,12 @@ function Promo() {
     const widthBody = document.body.getBoundingClientRect().width
     const minimizeValue = Math.floor(widthBody)
 
-    const heightImgCard = minimizeValue < 767 ? 'auto' : '213px'
-    const widthImgCard = minimizeValue < 767 ? 'auto' : '425'
+    const heightImgCard1024 = minimizeValue > 767 && minimizeValue < 1024 ? 'auto' : '213px'
+
+    const widthImgCard1024 = minimizeValue > 767 && minimizeValue < 1024 ? 'auto' : '425'
+
+    const heightImgCard = minimizeValue < 767 ? 'auto' : heightImgCard1024
+    const widthImgCard = minimizeValue < 767 ? 'auto' : widthImgCard1024
 
     return (
         <>
@@ -91,32 +95,34 @@ function Promo() {
                 />
 
                 <div className="container-konten-promo">
-                    {currentList && currentList.length > 0 ?
-                        currentList.map((e) => {
-                            return (
-                                <>
-                                    <div className="column-card-promo">
-                                        <Card
-                                            key={e._id}
-                                            widthCard="100%"
-                                            heightImg={heightImgCard}
-                                            heightCardImg="213"
-                                            widthCardImg={widthImgCard}
-                                            paddingCard="0"
-                                            marginCard="0 0 40px 0"
-                                            nameBtnReadMore="Read More"
-                                            img={`${Endpoint}/images/${e.image}`}
-                                            title={e.title}
-                                            date={e.date}
-                                            deskripsi={e.deskripsi}
-                                            clickToPage={() => toPage(`/promo/details/${e.path}`)}
-                                        />
-                                    </div>
-                                </>
-                            )
-                        }) : (
-                            <div></div>
-                        )}
+                    <div className="column-konten-promo">
+                        {currentList && currentList.length > 0 ?
+                            currentList.map((e) => {
+                                return (
+                                    <>
+                                        <div className="column-card-promo">
+                                            <Card
+                                                key={e._id}
+                                                widthCard="100%"
+                                                heightImg={heightImgCard}
+                                                heightCardImg="213"
+                                                widthCardImg={widthImgCard}
+                                                paddingCard="0"
+                                                marginCard="0 0 40px 0"
+                                                nameBtnReadMore="Read More"
+                                                img={`${Endpoint}/images/${e.image}`}
+                                                title={e.title}
+                                                date={e.date}
+                                                deskripsi={e.deskripsi}
+                                                clickToPage={() => toPage(`/promo/details/${e.path}`)}
+                                            />
+                                        </div>
+                                    </>
+                                )
+                            }) : (
+                                <div></div>
+                            )}
+                    </div>
                 </div>
 
                 <div className="container-btn-promo">

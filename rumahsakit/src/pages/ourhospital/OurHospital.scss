@@ -6,6 +6,18 @@
     }
 }
 
+@mixin tablet {
+    @media (min-width: $mobile) and (max-width: $tablet) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: $desktop) {
+        @content;
+    }
+}
+
 .wrapp-our-hospital{
     display: flex;
     flex-direction: column;
@@ -19,6 +31,14 @@
         padding: 40px 10px;
     }
 
+    @include tablet(){
+        padding: 50px 0;
+    }
+
+    @include desktop(){
+        padding: 50px 0;
+    }
+
     .wrapp-content-our-hospital{
         display: flex;
         height: auto;
@@ -28,246 +48,271 @@
             flex-direction: column;
         }
 
-        .column-kiri-our-hospital{
-            display: flex;
-            flex-direction: column;
-            height: auto;
-            width: 25%;
-            margin-right: 20px;
-
-            @include mobile(){
-                width: 100%;
-                margin-right: 0;
-                margin-bottom: 20px;
-            }
+        @include tablet(){
+            justify-content: center;
         }
-    
-        .column-kanan-our-hospital{
+
+        @include desktop(){
+            justify-content: center;
+        }
+
+        .column-content-our-hospital{
             display: flex;
-            flex-direction: column;
-            height: auto;
-            width: 75%;
+            width: 100%;
 
             @include mobile(){
-                width: 100%;
+                flex-direction: column;
             }
-    
-            .container-table-jadwal-doctor{
+
+            @include tablet(){
+                width: 740px;
+            }
+
+            @include desktop(){
+                width: 960px;
+            }
+
+            .column-kiri-our-hospital{
                 display: flex;
                 flex-direction: column;
                 height: auto;
-                width: 100%;
+                width: 25%;
+                margin-right: 20px;
     
-                .column-select-jadwal-doctor-table{
-                    display: flex;
-                    height: auto;
-                    width: 50%;
+                @include mobile(){
+                    width: 100%;
+                    margin-right: 0;
                     margin-bottom: 20px;
-
-                    @include mobile(){
-                        width: 100%;
-                    }
                 }
+            }
+        
+            .column-kanan-our-hospital{
+                display: flex;
+                flex-direction: column;
+                height: auto;
+                width: 75%;
     
-                .wrapp-table-jadwal{
+                @include mobile(){
+                    width: 100%;
+                }
+        
+                .container-table-jadwal-doctor{
                     display: flex;
                     flex-direction: column;
+                    height: auto;
                     width: 100%;
-                    margin-bottom: 40px;
-    
-                    thead{
+        
+                    .column-select-jadwal-doctor-table{
                         display: flex;
                         height: auto;
-                        width: 100%;
-                        border-radius: 5px;
-                        background-color: $color9;
-                        padding: 15px 10px;
-                        align-items: center;
-                        font-size: 12px;
-                        color: $color1;
+                        width: 50%;
+                        margin-bottom: 20px;
     
-                        .t-name{
-                            display: flex;
-                            width: 30%;
-                            justify-content: flex-start;
-                        }
-    
-                        .column-list-day-table{
-                            display: flex;
-                            width: 70%;
-                            align-items: center;
-    
-                            tr{
-                                display: flex;
-                                width: calc(100%/7);
-                                justify-content: center;
-                                text-align: center;
-                            }
+                        @include mobile(){
+                            width: 100%;
                         }
                     }
-    
-                    tbody{
+        
+                    .wrapp-table-jadwal{
                         display: flex;
                         flex-direction: column;
-                        height: auto;
                         width: 100%;
-    
-                        .column-list-jadwal-doctor{
+                        margin-bottom: 40px;
+        
+                        thead{
                             display: flex;
                             height: auto;
                             width: 100%;
-                            padding: 15px 0;
-                            border-bottom: 1px solid #eee;
-    
-                            .tbody-name-jadwal-doctor{
+                            border-radius: 5px;
+                            background-color: $color9;
+                            padding: 15px 10px;
+                            align-items: center;
+                            font-size: 12px;
+                            color: $color1;
+        
+                            .t-name{
                                 display: flex;
-                                flex-direction: column;
                                 width: 30%;
-    
-                                .name-doctor{
-                                    display: flex;
-                                    text-align: start;
-                                    font-size: 12px;
-                                    color: $color1;
-                                }
-    
-                                .spesialis-doctor{
-                                    display: flex;
-                                    text-align: start;
-                                    font-size: 11px;
-                                    margin-top: 2px;
-                                    color: $color3;
-                                }
+                                justify-content: flex-start;
                             }
-    
-                            .tbody-jadwal-doctor{
+        
+                            .column-list-day-table{
                                 display: flex;
-                                height: auto;
                                 width: 70%;
-    
-                                .jadwal-doctor-group{
+                                align-items: center;
+        
+                                tr{
                                     display: flex;
                                     width: calc(100%/7);
                                     justify-content: center;
-                                    align-items: center;
-                                    font-size: 10px;
-                                    color: $color3;
                                     text-align: center;
                                 }
                             }
                         }
-                    }
-                }
-            }
-    
-            .title-page-our-hospital{
-                display: flex;
-                font-size: 26px;
-                color: $color1;
-                font-family: "Crimson Text",serif;
-                text-align: start;
-                font-style: italic;
-
-                @include mobile(){
-                    font-size: 17px;
-                }
-            }
-    
-            .content-our-hospital{
-                display: flex;
-                flex-direction: column;
-                height: auto;
-                width: 100%;
-                margin-top: 20px;
-    
-                .txt-content-our-hospital{
-                    text-align: justify;
-                    font-size: 14px;
-                    color: $color3;
-                    line-height: $lineHeight;
-
-                    @include mobile(){
-                        font-size: $font3;
-                    }
-    
-                    img{
-                        display: flex;
-                        height: auto;
-                        max-width: 100%;
-                        object-fit: cover;
-                        object-position: center;
-                    }
-    
-                    h4{
-                        font-size: 24px;
-                        color: $color1;
-                        font-family: "Crimson Text",serif;
-                        font-weight: normal;
-                        text-align: start;
-
-                        @include mobile(){
-                            font-size: 17px;
-                        }
-                    }
-    
-                    i{
-                        display: flex;
-                        font-size: 13px;
-                        justify-content: flex-start;
-                        align-items: center;
-                        color: $color1;
-                        span{
-                            color: $color16;
-                            justify-content: flex-start;
-                            font-family: 'Mulish', sans-serif;
-                            font-weight: normal;
-                            margin-left: 5px;
-                        }
-                    }
-    
-                    span{
-                        display: flex;
-                        width: 100%;
-                        font-size: 14px;
-                        justify-content: center;
-                        line-height: $lineHeight;
-                    }
-    
-                    small{
-                        display: flex;
-                    }
-    
-                    ol{
-                        margin-left: 13px;
-                        li{
-                            padding-left: 5px;
-                        }
-                    }
-    
-                    ul{
-                        margin-left: 13px;
-                        li{
-                            position: relative;
-                            padding-left: 5px;
-                            list-style: none;
-                        }
-                        li::before{
-                            content: '';
-                            position: absolute;
-                            top: 9px;
-                            left: -13px;
-                            border: 3px solid transparent;
-                            border-left-width: 5px;
-                            border-left-color: $color8;
+        
+                        tbody{
+                            display: flex;
+                            flex-direction: column;
+                            height: auto;
+                            width: 100%;
+        
+                            .column-list-jadwal-doctor{
+                                display: flex;
+                                height: auto;
+                                width: 100%;
+                                padding: 15px 0;
+                                border-bottom: 1px solid #eee;
+        
+                                .tbody-name-jadwal-doctor{
+                                    display: flex;
+                                    flex-direction: column;
+                                    width: 30%;
+        
+                                    .name-doctor{
+                                        display: flex;
+                                        text-align: start;
+                                        font-size: 12px;
+                                        color: $color1;
+                                    }
+        
+                                    .spesialis-doctor{
+                                        display: flex;
+                                        text-align: start;
+                                        font-size: 11px;
+                                        margin-top: 2px;
+                                        color: $color3;
+                                    }
+                                }
+        
+                                .tbody-jadwal-doctor{
+                                    display: flex;
+                                    height: auto;
+                                    width: 70%;
+        
+                                    .jadwal-doctor-group{
+                                        display: flex;
+                                        width: calc(100%/7);
+                                        justify-content: center;
+                                        align-items: center;
+                                        font-size: 10px;
+                                        color: $color3;
+                                        text-align: center;
+                                    }
+                                }
+                            }
                         }
                     }
                 }
-    
-                .container-paginate-jadwal-doctor{
+        
+                .title-page-our-hospital{
                     display: flex;
+                    font-size: 26px;
+                    color: $color1;
+                    font-family: "Crimson Text",serif;
+                    text-align: start;
+                    font-style: italic;
+    
+                    @include mobile(){
+                        font-size: 17px;
+                    }
+                }
+        
+                .content-our-hospital{
+                    display: flex;
+                    flex-direction: column;
                     height: auto;
                     width: 100%;
-                    justify-content: center;
+                    margin-top: 20px;
+        
+                    .txt-content-our-hospital{
+                        text-align: justify;
+                        font-size: 14px;
+                        color: $color3;
+                        line-height: $lineHeight;
+    
+                        @include mobile(){
+                            font-size: $font3;
+                        }
+        
+                        img{
+                            display: flex;
+                            height: auto;
+                            max-width: 100%;
+                            object-fit: cover;
+                            object-position: center;
+                        }
+        
+                        h4{
+                            font-size: 24px;
+                            color: $color1;
+                            font-family: "Crimson Text",serif;
+                            font-weight: normal;
+                            text-align: start;
+    
+                            @include mobile(){
+                                font-size: 17px;
+                            }
+                        }
+        
+                        i{
+                            display: flex;
+                            font-size: 13px;
+                            justify-content: flex-start;
+                            align-items: center;
+                            color: $color1;
+                            span{
+                                color: $color16;
+                                justify-content: flex-start;
+                                font-family: 'Mulish', sans-serif;
+                                font-weight: normal;
+                                margin-left: 5px;
+                            }
+                        }
+        
+                        span{
+                            display: flex;
+                            width: 100%;
+                            font-size: 14px;
+                            justify-content: center;
+                            line-height: $lineHeight;
+                        }
+        
+                        small{
+                            display: flex;
+                        }
+        
+                        ol{
+                            margin-left: 13px;
+                            li{
+                                padding-left: 5px;
+                            }
+                        }
+        
+                        ul{
+                            margin-left: 13px;
+                            li{
+                                position: relative;
+                                padding-left: 5px;
+                                list-style: none;
+                            }
+                            li::before{
+                                content: '';
+                                position: absolute;
+                                top: 9px;
+                                left: -13px;
+                                border: 3px solid transparent;
+                                border-left-width: 5px;
+                                border-left-color: $color8;
+                            }
+                        }
+                    }
+        
+                    .container-paginate-jadwal-doctor{
+                        display: flex;
+                        height: auto;
+                        width: 100%;
+                        justify-content: center;
+                    }
                 }
             }
         }
@@ -287,33 +332,59 @@
         margin-left: 0;
     }
 
-    .title-our-doctors{
-        display: flex;
-        font-size: 18px;
-        color: $color1;
-        font-family: "Crimson Text",serif;
-        margin-left: 45px;
-
-        @include mobile(){
-            margin-left: 0;
-            font-size: 17px;
-        }
+    @include tablet(){
+        align-items: center;
+        padding: 50px 0;
+        margin-left: 0;
     }
 
-    .column-carousel-our-hospital{
+    @include desktop(){
+        align-items: center;
+        padding: 50px 0;
+        margin-left: 0;
+    }
+
+    .column-bawah-carousel-our-hospital{
         display: flex;
-        height: auto;
+        flex-direction: column;
         width: 100%;
-        margin: 20px 0;
-    }
 
-    .container-btn-our-hospital{
-        display: flex;
-        padding-left: 45px;
+        @include tablet(){
+            width: 740px;
+        }
 
-        @include mobile(){
-            justify-content: center;
-            padding-left: 0;
+        @include desktop(){
+            width: 960px;
+        }
+        
+        .title-our-doctors{
+            display: flex;
+            font-size: 18px;
+            color: $color1;
+            font-family: "Crimson Text",serif;
+            margin-left: 45px;
+    
+            @include mobile(){
+                margin-left: 0;
+                font-size: 17px;
+            }
+        }
+    
+        .column-carousel-our-hospital{
+            display: flex;
+            height: auto;
+            width: 100%;
+            margin: 20px 0;
+        }
+    
+        .container-btn-our-hospital{
+            display: flex;
+            padding-left: 45px;
+    
+            @include mobile(){
+                justify-content: center;
+                padding-left: 0;
+            }
         }
     }
 }

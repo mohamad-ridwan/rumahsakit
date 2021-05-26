@@ -23,6 +23,9 @@ function Navbar() {
     const elementModalCollapse = document.getElementsByClassName('modal-collapse-navbar')
     const getElement = document.getElementsByClassName('wrapp-navbar')
 
+    const widthBody = document.body.getBoundingClientRect().width
+    const minimizeValue = Math.floor(widthBody)
+
     function setAllAPI() {
         API.APIGetNavbar()
             .then(res => {
@@ -55,8 +58,8 @@ function Navbar() {
 
     useEffect(() => {
         setAllAPI();
-        updateParams(history.location.pathname)
-    }, [])
+        updateParams(history.location.pathname);
+    }, []);
 
     const styleCloseCollapseNav = {
         display: displayCloseCollapse ? 'flex' : 'none'
@@ -64,6 +67,11 @@ function Navbar() {
 
     const styleWrappNavbar = {
         boxShadow: `${paramsGlobal !== '/' ? '0 3px 35px -1px rgba(0,0,0,0.4)' : 'none'}`
+    }
+
+    const styleMenuCollapse = {
+        top: minimizeValue > 766 && minimizeValue < 1024 ? '150px' : '173px',
+        border: displayCloseCollapse ? '1px solid #d17aa5' : 'none'
     }
 
     function toPage(path, condition) {
@@ -186,6 +194,7 @@ function Navbar() {
         updateParams(`/${pathMenuCollapseNav[index]}`)
         setSearchResult('')
         setSearchValue('')
+        noneDisplayModalNav();
 
         if (pathMenuCollapseNav[index].includes('our-hospital')) {
             window.location.reload()
@@ -220,60 +229,65 @@ function Navbar() {
                     </a>
                 </div>
 
-                <div className="column-bawah-navbar">
-                    <img src={`${Endpoint}/images/${mainNavbar && mainNavbar.logo}`} alt="" className="logo-rs"
-                        onClick={() => toPage('/')}
-                    />
-
-                    <form onSubmit={(e) => {
-                        e.preventDefault();
-                        submitSearch()
-                    }} className="form-input-search">
-                        <input type="text" className="input-search-home" placeholder="Search..." value={searchValue}
-                            onChange={inputSearch}
+                <div className="container-column-bawah-navbar">
+                    <div className="column-bawah-navbar">
+                        <img src={`${Endpoint}/images/${mainNavbar && mainNavbar.logo}`} alt="" className="logo-rs"
+                            onClick={() => toPage('/')}
                         />
-                        <i class="fas fa-search" onClick={submitSearch}></i>
-                    </form>
+
+                        <form onSubmit={(e) => {
+                            e.preventDefault();
+                            submitSearch()
+                        }} className="form-input-search">
+                            <input type="text" className="input-search-home" placeholder="Search..." value={searchValue}
+                                onChange={inputSearch}
+                            />
+                            <i class="fas fa-search" onClick={submitSearch}></i>
+                        </form>
+                    </div>
                 </div>
-                <div className="header-bottom-navbar">
-                    {dataNavbar && dataNavbar.length > 0 ? dataNavbar.map((e, i) => {
-                        return (
-                            <>
-                                <button key={e._id} className="btn-group-header-bottom-navbar"
-                                    onClick={() => toPage(e.path)}
-                                    onMouseEnter={() => getCollapseNavbar(e.name, i, e.path)}
-                                    onMouseLeave={mouseLeaveBtnNavbar}
-                                >
-                                    {e.name}
 
-                                    <i className="fas fa-sort-down" style={{
-                                        display: `${e.collapse ? 'flex' : 'none'}`
-                                    }}></i>
-                                </button>
-                            </>
-                        )
-                    }) : (
-                        <div></div>
-                    )}
-
-                    <ul className="modal-collapse-navbar"
-                    >
-                        <div className="column-tambahan-collapse-nav" style={styleCloseCollapseNav}
-                            onMouseEnter={noneDisplayModalNav}
-                        ></div>
-                        {dataCollapseNavbar.length > 0 ? dataCollapseNavbar.map((v, a) => {
+                <div className="container-header-bottom-navbar">
+                    <div className="header-bottom-navbar">
+                        {dataNavbar && dataNavbar.length > 0 ? dataNavbar.map((e, i) => {
                             return (
                                 <>
-                                    <NavLink key={a} to={`/${pathMenuCollapseNav[a]}`} className="menu-collapse-navbar" activeClassName="active-menu-collapse-nav"
-                                        onClick={(s) => toPageFromNameCollapse(s, a)}
-                                    >{v}
-                                    </NavLink>
+                                    <button key={e._id} className="btn-group-header-bottom-navbar"
+                                        onClick={() => toPage(e.path)}
+                                        onMouseOver={() => getCollapseNavbar(e.name, i, e.path)}
+                                        onMouseLeave={mouseLeaveBtnNavbar}
+                                    >
+                                        {e.name}
+
+                                        <i className="fas fa-sort-down" style={{
+                                            display: `${e.collapse ? 'flex' : 'none'}`
+                                        }}></i>
+                                    </button>
                                 </>
                             )
                         }) : (
                             <div></div>
                         )}
-                    </ul>
+
+                        <ul className="modal-collapse-navbar" style={styleMenuCollapse}
+                        >
+                            <div className="column-tambahan-collapse-nav" style={styleCloseCollapseNav}
+                                onMouseEnter={noneDisplayModalNav}
+                            ></div>
+                            {dataCollapseNavbar.length > 0 ? dataCollapseNavbar.map((v, a) => {
+                                return (
+                                    <>
+                                        <NavLink key={a} to={`/${pathMenuCollapseNav[a]}`} className="menu-collapse-navbar" activeClassName="active-menu-collapse-nav"
+                                            onClick={(s) => toPageFromNameCollapse(s, a)}
+                                        >{v}
+                                        </NavLink>
+                                    </>
+                                )
+                            }) : (
+                                <div></div>
+                            )}
+                        </ul>
+                    </div>
                 </div>
             </div>
         </>

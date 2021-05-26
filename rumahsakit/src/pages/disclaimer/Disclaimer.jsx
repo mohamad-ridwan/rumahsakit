@@ -37,6 +37,7 @@ function Disclaimer() {
     }
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         setAllAPI();
         setIndexActive();
         activeNavbar();

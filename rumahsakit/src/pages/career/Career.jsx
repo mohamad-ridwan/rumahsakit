@@ -37,6 +37,7 @@ function Career() {
     }
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         setAllAPI();
         activeNavbar();
     }, [])
@@ -68,70 +69,72 @@ function Career() {
                     click1={() => toPage('/')}
                 />
 
-                {career && career.length > 0 ?
-                    career.map((e) => {
+                <div className="container-career">
+                    {career && career.length > 0 ?
+                        career.map((e) => {
 
-                        const checkTitle = e.title !== '' ? e.title : ''
+                            const checkTitle = e.title !== '' ? e.title : ''
 
-                        return (
-                            <>
-                                <div key={e._id} className="main-konten-career">
-                                    <p className="title-konten-career">
-                                        {checkTitle}
-                                    </p>
+                            return (
+                                <>
+                                    <div key={e._id} className="main-konten-career">
+                                        <p className="title-konten-career">
+                                            {checkTitle}
+                                        </p>
 
-                                    <p className="main-deskripsi-career">
-                                        {e.mainDeskripsi}
-                                    </p>
+                                        <p className="main-deskripsi-career">
+                                            {e.mainDeskripsi}
+                                        </p>
 
-                                    <p className="title-name-rs-career">
-                                        {e.nameRs}
-                                    </p>
+                                        <p className="title-name-rs-career">
+                                            {e.nameRs}
+                                        </p>
 
-                                    <p className="hrd-rs-career">
-                                        {e.hrd}
-                                    </p>
+                                        <p className="hrd-rs-career">
+                                            {e.hrd}
+                                        </p>
 
-                                    <p className="address-career">
-                                        {e.address}
-                                    </p>
+                                        <p className="address-career">
+                                            {e.address}
+                                        </p>
 
-                                    <p className="email-career">
-                                        atau email ke:
+                                        <p className="email-career">
+                                            atau email ke:
                                         <a href={`mailto:${e.email}`} className="konten-email-career">
-                                            {e.email} </a>
-                                    </p>
+                                                {e.email} </a>
+                                        </p>
 
-                                    <div className="container-box-grey">
-                                        <div className="box-grey-career">
-                                            <p className="title-bidang-career">
-                                                {e.titleBidang}
-                                            </p>
-
-                                            <div className="container-date-career">
-                                                <i className="far fa-calendar-alt"></i>
-                                                <p className="date-job-career font-career-group">
-                                                    {e.dateLamaran}
+                                        <div className="container-box-grey">
+                                            <div className="box-grey-career">
+                                                <p className="title-bidang-career">
+                                                    {e.titleBidang}
                                                 </p>
+
+                                                <div className="container-date-career">
+                                                    <i className="far fa-calendar-alt"></i>
+                                                    <p className="date-job-career font-career-group">
+                                                        {e.dateLamaran}
+                                                    </p>
+                                                </div>
+
+                                                <p className="deskripsi-job">
+                                                    {e.deskripsi}
+                                                </p>
+
+                                                <p className="view-detail"
+                                                    onClick={() => toPage(`/career/details/${e.path}`)}
+                                                >
+                                                    View Detail
+                                            </p>
                                             </div>
-
-                                            <p className="deskripsi-job">
-                                                {e.deskripsi}
-                                            </p>
-
-                                            <p className="view-detail"
-                                                onClick={() => toPage(`/career/details/${e.path}`)}
-                                            >
-                                                View Detail
-                                            </p>
                                         </div>
                                     </div>
-                                </div>
-                            </>
-                        )
-                    }) : (
-                        <div></div>
-                    )}
+                                </>
+                            )
+                        }) : (
+                            <div></div>
+                        )}
+                </div>
             </div>
 
             <Loading

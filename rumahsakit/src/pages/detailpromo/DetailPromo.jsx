@@ -75,7 +75,9 @@ function DetailPromo() {
     const widthBody = document.body.getBoundingClientRect().width
     const minimizeValue = Math.floor(widthBody)
 
-    const heightImgCard = minimizeValue < 767 ? 'auto' : '150px'
+    const heightImgCard1024 = minimizeValue > 766 && minimizeValue < 1024 ? '114px' : '150px'
+
+    const heightImgCard = minimizeValue < 767 ? 'auto' : heightImgCard1024
 
     return (
         <>
@@ -103,58 +105,60 @@ function DetailPromo() {
                     click2={() => toPage('/promo')}
                 />
 
-                <div className="main-konten-detail-promo">
-                    {Object.keys(detailPromo).length > 0 ? (
-                        <>
-                            <img src={`${Endpoint}/images/${detailPromo.image}`} alt="" className="img-detail-promo" width="940" height="377" />
+                <div className="container-detail-promo">
+                    <div className="main-konten-detail-promo">
+                        {Object.keys(detailPromo).length > 0 ? (
+                            <>
+                                <img src={`${Endpoint}/images/${detailPromo.image}`} alt="" className="img-detail-promo" width="940" height="377" />
 
-                            <p className="title-detail-promo">
-                                {detailPromo.title}
-                            </p>
+                                <p className="title-detail-promo">
+                                    {detailPromo.title}
+                                </p>
 
-                            <p className="date-detail-promo">
-                                <i className="far fa-calendar-alt"></i>
-                                {detailPromo.date}
-                            </p>
-                        </>
-                    ) : (
-                        <div></div>
-                    )}
-                </div>
-
-                <div className="konten-detail-promo">
-                    <RenderHTML
-                        konten={detailPromo && detailPromo.konten}
-                    />
-                </div>
-
-                <div className="container-promo-lainnya">
-                    <p className="promo-lainnya">
-                        Promo Lainnya
-                    </p>
-
-                    <div className="column-card-promo-lainnya">
-                        {currentList && currentList.length > 0 ? currentList.map((e) => {
-                            return (
-                                <>
-                                    <div className="column-card-detail-promo">
-                                        <Card
-                                            key={e._id}
-                                            widthCard="100%"
-                                            nameBtnReadMore="Read More"
-                                            img={`${Endpoint}/images/${e.image}`}
-                                            title={e.title}
-                                            date={e.date}
-                                            deskripsi={e.deskripsi}
-                                            heightImg={heightImgCard}
-                                            clickToPage={() => toPage(`/promo/details/${e.path}`)}
-                                        />
-                                    </div>
-                                </>
-                            )
-                        }) : (
+                                <p className="date-detail-promo">
+                                    <i className="far fa-calendar-alt"></i>
+                                    {detailPromo.date}
+                                </p>
+                            </>
+                        ) : (
                             <div></div>
                         )}
+                    </div>
+
+                    <div className="konten-detail-promo">
+                        <RenderHTML
+                            konten={detailPromo && detailPromo.konten}
+                        />
+                    </div>
+
+                    <div className="container-promo-lainnya">
+                        <p className="promo-lainnya">
+                            Promo Lainnya
+                    </p>
+
+                        <div className="column-card-promo-lainnya">
+                            {currentList && currentList.length > 0 ? currentList.map((e) => {
+                                return (
+                                    <>
+                                        <div className="column-card-detail-promo">
+                                            <Card
+                                                key={e._id}
+                                                widthCard="100%"
+                                                nameBtnReadMore="Read More"
+                                                img={`${Endpoint}/images/${e.image}`}
+                                                title={e.title}
+                                                date={e.date}
+                                                deskripsi={e.deskripsi}
+                                                heightImg={heightImgCard}
+                                                clickToPage={() => toPage(`/promo/details/${e.path}`)}
+                                            />
+                                        </div>
+                                    </>
+                                )
+                            }) : (
+                                <div></div>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>
