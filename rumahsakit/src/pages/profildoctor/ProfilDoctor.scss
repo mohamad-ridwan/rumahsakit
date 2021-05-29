@@ -12,6 +12,12 @@
     }
 }
 
+@mixin desktop {
+    @media (min-width: $desktop) {
+        @content;
+    }
+}
+
 .wrapp-profil-doctor{
     display: flex;
     flex-direction: column;
@@ -30,6 +36,11 @@
         align-items: center;
     }
 
+    @include desktop(){
+        padding: 50px 0;
+        align-items: center;
+    }
+
     .container-konten-profil-doctor{
         display: flex;
         flex-direction: column;
@@ -37,6 +48,10 @@
 
         @include tablet(){
             width: 740px;
+        }
+
+        @include desktop(){
+            width: 960px;
         }
 
         .container-main-profil-doctor{

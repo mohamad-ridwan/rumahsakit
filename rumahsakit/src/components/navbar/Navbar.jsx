@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useHistory, useParams } from 'react-router'
 import { NavLink } from 'react-router-dom'
 import './Navbar.scss'
@@ -9,7 +9,7 @@ import { FaqContext } from '../../services/context/faq/Faq'
 
 function Navbar() {
 
-    const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar, indexActive, setIndexActive, searchResult, setSearchResult, searchValue, setSearchValue] = useContext(PathContext)
+    const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar, indexActive, setIndexActive, searchResult, setSearchResult, searchValue, setSearchValue, autoplayCarousel, playInterval, setPlayInterval] = useContext(PathContext)
     const [titleMenuFaq, setTitleMenuFaq, indexActiveFaqGlobal, setIndexActiveFaqGlobal] = useContext(FaqContext)
     const [dataNavbar, setDataNavbar] = useState([])
     const [mainNavbar, setMainNabar] = useState({})
@@ -90,9 +90,16 @@ function Navbar() {
                     setSearchValue('')
                 }
 
+                if (path !== '/' && path !== path.includes('our-hospital')) {
+                    setPlayInterval(true)
+                }
             } else {
                 history.push(path)
                 updateParams(path)
+
+                if (path === '/' && paramsGlobal !== '/') {
+                    setPlayInterval(true)
+                }
 
                 if (condition === undefined) {
                     setSearchResult('')
@@ -195,6 +202,10 @@ function Navbar() {
         setSearchResult('')
         setSearchValue('')
         noneDisplayModalNav();
+
+        if (pathMenuCollapseNav[index] !== '/' && pathMenuCollapseNav[index] !== pathMenuCollapseNav[index].includes('our-hospital')) {
+            setPlayInterval(true)
+        }
 
         if (pathMenuCollapseNav[index].includes('our-hospital')) {
             window.location.reload()

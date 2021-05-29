@@ -16,7 +16,7 @@ import ButtonCard from '../../components/buttoncard/ButtonCard'
 
 function OurHospital() {
 
-    const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar] = useContext(PathContext)
+    const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar, indexActive, setIndexActive, searchResult, setSearchResult, searchValue, setSearchValue, autoplayCarousel, playInterval, setPlayInterval] = useContext(PathContext)
     const [ourHospital, setOurHospital] = useState({})
     const [dataHeader, setDataHeader] = useState({})
     const [pageNavMenu, setPageNavMenu] = useState([])
@@ -275,6 +275,7 @@ function OurHospital() {
     function toPage(path) {
         history.push(path)
         updateParams(path)
+        setPlayInterval(true)
     }
 
     function toPageTop() {

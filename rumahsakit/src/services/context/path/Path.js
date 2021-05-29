@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react'
+import React, { useState, createContext, useEffect, useRef } from 'react'
 
 export const PathContext = createContext()
 
@@ -8,6 +8,7 @@ const PathProvider = ({ children }) => {
     const [indexActive, setIndexActive] = useState()
     const [searchResult, setSearchResult] = useState('')
     const [searchValue, setSearchValue] = useState('')
+    const [playInterval, setPlayInterval] = useState(false)
 
     const location = window.location.pathname
     const removeLinePath = location !== '/' ? location.split('/')[1] : location
@@ -15,6 +16,8 @@ const PathProvider = ({ children }) => {
     function updateParams(path) {
         setParamsGlobal(`${path}`)
     }
+
+    var autoplayCarousel = useRef();
 
     function activeNavbar() {
         const buttonNavbar = document.getElementsByClassName('btn-group-header-bottom-navbar')
@@ -81,8 +84,19 @@ const PathProvider = ({ children }) => {
         }
     }
 
+    function stopInterval() {
+        for (let i = 0; i < autoplayCarousel.current; i++) {
+            window.clearInterval(i)
+        }
+        window.clearInterval(autoplayCarousel.current)
+    }
+
+    if (playInterval) {
+        stopInterval();
+    }
+
     return (
-        <PathContext.Provider value={[paramsGlobal, setParamsGlobal, updateParams, activeNavbar, indexActive, setIndexActive, searchResult, setSearchResult, searchValue, setSearchValue]}>
+        <PathContext.Provider value={[paramsGlobal, setParamsGlobal, updateParams, activeNavbar, indexActive, setIndexActive, searchResult, setSearchResult, searchValue, setSearchValue, autoplayCarousel, playInterval, setPlayInterval]}>
             {children}
         </PathContext.Provider>
     )

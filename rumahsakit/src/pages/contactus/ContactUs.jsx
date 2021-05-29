@@ -17,7 +17,7 @@ import ModalSuccess from '../../components/modalsuccess/ModalSuccess'
 
 function ContactUs() {
 
-    const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar] = useContext(PathContext)
+    const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar, indexActive, setIndexActive, searchResult, setSearchResult, searchValue, setSearchValue, autoplayCarousel] = useContext(PathContext)
     const [dataHeader, setDataHeader] = useState({})
     const [dataContactRS, setDataContactRS] = useState({})
     const [errForm, setErrForm] = useState({})

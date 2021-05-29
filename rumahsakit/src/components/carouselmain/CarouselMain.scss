@@ -27,6 +27,16 @@
         }
     }
 
+    .splide__pagination__page{
+        &:hover{
+            background: $color18;
+        }
+    }
+
+    .splide__pagination__page.is-active{
+        background: $color18;
+    }
+
     .container-carousel-img{
         display: none;
         height: auto;

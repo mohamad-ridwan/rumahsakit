@@ -13,7 +13,7 @@ import ModalSuccess from '../../components/modalsuccess/ModalSuccess'
 
 function Home() {
 
-    const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar] = useContext(PathContext)
+    const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar, indexActive, setIndexActive, searchResult, setSearchResult, searchValue, setSearchValue, autoplayCarousel, playInterval, setPlayInterval] = useContext(PathContext)
     const [dataArticle, setDataArticle] = useState([])
     const [dataCarouselHome, setDataCarouselHome] = useState([])
     const [dataBannerNewsletter, setDataBannerNewsletter] = useState({})
@@ -165,16 +165,19 @@ function Home() {
     function toPageProfile() {
         history.push('our-hospital/content/profil')
         updateParams('our-hospital/content/profil')
+        setPlayInterval(true)
     }
 
     function toPageBlogArticles(e) {
         updateParams(`/articles/read/${e.path}`)
         history.push(`/articles/read/${e.path}`)
+        setPlayInterval(true)
     }
 
     function toPageArticles() {
         updateParams('/articles')
         history.push('/articles')
+        setPlayInterval(true)
     }
 
     function changeInputSubscribe(e) {
@@ -184,6 +187,7 @@ function Home() {
     function toPageOnlineReservation() {
         updateParams('online-reservation')
         history.push('online-reservation')
+        setPlayInterval(true)
     }
 
     const widthBody = document.body.getBoundingClientRect().width

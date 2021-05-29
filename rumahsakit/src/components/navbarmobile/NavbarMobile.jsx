@@ -8,7 +8,7 @@ import Endpoint from '../../services/api/endpoint';
 
 function NavbarMobile() {
 
-    const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar, indexActive, setIndexActive, searchResult, setSearchResult, searchValue, setSearchValue] = useContext(PathContext)
+    const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar, indexActive, setIndexActive, searchResult, setSearchResult, searchValue, setSearchValue, autoplayCarousel, playInterval, setPlayInterval] = useContext(PathContext)
     const [titleMenuFaq, setTitleMenuFaq, indexActiveFaqGlobal, setIndexActiveFaqGlobal] = useContext(FaqContext)
     const [dataNavbar, setDataNavbar] = useState([])
     const [mainNavbar, setMainNabar] = useState({})
@@ -91,6 +91,10 @@ function NavbarMobile() {
                     setSearchResult('')
                     setSearchValue('')
                 }
+
+                if (path !== '/' && path !== path.includes('our-hospital')) {
+                    setPlayInterval(true)
+                }
             } else {
                 history.push(path)
                 updateParams(path)
@@ -100,6 +104,10 @@ function NavbarMobile() {
                 if (condition === undefined) {
                     setSearchResult('')
                     setSearchValue('')
+                }
+
+                if (path === '/' && paramsGlobal !== '/') {
+                    setPlayInterval(true)
                 }
 
                 setTimeout(() => {
@@ -164,6 +172,10 @@ function NavbarMobile() {
         setSearchResult('')
         setSearchValue('')
         setDisplaySearch(false)
+
+        if (pathMenuCollapseNav[index] !== '/' && pathMenuCollapseNav[index] !== pathMenuCollapseNav[index].includes('our-hospital')) {
+            setPlayInterval(true)
+        }
 
         if (pathMenuCollapseNav[index].includes('our-hospital')) {
             window.location.reload()

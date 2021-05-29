@@ -1,7 +1,7 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
+import { useHistory } from 'react-router';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/splide/dist/css/themes/splide-sea-green.min.css';
-import { useHistory } from 'react-router';
 import './CarouselMain.scss'
 import Endpoint from '../../services/api/endpoint'
 import Card from '../card/Card';
@@ -9,9 +9,12 @@ import { PathContext } from '../../services/context/path/Path';
 
 function CarouselMain({ data, mouseEnter, mouseLeave, dataTestimoni, iconQuotes, displayCarouselImg, displayCarouselTestimony, displayCarouselListDoctor, dataListDoctor }) {
 
-    const [paramsGlobal, setParamsGlobal, updateParams] = useContext(PathContext)
+    var [paramsGlobal, setParamsGlobal, updateParams, activeNavbar, indexActive, setIndexActive, searchResult, setSearchResult, searchValue, setSearchValue, autoplayCarousel, playInterval, setPlayInterval] = useContext(PathContext)
 
     const history = useHistory()
+    const ref = useRef();
+    const ref2 = useRef();
+    const ref3 = useRef();
 
     function RenderHTML(props) {
         return (
@@ -27,13 +30,13 @@ function CarouselMain({ data, mouseEnter, mouseLeave, dataTestimoni, iconQuotes,
         perPage: 1,
         perMove: 1,
         gap: '1rem',
-        pagination: false,
     };
 
     const primaryOptionsTestimony = {
         autoplay: true,
         type: 'fade',
         width: '100%',
+        rewind: true,
         perPage: 1,
         perMove: 1,
         gap: '1rem',
@@ -72,7 +75,24 @@ function CarouselMain({ data, mouseEnter, mouseLeave, dataTestimoni, iconQuotes,
     function toPageDetailDoctor(e) {
         history.push(`/doctor/${e.path}`)
         updateParams(`/doctor/${e.path}`)
+        setPlayInterval(true)
     }
+
+    function getRef() {
+        autoplayCarousel.current = window.setInterval(getSplide, 5000)
+    }
+
+    function getSplide() {
+        ref.current.splide.go('>')
+        ref2.current.splide.go('>')
+        ref3.current.splide.go('>')
+    }
+
+    useEffect(() => {
+        setTimeout(() => {
+            getRef();
+        }, 0);
+    }, []);
 
     return (
         <>
@@ -81,12 +101,12 @@ function CarouselMain({ data, mouseEnter, mouseLeave, dataTestimoni, iconQuotes,
                 onMouseLeave={mouseLeave}
             >
                 <div className="container-carousel-img" style={styleCarouselImg}>
-                    <Splide options={primaryOptionsImg}>
+                    <Splide options={primaryOptionsImg} ref={ref}>
                         {data && data.length > 0 ?
                             data.map((e, i) => {
                                 return (
                                     <>
-                                        <SplideSlide>
+                                        <SplideSlide key={e._id}>
                                             <img key={e._id} name={i} src={`${Endpoint}/images/${e.img || e.image}`} alt="banner home" width="1519" height="608" className="img-carousel-main" />
                                         </SplideSlide>
                                     </>
@@ -98,7 +118,7 @@ function CarouselMain({ data, mouseEnter, mouseLeave, dataTestimoni, iconQuotes,
                 </div>
 
                 <div className="wrapp-carousel-testimony" style={styleCarouselTestimony}>
-                    <Splide options={primaryOptionsTestimony}>
+                    <Splide options={primaryOptionsTestimony} ref={ref2}>
                         {dataTestimoni && dataTestimoni.length > 0 ?
                             dataTestimoni.map((e) => {
                                 return (
@@ -135,7 +155,7 @@ function CarouselMain({ data, mouseEnter, mouseLeave, dataTestimoni, iconQuotes,
                 </div>
 
                 <div className="wrapp-carousel-list-doctor" style={styleCarouselListDoctor}>
-                    <Splide options={primaryOptionsListDoctor}>
+                    <Splide options={primaryOptionsListDoctor} ref={ref3}>
                         {dataListDoctor && dataListDoctor.length > 0 ? dataListDoctor.map((e) => {
                             return (
                                 <>

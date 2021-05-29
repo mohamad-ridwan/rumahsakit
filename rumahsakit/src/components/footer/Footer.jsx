@@ -6,7 +6,7 @@ import { PathContext } from '../../services/context/path/Path'
 
 function Footer() {
 
-    const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar, indexActive, setIndexActive] = useContext(PathContext)
+    const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar, indexActive, setIndexActive, searchResult, setSearchResult, searchValue, setSearchValue, autoplayCarousel, playInterval, setPlayInterval] = useContext(PathContext)
     const [dataFooter, setDataFooter] = useState([])
     const [dataFooterTwo, setDataFooterTwo] = useState({})
 
@@ -31,6 +31,12 @@ function Footer() {
         history.push(`/${path}`)
         updateParams(`/${path}`)
 
+        if (path !== '/' && path !== path.includes('our-hospital')) {
+            setPlayInterval(true)
+        } else if (path === '/' && paramsGlobal !== '/') {
+            setPlayInterval(true)
+        }
+
         if (path.includes('our-hospital')) {
             window.location = window.location
         }
@@ -41,7 +47,7 @@ function Footer() {
             <div className="wrapp-footer">
                 <div className="wrapp-menu-footer">
                     <div className="container-menu-footer">
-                        {dataFooter && dataFooter.length > 0 ? dataFooter.map((e, i) => {
+                        {dataFooter && dataFooter.length > 0 ? dataFooter.map((e) => {
 
                             const getPages = e.pages
 
@@ -51,7 +57,7 @@ function Footer() {
                                         <p className="title-menu-footer">
                                             {e.title}
                                         </p>
-                                        {getPages.length > 0 ? getPages.map((e, i) => {
+                                        {getPages.length > 0 ? getPages.map((e) => {
                                             return (
                                                 <>
                                                     <li key={e._id} className="link-page-footer"

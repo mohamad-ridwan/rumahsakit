@@ -120,7 +120,7 @@ function OnlineReservation() {
     }
 
     useEffect(() => {
-        window.scrollTo(0, 0)
+        window.scrollTo(0, 0);
         setAllAPI();
         activeNavbar();
         setIndexActive();
