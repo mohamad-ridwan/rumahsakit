@@ -23,9 +23,6 @@ function Navbar() {
     const elementModalCollapse = document.getElementsByClassName('modal-collapse-navbar')
     const getElement = document.getElementsByClassName('wrapp-navbar')
 
-    const widthBody = document.body.getBoundingClientRect().width
-    const minimizeValue = Math.floor(widthBody)
-
     function setAllAPI() {
         API.APIGetNavbar()
             .then(res => {
@@ -70,8 +67,7 @@ function Navbar() {
     }
 
     const styleMenuCollapse = {
-        top: minimizeValue > 766 && minimizeValue < 1024 ? '150px' : '173px',
-        border: displayCloseCollapse ? '1px solid #d17aa5' : 'none'
+        border: displayCloseCollapse ? '0.5px solid #d17aa5' : 'none'
     }
 
     function toPage(path, condition) {

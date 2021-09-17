@@ -149,11 +149,11 @@
     
             .btn-group-header-bottom-navbar{
                 display: flex;
-                font-size: $font1;
+                font-size: 13px;
                 justify-content: center;
                 align-items: center;
                 color: #fff;
-                padding: 11px 23.5px;
+                padding: 11px 25.8px;
                 border: none;
                 outline: none;
                 background-color: transparent;
@@ -186,8 +186,14 @@
                 display: flex;
                 flex-direction: column;
                 position: fixed;
+                top: 172.5px;
+                padding: 0;
                 width: auto;
                 background-color: transparent;
+
+                @include tablet(){
+                    top: 150.5px;
+                }
     
                 .column-tambahan-collapse-nav{
                     display: none;
