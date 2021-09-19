@@ -94,13 +94,13 @@
     
                 .input-search-home{
                     display: flex;
-                    height: 100%;
                     width: 150px;
-                    padding: 7px 12px;
+                    padding: 8px 12px;
                     font-size: $font1;
                     color: $color2;
                     border: none;
                     outline: none;
+                    border-radius: 5px;
                     font-family: 'Mulish', sans-serif;
                 }
                 .input-search-home::placeholder{
