@@ -59,24 +59,6 @@ function OnlineReservation() {
         jadwalDokter: '',
     })
 
-    const [toSend, setToSend] = useState({
-        from_name: '',
-        to_name: '',
-        reply_to: '',
-        nama: '',
-        nomorTelepon: '',
-        tanggalLahir: '',
-        email: '',
-        tanggalKunjungan: '',
-        nomorRekamMedis: '',
-        spesialisDokter: '',
-        namaDokter: '',
-        jadwalDokter: '',
-        pernahBerobat: '',
-        tipePembayaran: '',
-        message: '',
-    })
-
     const history = useHistory()
 
     const getParams = window.location.pathname.toString().split('/')[1]
@@ -151,24 +133,6 @@ function OnlineReservation() {
                 [e.target.name]: ''
             })
         }
-
-        setToSend({
-            from_name: value.nama,
-            to_name: 'RS Permata Depok',
-            message: `Pesan Dari Pasien : ${value.message}`,
-            nama: `Nama : ${value.nama}`,
-            nomorTelepon: `Nomor Telepon : ${value.nomorTelepon}`,
-            tanggalLahir: `Tanggal Lahir : ${value.tanggalLahir}`,
-            email: `Email : ${value.email}`,
-            tanggalKunjungan: `Tanggal Kunjungan : ${value.tanggalKunjungan}`,
-            nomorRekamMedis: `Nomor Rekam Medis: -${value.nomorRekamMedis}`,
-            spesialisDokter: `Spesialisasi Dokter: ${value.spesialisDokter}`,
-            namaDokter: `Nama Dokter : ${value.namaDokter}`,
-            jadwalDokter: `Jadwal Dokter : ${value.jadwalDokter}`,
-            pernahBerobat: `Apakah Pernah Berobat Sebelumnya ? : ${toSend.pernahBerobat}`,
-            tipePembayaran: `Metode Tipe Pembayaran : ${toSend.tipePembayaran}`,
-            reply_to: value.email,
-        })
     }
 
     function postOnlineReservation() {
@@ -179,7 +143,7 @@ function OnlineReservation() {
             email: value.email,
             tanggalKunjungan: value.tanggalKunjungan,
             message: value.message,
-            nomorRekamMedis: `-${value.nomorRekamMedis}`,
+            nomorRekamMedis: `${value.nomorRekamMedis.length > 0 ? value.nomorRekamMedis : '-'}`,
             spesialisDokter: value.spesialisDokter,
             namaDokter: value.namaDokter,
             jadwalDokter: value.jadwalDokter,
@@ -194,6 +158,8 @@ function OnlineReservation() {
                 setSuccessMessage('Pendaftaran Online Reservation telah berhasil. Kami akan meresponnya melalui SMS dan GMAIL Anda.')
                 setNameBtnPilihDoctor('Pilih Dokter')
                 setNameBtnSpesialisDoctor('Pilih Spesialisasi Dokter')
+                setAnswerPernahBerobat('Ya')
+                setAnswerTipePembayaran('Biaya Pribadi')
 
                 setValue({
                     nama: '',
@@ -297,30 +263,31 @@ function OnlineReservation() {
                 if (Object.keys(err).length === 0 && kondisi) {
                     postOnlineReservation();
 
+                    const data = {
+                        from_name: value.nama,
+                        to_name: 'RS Permata Depok',
+                        message: `Pesan Dari Pasien : ${value.message}`,
+                        nama: `Nama : ${value.nama}`,
+                        nomorTelepon: `Nomor Telepon : ${value.nomorTelepon}`,
+                        tanggalLahir: `Tanggal Lahir : ${value.tanggalLahir}`,
+                        email: `Email : ${value.email}`,
+                        tanggalKunjungan: `Tanggal Kunjungan : ${value.tanggalKunjungan}`,
+                        nomorRekamMedis: `Nomor Rekam Medis: ${value.nomorRekamMedis.length > 0 ? value.nomorRekamMedis : '-'}`,
+                        spesialisDokter: `Spesialisasi Dokter: ${value.spesialisDokter}`,
+                        namaDokter: `Nama Dokter : ${value.namaDokter}`,
+                        jadwalDokter: `Jadwal Dokter : ${value.jadwalDokter}`,
+                        pernahBerobat: `Apakah Pernah Berobat Sebelumnya ? : ${answerPernahBerobat}`,
+                        tipePembayaran: `Metode Tipe Pembayaran : ${answerTipePembayaran}`,
+                        reply_to: value.email,
+                    }
+
                     send(
                         'service_j94lebl',
                         'template_r59s9rb',
-                        toSend,
+                        data,
                         'user_OTNWA7vJIJuI4F2IiKuIN'
                     )
                         .then(res => {
-                            setToSend({
-                                from_name: '',
-                                to_name: '',
-                                reply_to: '',
-                                nama: '',
-                                nomorTelepon: '',
-                                tanggalLahir: '',
-                                email: '',
-                                tanggalKunjungan: '',
-                                nomorRekamMedis: '',
-                                spesialisDokter: '',
-                                namaDokter: '',
-                                jadwalDokter: '',
-                                pernahBerobat: '',
-                                tipePembayaran: '',
-                                message: '',
-                            })
                             return res;
                         })
                         .catch(err => {
@@ -380,34 +347,18 @@ function OnlineReservation() {
     }
 
     function answerYes() {
-        setToSend({
-            ...toSend,
-            pernahBerobat: 'Ya'
-        })
         setAnswerPernahBerobat('Ya')
     }
 
     function answerNo() {
-        setToSend({
-            ...toSend,
-            pernahBerobat: 'Tidak'
-        })
         setAnswerPernahBerobat('Tidak')
     }
 
     function answerBiayaPribadi() {
-        setToSend({
-            ...toSend,
-            tipePembayaran: 'Biaya Pribadi'
-        })
         setAnswerTipePembayaran('Biaya Pribadi')
     }
 
     function answerBiayaAsuransi() {
-        setToSend({
-            ...toSend,
-            tipePembayaran: 'Asuransi'
-        })
         setAnswerTipePembayaran('Asuransi')
     }
 
@@ -626,7 +577,7 @@ function OnlineReservation() {
                             <div className="container-group-answer">
                                 <p className="question-form-kanan-online-rv">
                                     Apakah Anda pernah berobat di RS Permata sebelumnya?
-                            </p>
+                                </p>
 
                                 <div className="column-indicator-answer">
                                     <IndicatorAnswer
@@ -658,7 +609,7 @@ function OnlineReservation() {
                             <div className="container-group-answer">
                                 <p className="question-form-kanan-online-rv">
                                     Pilih Tipe Pembayaran
-                            </p>
+                                </p>
 
                                 <div className="column-indicator-answer">
                                     <IndicatorAnswer
@@ -718,7 +669,7 @@ function OnlineReservation() {
                             <div className="container-group-answer" style={styleGroupAnswer}>
                                 <p className="question-form-kanan-online-rv">
                                     Pilih Jadwal Praktek Dokter
-                            </p>
+                                </p>
 
                                 <div className="column-indicator-answer" style={styleColumnIndicatorAnswer}>
                                     {Object.entries(jadwalDokter).map((e, i) => {
@@ -758,7 +709,7 @@ function OnlineReservation() {
 
                             <label htmlFor="label" className="label-form-online-rv">
                                 Message
-                        </label>
+                            </label>
 
                             <textarea name="message" className="input-form-online-rv" cols="30" rows="10"
                                 onChange={inputDataPribadi}
@@ -781,7 +732,7 @@ function OnlineReservation() {
                                     onClick={clickAgreeSubmit}
                                 >
                                     Saya setuju bahwa data saya akan digunakan oleh rumah sakit untuk keperluan yang berhubungan dengan pelayanan kesehatan saya
-                            </p>
+                                </p>
                             </div>
 
                             <p className="error-message-form-online-rv">
