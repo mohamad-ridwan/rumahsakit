@@ -25,8 +25,9 @@ function DetailPromo() {
 
     const history = useHistory()
 
-    function setAllAPI() {
+    function setAllAPI(pathLocal) {
         setLoading(true)
+        const newLocationDetail = pathLocal === undefined ? locationDetail : pathLocal
 
         API.APIGetHeader()
             .then(res => {
@@ -37,10 +38,10 @@ function DetailPromo() {
         API.APIGetPromo()
             .then(res => {
                 setLoading(false)
-                const getData = res.data.filter((e) => e.path === locationDetail)
+                const getData = res.data.filter((e) => e.path === newLocationDetail)
                 setDetailPromo(getData[0])
 
-                const getAllData = res.data.filter((e) => e.path !== locationDetail)
+                const getAllData = res.data.filter((e) => e.path !== newLocationDetail)
                 setAllPromo(getAllData)
             })
     }
@@ -68,7 +69,9 @@ function DetailPromo() {
         updateParams(path)
 
         if (path.includes('/details')) {
-            window.location.reload()
+            const getIdPath = path.split('/promo/details/')
+            setAllAPI(getIdPath[1]);
+            window.scrollTo(0, 0)
         }
     }
 
@@ -134,7 +137,7 @@ function DetailPromo() {
                     <div className="container-promo-lainnya">
                         <p className="promo-lainnya">
                             Promo Lainnya
-                    </p>
+                        </p>
 
                         <div className="column-card-promo-lainnya">
                             {currentList && currentList.length > 0 ? currentList.map((e) => {

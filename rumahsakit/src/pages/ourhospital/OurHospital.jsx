@@ -21,7 +21,6 @@ function OurHospital() {
     const [dataHeader, setDataHeader] = useState({})
     const [pageNavMenu, setPageNavMenu] = useState([])
     const [pageModalNavMenu, setPageModalNavMenu] = useState([])
-    const [activeNavMenu, setActiveNavMenu] = useState(0)
     const [loading, setLoading] = useState(false)
     const [activeModalNavmenu, setActiveModalNavmenu] = useState()
     const [nameBtnSelect, setNameBtnSelect] = useState('Jantung dan Pembuluh Darah')
@@ -34,6 +33,8 @@ function OurHospital() {
     const [perPage, setPerPage] = useState(3)
     const [indexPaginate, setIndexPaginate] = useState(1)
     const [value, setValue] = useState('')
+    const [pathLocal, setPathLocal] = useState('')
+    const [activeJadwalDokter, setActiveJadwalDokter] = useState(null)
 
     const location = window.location.pathname.toString().split('/')[3]
     const location2 = window.location.pathname.toString().split('/')[1]
@@ -42,7 +43,8 @@ function OurHospital() {
 
     const history = useHistory()
 
-    function setAllAPI(path) {
+    function setAllAPI(path, idPathLocal) {
+        const newPathLocal = idPathLocal === undefined ? location : idPathLocal
         setLoading(true)
 
         API.APIGetHeader()
@@ -53,7 +55,6 @@ function OurHospital() {
 
         API.APIGetOurHospital()
             .then(res => {
-                setLoading(false)
                 const respons = res.data
 
                 const getListJadwalDoctor = respons.filter((e) => e.path === 'jadwal-dokter')
@@ -83,7 +84,7 @@ function OurHospital() {
                     setOurHospital(getData2[0])
                     newOurHospital = getData2[0]
                 } else {
-                    const getData = respons.filter((e) => e.path === location)
+                    const getData = respons.filter((e) => e.path === newPathLocal)
                     setOurHospital(getData[0])
                     newOurHospital = getData[0]
                 }
@@ -124,17 +125,34 @@ function OurHospital() {
                 setPageModalNavMenu(modalNavMenu)
 
                 if (newOurHospital.path === 'profil') {
-                    setActiveNavMenu(0)
+                    setPathLocal('profil')
+
+                    setTimeout(() => {
+                        activeBtnGroupNavmenu(0, '-7px', '#333')
+                    }, 0);
                 } else if (newOurHospital.path === 'jadwal-dokter') {
-                    setActiveNavMenu(1)
+                    setActiveJadwalDokter(1)
+                    setPathLocal('jadwal-dokter')
+
+                    setTimeout(() => {
+                        activeBtnGroupNavmenu(1, '-7px', '#333')
+                    }, 0);
                 } else {
-                    setActiveNavMenu(2)
+                    setPathLocal('layanan & fasilitas')
+
+                    setTimeout(() => {
+                        activeBtnGroupNavmenu(2, '-7px', '#333')
+                    }, 0);
                 }
 
                 setTimeout(() => {
-                    clickLayananAndFasilitas(true);
+                    clickLayananAndFasilitas(true, undefined, newPathLocal);
                     toActiveBtnModalNavmenu(newOurHospital)
                 }, 0);
+
+                setTimeout(() => {
+                    setLoading(false)
+                }, 500);
             })
 
         API.APIGetListDoctor()
@@ -156,18 +174,26 @@ function OurHospital() {
     }
 
     const styleTableJadwalDoctor = {
-        display: location === 'jadwal-dokter' ? 'flex' : 'none'
+        display: activeJadwalDokter === 1 ? 'flex' : 'none'
     }
 
     const stylePaginate = {
-        display: location === 'jadwal-dokter' ? 'flex' : 'none'
+        display: activeJadwalDokter === 1 ? 'flex' : 'none'
     }
 
     const elementNavmenu = document.getElementsByClassName('wrapp-navmenu')
+    const eContainerModalNavmenu = document.getElementsByClassName('container-modal-navmenu')
 
     const indexOfLastPage = currentPage * perPage;
     const indexOfFirstPage = indexOfLastPage - perPage;
     const currentList = selectListJadwalDoctor.slice(indexOfFirstPage, indexOfLastPage);
+
+    function activeBtnGroupNavmenu(idx, marginLeft, color) {
+        const newBtnGroupNavmenu = document.getElementsByClassName('btn-group-navmenu')
+
+        newBtnGroupNavmenu[idx].style.marginLeft = marginLeft
+        newBtnGroupNavmenu[idx].style.color = color
+    }
 
     function mouseEnterNavmenu(index) {
         if (elementNavmenu.length > 0) {
@@ -175,8 +201,18 @@ function OurHospital() {
                 elementNavmenu[i].getElementsByClassName('btn-group-navmenu')[0].style.marginLeft = '0'
             }
 
-            elementNavmenu[activeNavMenu].getElementsByClassName('btn-group-navmenu')[0].style.marginLeft = '-7px'
-            elementNavmenu[activeNavMenu].getElementsByClassName('btn-group-navmenu')[0].style.color = '#333'
+            if (pathLocal === 'profil') {
+                elementNavmenu[0].getElementsByClassName('btn-group-navmenu')[0].style.marginLeft = '-7px'
+                elementNavmenu[0].getElementsByClassName('btn-group-navmenu')[0].style.color = '#333'
+            }
+            if (pathLocal === 'jadwal-dokter') {
+                elementNavmenu[1].getElementsByClassName('btn-group-navmenu')[0].style.marginLeft = '-7px'
+                elementNavmenu[1].getElementsByClassName('btn-group-navmenu')[0].style.color = '#333'
+            }
+            if (eContainerModalNavmenu[2].style.height !== '1px') {
+                document.getElementsByClassName('btn-group-navmenu')[2].style.marginLeft = '-7px'
+                document.getElementsByClassName('btn-group-navmenu')[2].style.color = '#333'
+            }
 
             elementNavmenu[index].getElementsByClassName('btn-group-navmenu')[0].style.marginLeft = '-7px'
             elementNavmenu[index].getElementsByClassName('btn-group-navmenu')[0].style.color = '#333'
@@ -190,27 +226,39 @@ function OurHospital() {
                 elementNavmenu[i].getElementsByClassName('btn-group-navmenu')[0].style.color = '#b04579'
             }
 
-            elementNavmenu[activeNavMenu].getElementsByClassName('btn-group-navmenu')[0].style.marginLeft = '-7px'
-            elementNavmenu[activeNavMenu].getElementsByClassName('btn-group-navmenu')[0].style.color = '#333'
+            if (pathLocal === 'profil') {
+                elementNavmenu[0].getElementsByClassName('btn-group-navmenu')[0].style.marginLeft = '-7px'
+                elementNavmenu[0].getElementsByClassName('btn-group-navmenu')[0].style.color = '#333'
+            }
+            if (pathLocal === 'jadwal-dokter') {
+                elementNavmenu[1].getElementsByClassName('btn-group-navmenu')[0].style.marginLeft = '-7px'
+                elementNavmenu[1].getElementsByClassName('btn-group-navmenu')[0].style.color = '#333'
+            }
+            if (eContainerModalNavmenu[2].style.height !== '1px') {
+                document.getElementsByClassName('btn-group-navmenu')[2].style.marginLeft = '-7px'
+                document.getElementsByClassName('btn-group-navmenu')[2].style.color = '#333'
+            }
         }
     }
 
-    function clickLayananAndFasilitas(active, activeClick) {
-        const element = document.getElementsByClassName('container-modal-navmenu')
+    function clickLayananAndFasilitas(active, activeClick, idPathLocal) {
+        const newPathLocal = idPathLocal === undefined ? location : idPathLocal
 
-        if (element.length > 0) {
+        if (eContainerModalNavmenu.length > 0) {
             if (active) {
                 setTimeout(() => {
-                    if (location !== 'profil' && location !== 'jadwal-dokter') {
-                        if (element[2].style.height === '1px') {
-                            element[2].style.height = element[2].scrollHeight + 'px'
+                    if (newPathLocal !== 'profil' && newPathLocal !== 'jadwal-dokter') {
+                        if (eContainerModalNavmenu[2].style.height === '1px') {
+                            eContainerModalNavmenu[2].style.height = eContainerModalNavmenu[2].scrollHeight + 'px'
+                        } else if (eContainerModalNavmenu[2].style.height !== '1px') {
+                            eContainerModalNavmenu[2].style.height = '1px'
                         }
                     } else {
                         if (activeClick) {
-                            if (element[2].style.height === '1px') {
-                                element[2].style.height = element[2].scrollHeight + 'px'
+                            if (eContainerModalNavmenu[2].style.height === '1px') {
+                                eContainerModalNavmenu[2].style.height = eContainerModalNavmenu[2].scrollHeight + 'px'
                             } else {
-                                element[2].style.height = '1px'
+                                eContainerModalNavmenu[2].style.height = '1px'
                             }
                         }
                     }
@@ -248,27 +296,49 @@ function OurHospital() {
         }
     }
 
-    async function toPageFromNavmenu(e, i) {
+    function toPageFromNavmenu(e, i) {
         if (e.title !== 'Layanan & Fasilitas') {
-            setActiveNavMenu(i)
             history.push(`${e.path}`)
+            setPathLocal(e.path)
+            setAllAPI(undefined, e.path)
+            setActiveModalNavmenu()
 
-            await window.location.reload()
+            for (let i = 0; i < btnModalNavmenu.length; i++) {
+                btnModalNavmenu[i].style.color = '#b04579'
+            }
+            eContainerModalNavmenu[2].style.height = '1px'
+
+            if (e.path === 'jadwal-dokter') {
+                setActiveJadwalDokter(i)
+            } else {
+                setActiveJadwalDokter(null)
+            }
+
+            window.scrollTo(0, 0)
         } else {
-            setActiveNavMenu(i)
             clickLayananAndFasilitas(true, true);
+
+            if (pathLocal === 'profil') {
+                activeBtnGroupNavmenu(0, '-7px', '#333')
+            } else if (pathLocal === 'jadwal-dokter') {
+                activeBtnGroupNavmenu(1, '-7px', '#333')
+            }
         }
     }
 
     function toPageFromModalNavmenu(data, idx, i) {
-        setActiveNavMenu(i)
         history.push(`${data.path}`)
         setActiveModalNavmenu(idx)
+        setActiveJadwalDokter(null)
+        setPathLocal('layanan & fasilitas')
+        activeBtnGroupNavmenu(0, '0', '#b04579')
+        activeBtnGroupNavmenu(1, '0', '#b04579')
 
         clickLayananAndFasilitas(true)
 
         setTimeout(() => {
             setAllAPI(data.path)
+            window.scrollTo(0, 0)
         }, 0);
     }
 
@@ -354,8 +424,6 @@ function OurHospital() {
                                                 name={e.title}
                                                 mouseEnter={() => mouseEnterNavmenu(i)}
                                                 mouseLeave={() => mouseLeaveNavmenu()}
-                                                marginLeft={activeNavMenu === i ? '-7px' : '0'}
-                                                colorBtn={activeNavMenu === i ? '#333' : '#b04579'}
                                                 dataModalMenu={e.title === 'Layanan & Fasilitas' ? pageModalNavMenu : []}
                                                 clickBtn={() => toPageFromNavmenu(e, i)}
                                                 btnModalMenu={(data, idx) => toPageFromModalNavmenu(data, idx, i)}
@@ -419,7 +487,7 @@ function OurHospital() {
                                                 <thead>
                                                     <tr className="t-name">
                                                         Name
-                                                </tr>
+                                                    </tr>
 
                                                     <div className="column-list-day-table">
                                                         {arrayDay.map((e, i) => {

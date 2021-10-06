@@ -23,14 +23,15 @@ class BlogArticle extends Component {
             header: {},
             allDataArticle: [],
             currentPage: 1,
-            perPage: 3
+            perPage: 3,
+            pathLocal: ''
         }
     }
 
     location = this.props.match.path.split('/')[1]
 
     setAllAPI() {
-        this.idParams = this.props.match.params.id
+        this.idParams = this.state.pathLocal.length === 0 ? this.props.match.params.id : this.state.pathLocal
 
         this.setState({
             loading: true
@@ -81,7 +82,12 @@ class BlogArticle extends Component {
         this.props.history.push(path)
 
         if (path.includes('read')) {
-            window.location.reload();
+            const getIdPath = path.split('/articles/read/')
+            this.setState({ pathLocal: getIdPath[1] })
+
+            setTimeout(() => {
+                this.setAllAPI();
+            }, 0);
         }
     }
 

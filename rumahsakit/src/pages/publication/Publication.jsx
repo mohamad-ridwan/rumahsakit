@@ -61,6 +61,10 @@ function Publication() {
         }
     }
 
+    function toViewPdf(path) {
+        window.open(path)
+    }
+
     const widthBody = document.body.getBoundingClientRect().width
     const minimizeValue = Math.floor(widthBody)
 
@@ -111,6 +115,7 @@ function Publication() {
                                         marginCard="0 0 40px 0"
                                         displayBtnDownload="flex"
                                         img={`${Endpoint}/images/${e.image}`}
+                                        clickToPage={() => toViewPdf(e.link)}
                                         title={e.title}
                                         date={e.date}
                                         deskripsi={e.deskripsi}
