@@ -20,7 +20,6 @@ function FindADoctor() {
     const [dataHeader, setDataHeader] = useState({})
     const [findADoctor, setFindADoctor] = useState({})
     const [listDoctor, setListDoctor] = useState([])
-    const [displayPersonalized, setDisplayPersonalized] = useState(false)
     const [nameBtn, setNameBtn] = useState('Select Speciality')
     const [listSpeciality, setListSpeciality] = useState([])
     const [modalList, setModalList] = useState(false)
@@ -31,12 +30,11 @@ function FindADoctor() {
     const [perPage, setPerPage] = useState(6)
     const [indexPaginate, setIndexPaginate] = useState(1)
     const [searchDocSpeciality, setSearchDocSpeciality] = useState('')
+    const [activeSelectDay, setActiveSelectDay] = useState(null)
 
     const location = window.location.pathname.toString().split('/')[1]
 
     const history = useHistory()
-
-    const elementPersonalized = document.getElementsByClassName('container-detail-personalized')
 
     const arrDay = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
@@ -77,10 +75,6 @@ function FindADoctor() {
         setAllAPI();
         activeNavbar();
     }, [])
-
-    const styleDetailPersonalized = {
-        height: displayPersonalized ? elementPersonalized[0].scrollHeight + 15 + 'px' : '1px'
-    }
 
     const styleUnselectDay = {
         display: filterDay.length > 0 ? 'flex' : 'none'
@@ -141,6 +135,7 @@ function FindADoctor() {
     function clickBtnChoose(index, data) {
         const element = document.getElementsByClassName('btn-choose')
         setFilterDay(`e.doctorSchedule.${data}`)
+        setActiveSelectDay(index)
 
         if (element.length > 0) {
             for (let i = 0; i < element.length; i++) {
@@ -155,6 +150,7 @@ function FindADoctor() {
     function unselect() {
         const element = document.getElementsByClassName('btn-choose')
         setFilterDay('')
+        setActiveSelectDay(null)
 
         for (let i = 0; i < element.length; i++) {
             element[i].style.backgroundColor = '#fff'
@@ -195,7 +191,12 @@ function FindADoctor() {
     }
 
     function showPersonalizedSearch() {
-        setDisplayPersonalized(!displayPersonalized)
+        const elementPersonalized = document.getElementsByClassName('container-detail-personalized')
+        if (elementPersonalized[0].style.height === '1px') {
+            elementPersonalized[0].style.height = elementPersonalized[0].scrollHeight + 15 + 'px'
+        } else {
+            elementPersonalized[0].style.height = '1px'
+        }
         setDisplayBtn(!displayBtn)
     }
 
@@ -213,6 +214,40 @@ function FindADoctor() {
 
     function inputSearchDocSpeciality(e) {
         setSearchDocSpeciality(e.target.value)
+    }
+
+    function mouseOverSelectDay(idx) {
+        const element = document.getElementsByClassName('btn-choose')
+
+        if (element.length > 0) {
+            for (let i = 0; i < element.length; i++) {
+                element[i].style.backgroundColor = '#fff'
+                element[i].style.color = '#999'
+            }
+
+            if (activeSelectDay !== null) {
+                element[activeSelectDay].style.backgroundColor = '#7a3561'
+                element[activeSelectDay].style.color = '#fff'
+            }
+            element[idx].style.backgroundColor = '#7a3561'
+            element[idx].style.color = '#fff'
+        }
+    }
+
+    function mouseLeaveSelectDay() {
+        const element = document.getElementsByClassName('btn-choose')
+
+        if (element.length > 0) {
+            for (let i = 0; i < element.length; i++) {
+                element[i].style.backgroundColor = '#fff'
+                element[i].style.color = '#999'
+            }
+
+            if (activeSelectDay !== null) {
+                element[activeSelectDay].style.backgroundColor = '#7a3561'
+                element[activeSelectDay].style.color = '#fff'
+            }
+        }
     }
 
     return (
@@ -293,23 +328,27 @@ function FindADoctor() {
                                         onClick={showPersonalizedSearch}
                                     >
                                         Personalized Search
-                                    <i class="fas fa-sort-down"></i>
+                                        <i class="fas fa-sort-down"></i>
                                     </button>
 
-                                    <div className="container-detail-personalized" style={styleDetailPersonalized}>
+                                    <div className="container-detail-personalized" style={{ height: '1px' }}>
                                         <p className="choose-clinic-day"
                                         >
                                             Choose Clinic Day <span className="unselect-day" style={styleUnselectDay}
                                                 onClick={unselect}
                                             >
                                                 UNSELECT
-                                        </span>
+                                            </span>
                                         </p>
 
                                         <div className="container-btn-choose">
                                             {arrDay.map((e, i) => {
                                                 return (
-                                                    <button key={i} className="btn-choose" onClick={() => clickBtnChoose(i, e)}>
+                                                    <button key={i} className="btn-choose"
+                                                        onClick={() => clickBtnChoose(i, e)}
+                                                        onMouseOver={() => mouseOverSelectDay(i)}
+                                                        onMouseLeave={mouseLeaveSelectDay}
+                                                    >
                                                         {e}
                                                         <i class="fas fa-check-circle"></i>
                                                     </button>
@@ -330,7 +369,7 @@ function FindADoctor() {
                                 <div className="container-list-find-doctor">
                                     <p className="doctors-found">
                                         {listDoctor.length} Doctors Found
-                                </p>
+                                    </p>
 
                                     {currentList && currentList.length > 0 ?
                                         currentList.map((e) => {
