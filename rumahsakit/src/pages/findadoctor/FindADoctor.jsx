@@ -31,6 +31,7 @@ function FindADoctor() {
     const [indexPaginate, setIndexPaginate] = useState(1)
     const [searchDocSpeciality, setSearchDocSpeciality] = useState('')
     const [activeSelectDay, setActiveSelectDay] = useState(null)
+    const [loadingDoctorsFound, setLoadingDoctorsFound] = useState(false)
 
     const location = window.location.pathname.toString().split('/')[1]
 
@@ -81,6 +82,8 @@ function FindADoctor() {
     }
 
     function getListDoctor() {
+        setLoadingDoctorsFound(true);
+
         API.APIGetListDoctor()
             .then(res => {
                 const respons = res.data
@@ -128,6 +131,8 @@ function FindADoctor() {
                             setListDoctor(filterSpeciality)
                         }
                     }
+
+                    setLoadingDoctorsFound(false)
                 }, 0);
             })
     }
@@ -296,6 +301,7 @@ function FindADoctor() {
                                                 nameBtn={nameBtn}
                                                 nameClass="list-speciality"
                                                 data={filterSearchDocSpeciality}
+                                                marginBtn="0"
                                                 topModal="40px"
                                                 searchMenuInput={inputSearchDocSpeciality}
                                                 displayModal={modalList ? 'flex' : 'none'}
@@ -307,6 +313,7 @@ function FindADoctor() {
 
                                         <div className="column-input-find-doctor">
                                             <Input
+                                                marginInputForm="0"
                                                 displayLabel="none"
                                                 placeholder="Doctor Name"
                                                 value={valueNameDr}
@@ -367,9 +374,21 @@ function FindADoctor() {
                                 </div>
 
                                 <div className="container-list-find-doctor">
-                                    <p className="doctors-found">
-                                        {listDoctor.length} Doctors Found
-                                    </p>
+                                    {loadingDoctorsFound ? (
+                                        <div className="column-loading-doctors-found">
+                                            <p className="txt-loading-find-doctors">
+                                                Loading
+                                            </p>
+
+                                            <div className="loading-find-doctors">
+
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <p className="doctors-found">
+                                            {listDoctor.length} Doctors Found
+                                        </p>
+                                    )}
 
                                     {currentList && currentList.length > 0 ?
                                         currentList.map((e) => {

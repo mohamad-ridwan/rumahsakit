@@ -111,7 +111,7 @@
                 .container-input-find-doctor{
                     display: flex;
                     width: 100%;
-    
+                    
                     @include mobile(){
                         flex-direction: column;
                     }
@@ -238,7 +238,7 @@
                     flex-wrap: nowrap;
                     flex-direction: column;
                 }
-    
+
                 .doctors-found{
                     display: flex;
                     position: absolute;
@@ -247,7 +247,31 @@
                     font-size: 14px;
                     color: $color2;
                 }
-    
+
+                .column-loading-doctors-found{
+                    display: flex;
+                    position: absolute;
+                    top: 0;
+                    right: 0px;
+                    align-items: center;
+
+                    .txt-loading-find-doctors{
+                        font-size: 14px;
+                        color: $color1;
+                        margin-right: 5px;
+                    }
+
+                    .loading-find-doctors{
+                        display: flex;
+                        height: 20px;
+                        width: 20px;
+                        border-radius: 500px;
+                        border: 2px solid $color7;
+                        border-top: 2px solid $color1;
+                        animation: animation 0.6s ease-in-out infinite;
+                    }
+                }
+
                 .column-card-find-a-doctor{
                     display: flex;
                     width: calc(100%/3);
@@ -258,5 +282,11 @@
                 }
             }
         }
+    }
+}
+
+@keyframes loadFindDoctors{
+    to{
+        transform: rotate(360deg);
     }
 }

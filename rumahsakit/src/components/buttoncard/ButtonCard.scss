@@ -19,6 +19,8 @@
     cursor: pointer;
     transition: 0.2s ease-in-out;
     letter-spacing: .5px;
+    color: #fff;
+    border: 2px solid #fff;
     &:hover{
         background-color: #fff;
         color: $color1;
@@ -31,18 +33,13 @@
     .txt-btn-card{
         display: flex;
         padding: 10px 16px;
-        color: #fff;
-        border: 2px solid #fff;
         border-radius: 5px;
-        &:hover{
-            color: $color1;
-        }
     }
 
     i{
         display: flex;
         position: absolute;
-        left: -6px;
+        left: -8px;
         font-size: 18px;
         color: #fff;
     }
@@ -61,6 +58,8 @@
     transition: 0.2s ease-in-out;
     border-radius: 5px;
     letter-spacing: .5px;
+    color: $color1;
+    border: 2px solid $color1;
     &:hover{
         background-color: $color1;
         color: #fff;
@@ -73,18 +72,13 @@
     .txt-btn-card{
         display: flex;
         padding: 10px 16px;
-        color: $color1;
-        border: 2px solid $color1;
         border-radius: 5px;
-        &:hover{
-            color: #fff;
-        }
     }
 
     i{
         display: flex;
         position: absolute;
-        left: -6px;
+        left: -8px;
         font-size: 18px;
         color: $color8;
     }
