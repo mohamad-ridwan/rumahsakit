@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 import { withRouter } from 'react-router-dom'
 import { send } from 'emailjs-com'
-import { Loader, LoaderOptions } from 'google-maps'
 import './ContactUs.scss'
 import BannerHeader from '../../components/bannerheader/BannerHeader'
 import Headers from '../../components/headers/Headers'
@@ -46,10 +45,6 @@ function ContactUs() {
 
     const history = useHistory()
 
-    const lat = -6.398846435949064
-    const lng = 106.77086719868362
-    const APIKey = 'AIzaSyAdmoWMT0t7Gj1EButLm35pQJ9BhiG6ZL0'
-
     function setAllAPI() {
         setLoading(true)
         API.APIGetHeader()
@@ -64,21 +59,6 @@ function ContactUs() {
                 const getContactRS = res.data.filter((e) => e.id === 'data-contact-rs')
                 setDataContactRS(getContactRS[0])
             })
-
-        initMap();
-    }
-
-    async function initMap() {
-        const loader = new Loader(APIKey, LoaderOptions);
-
-        const google = await loader.load();
-
-        const map = new google.maps.Map(document.getElementsByClassName('container-google-maps')[0], {
-            center: { lat: lat, lng: lng },
-            zoom: 8
-        })
-
-        return map;
     }
 
     useEffect(() => {
@@ -299,7 +279,9 @@ function ContactUs() {
 
                     <div className="form-kanan-online-cu">
                         <div className="container-google-maps">
-
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7928.985849919385!2d106.79462772110102!3d-6.459057920540529!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69e9e7ede517f7%3A0xb8953bf5dd0f86f1!2sJl.%20Sunan%20Muria%20IV%2C%20Pabuaran%2C%20Kec.%20Bojong%20Gede%2C%20Bogor%2C%20Jawa%20Barat%2016921!5e0!3m2!1sid!2sid!4v1637844448487!5m2!1sid!2sid" width="100%" style={{
+                                border: '0px'
+                            }} allowfullscreen="" loading="lazy"></iframe>
                         </div>
 
                         <p className="txt-icon-contact-us">
