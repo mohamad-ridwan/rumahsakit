@@ -51,6 +51,7 @@ function Home() {
             .then(res => {
                 setDataCarouselHome(res.data);
             })
+            .catch(err=>console.log(err))
 
         API.APIGetBanner()
             .then(res => {
