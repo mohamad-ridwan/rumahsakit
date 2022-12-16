@@ -220,6 +220,7 @@ function SearchResult() {
                                                     widthCard="100%"
                                                     heightImg={heightCardImgArticle}
                                                     heightCardImg="213"
+                                                    lazyLoadingImg="lazy"
                                                     widthCardImg={widthCardImgArticle}
                                                     paddingCard="0"
                                                     marginCard="0 0 40px 0"
@@ -255,6 +256,7 @@ function SearchResult() {
                                                     key={e._id}
                                                     widthCard="100%"
                                                     flexDirection="row"
+                                                    lazyLoadingImg="lazy"
                                                     heightImg={heightImgCardPublication}
                                                     heightCardImg="180"
                                                     widthCardImg={widthImgCardPublication}
@@ -294,6 +296,7 @@ function SearchResult() {
                                                 <Card
                                                     key={e._id}
                                                     widthCard="100%"
+                                                    lazyLoadingImg="lazy"
                                                     displayReadMore="none"
                                                     flexDirection="row"
                                                     displayIcon="none"
@@ -374,6 +377,7 @@ function SearchResult() {
                                                     widthCard="100%"
                                                     heightImg={heightCardImgArticle}
                                                     heightCardImg="213"
+                                                    lazyLoadingImg="lazy"
                                                     widthCardImg={widthCardImgArticle}
                                                     paddingCard="0"
                                                     marginCard="0 0 40px 0"

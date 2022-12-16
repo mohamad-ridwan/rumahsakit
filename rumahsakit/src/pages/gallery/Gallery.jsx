@@ -115,7 +115,7 @@ function Gallery() {
                             return (
                                 <>
                                     <a href={`${Endpoint}/images/${e.image1}`} target="_blank" className="btn-view-img">
-                                        <img key={e._id} src={`${Endpoint}/images/${e.image1}`} alt="" className="img-konten-gallery" />
+                                        <img key={e._id} src={`${Endpoint}/images/${e.image1}`} alt="" className="img-konten-gallery" loading='lazy' />
                                     </a>
                                 </>
                             )
@@ -129,7 +129,7 @@ function Gallery() {
                             return (
                                 <>
                                     <a href={`${Endpoint}/images/${e.image2}`} target="_blank" className="btn-view-img">
-                                        <img key={e._id} src={`${Endpoint}/images/${e.image2}`} alt="" className="img-konten-gallery" />
+                                        <img key={e._id} src={`${Endpoint}/images/${e.image2}`} alt="" className="img-konten-gallery" loading='lazy' />
                                     </a>
                                 </>
                             )
@@ -143,7 +143,7 @@ function Gallery() {
                             return (
                                 <>
                                     <a href={`${Endpoint}/images/${e.image3}`} target="_blank" className="btn-view-img">
-                                        <img key={e._id} src={`${Endpoint}/images/${e.image3}`} alt="" className="img-konten-gallery" />
+                                        <img key={e._id} src={`${Endpoint}/images/${e.image3}`} alt="" className="img-konten-gallery" loading='lazy' />
                                     </a>
                                 </>
                             )

@@ -108,6 +108,7 @@ function Promo() {
                                                 heightCardImg="213"
                                                 widthCardImg={widthImgCard}
                                                 paddingCard="0"
+                                                lazyLoadingImg="lazy"
                                                 marginCard="0 0 40px 0"
                                                 nameBtnReadMore="Read More"
                                                 img={`${Endpoint}/images/${e.image}`}

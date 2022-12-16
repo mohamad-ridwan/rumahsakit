@@ -225,7 +225,7 @@ function Home() {
                     <>
                         <div className="bg-gradient-home" style={styleBgGradientHome}>
                             <div className="column-tengah-bg-gradient">
-                                <img src={`${Endpoint}/images/${bannerGradient.image}`} alt="background gradient" width="97" height="87" className="img-logo2-rs" />
+                                <img src={`${Endpoint}/images/${bannerGradient.image}`} loading="lazy" alt="background gradient" width="97" height="87" className="img-logo2-rs" />
                                 <p className="txt-rs-permata-depok">
                                     {bannerGradient.title}
                                 </p>
@@ -280,6 +280,7 @@ function Home() {
                                                 key={e._id}
                                                 img={`${Endpoint}/images/${e.image}`}
                                                 widthCard="100%"
+                                                lazyLoadingImg='lazy'
                                                 title={`${minimizeTitle}...`}
                                                 date={e.date}
                                                 deskripsi={`${minimizeDescription}...`}
@@ -373,7 +374,7 @@ function Home() {
                                     </p>
 
                                     <div className="box-pink-reserve-now">
-                                        <img src={`${Endpoint}/images/${dataReserveNow.image}`} alt="background pink reserve now" className="img-reserve-now" />
+                                        <img src={`${Endpoint}/images/${dataReserveNow.image}`} loading="lazy" alt="background pink reserve now" className="img-reserve-now" />
 
                                         <p className="deskripsi-box-pink">
                                             {dataReserveNow.deskripsi}

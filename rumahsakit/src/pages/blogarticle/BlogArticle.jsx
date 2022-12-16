@@ -155,7 +155,7 @@ class BlogArticle extends Component {
 
                             {this.state.dataBlog && this.state.dataBlog.image ? (
                                 <>
-                                    <img src={`${Endpoint}/images/${this.state.dataBlog.image}`} width="525" height="270" alt="image main blog articles" className="img-konten-column-main" />
+                                    <img src={`${Endpoint}/images/${this.state.dataBlog.image}`} width="525" height="270" alt="image main blog articles" className="img-konten-column-main" loading='lazy'/>
                                 </>
                             ) : (
                                 <div></div>

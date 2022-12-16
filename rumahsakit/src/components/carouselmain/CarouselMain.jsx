@@ -107,7 +107,7 @@ function CarouselMain({ data, mouseEnter, mouseLeave, dataTestimoni, iconQuotes,
                                 return (
                                     <>
                                         <SplideSlide key={e._id}>
-                                            <img key={e._id} name={i} src={`${Endpoint}/images/${e.img || e.image}`} alt="banner home" width="1519" height="608" className="img-carousel-main" />
+                                            <img key={e._id} name={i} src={`${Endpoint}/images/${e.img || e.image}`} loading="lazy" alt="banner home" width="1519" height="608" className="img-carousel-main" />
                                         </SplideSlide>
                                     </>
                                 )
@@ -130,7 +130,7 @@ function CarouselMain({ data, mouseEnter, mouseLeave, dataTestimoni, iconQuotes,
                                                 <RenderHTML konten={e.deskripsi} />
 
                                                 <div className="column-profil-konten-carousel-main">
-                                                    <img src={`${Endpoint}/images/${e.image}`} alt="" className="img-profil-carousel" />
+                                                    <img src={`${Endpoint}/images/${e.image}`} loading="lazy" alt="" className="img-profil-carousel" />
 
                                                     <div className="column-name-profil-carousel">
                                                         <p className="name-profil-carousel">
@@ -171,6 +171,7 @@ function CarouselMain({ data, mouseEnter, mouseLeave, dataTestimoni, iconQuotes,
                                             justifyContentDateKonten={alignItemsCardListDoctor}
                                             justifyContentTitleContent={alignItemsCardListDoctor}
                                             displayIcon="none"
+                                            lazyLoadingImg="lazy"
                                             heightImg="80px"
                                             heightCardImg="213"
                                             widthCardImg="80"

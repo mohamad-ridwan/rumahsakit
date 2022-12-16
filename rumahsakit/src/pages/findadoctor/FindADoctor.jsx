@@ -280,7 +280,7 @@ function FindADoctor() {
                 <div className="container-find-a-doctor">
                     {findADoctor && Object.keys(findADoctor).length > 0 ? (
                         <>
-                            <img src={`${Endpoint}/images/${findADoctor.image}`} alt="background top page" className="img-main-konten-find-doctor" width="960" height="470" />
+                            <img src={`${Endpoint}/images/${findADoctor.image}`} alt="background top page" className="img-main-konten-find-doctor" width="960" height="470" loading='lazy'/>
 
                             <div className="container-konten-find-doctor">
                                 <p className="title-konten-find-doctor">
@@ -398,6 +398,7 @@ function FindADoctor() {
                                                         <Card
                                                             key={e._id}
                                                             widthCard="100%"
+                                                            lazyLoadingImg="lazy"
                                                             displayReadMore="none"
                                                             flexDirection="row"
                                                             displayIcon="none"

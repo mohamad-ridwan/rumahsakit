@@ -140,6 +140,7 @@ class Article extends Component {
                                                 widthCard="100%"
                                                 heightImg={heightCardImg}
                                                 heightCardImg="213"
+                                                lazyLoadingImg="lazy"
                                                 widthCardImg={widthCardImg}
                                                 paddingCard="0"
                                                 marginCard="0 0 40px 0"

@@ -6,7 +6,7 @@ function BannerHeader({ img, title }) {
         <>
             <div className="wrapp-banner-header">
                 <div className="container-banner-header">
-                    <img src={img} alt="" className="img-banner" />
+                    <img src={img} alt="" className="img-banner" loading='lazy' />
 
                     <p className="title-banner-header">
                         {title}
