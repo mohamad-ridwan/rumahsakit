@@ -1,6 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 import './FindADoctor.scss'
+import API from '../../services/api'
+import url from '../../services/api/url'
+import Endpoint from '../../services/api/endpoint'
+import { PathContext } from '../../services/context/path/Path'
 import BannerHeader from '../../components/bannerheader/BannerHeader'
 import ButtonCard from '../../components/buttoncard/ButtonCard'
 import Card from '../../components/card/Card'
@@ -9,9 +13,6 @@ import HelmetCard from '../../components/helmetcard/HelmetCard'
 import Input from '../../components/input/Input'
 import Loading from '../../components/loading/Loading'
 import Pagination from '../../components/pagination/Pagination'
-import API from '../../services/api'
-import Endpoint from '../../services/api/endpoint'
-import { PathContext } from '../../services/context/path/Path'
 
 function FindADoctor() {
 
@@ -259,7 +260,8 @@ function FindADoctor() {
         <>
             <HelmetCard
                 title={Object.keys(dataHeader).length > 0 ? dataHeader.namePage + ' ' + '-' + ' ' + 'Rumah Sakit Permata' : ''}
-                content="Rumah sakit permata Depok - Temukan Dokter yang biasa Anda Berobat dengan mesin pencarian kami"
+                content="Beberapa dokter spesialis dan berupa jadwalnya yang Anda bisa temukan dipencarian kami, rumah sakit permata depok - permata keluarga husada grup"
+                linkCanonical={`${url}findadoctor`}
             />
 
             <BannerHeader
@@ -280,7 +282,7 @@ function FindADoctor() {
                 <div className="container-find-a-doctor">
                     {findADoctor && Object.keys(findADoctor).length > 0 ? (
                         <>
-                            <img src={`${Endpoint}/images/${findADoctor.image}`} alt="background top page" className="img-main-konten-find-doctor" width="960" height="470" loading='lazy'/>
+                            <img src={`${Endpoint}/images/${findADoctor.image}`} alt="background top page find a doctor rs permata" className="img-main-konten-find-doctor" width="960" height="470" loading='lazy'/>
 
                             <div className="container-konten-find-doctor">
                                 <p className="title-konten-find-doctor">
@@ -400,6 +402,7 @@ function FindADoctor() {
                                                             widthCard="100%"
                                                             lazyLoadingImg="lazy"
                                                             displayReadMore="none"
+                                                            displayBtnDownload="none"
                                                             flexDirection="row"
                                                             displayIcon="none"
                                                             heightImg="80px"
@@ -411,9 +414,11 @@ function FindADoctor() {
                                                             fontTitle="16px"
                                                             marginImg="0 10px 0 0"
                                                             marginCard="0px 0px 40px 0"
+                                                            altImg={e.name}
                                                             img={`${Endpoint}/images/${e.image}`}
                                                             title={e.name}
                                                             date={e.speciality}
+                                                            linkDownloadPdf={`${url}doctor/${e.path}`}
                                                             clickToPage={() => toPage(`/doctor/${e.path}`)}
                                                         />
                                                     </div>

@@ -1,19 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react'
 import HelmetCard from '../../components/helmetcard/HelmetCard';
-import { useHistory, useParams } from 'react-router';
+import { useHistory } from 'react-router';
 import { withRouter } from 'react-router-dom'
 import './Testimonial.scss'
+import API from '../../services/api';
+import url from '../../services/api/url';
+import Endpoint from '../../services/api/endpoint';
+import { PathContext } from '../../services/context/path/Path';
 import BannerHeader from '../../components/bannerheader/BannerHeader';
 import Headers from '../../components/headers/Headers';
-import { PathContext } from '../../services/context/path/Path';
-import API from '../../services/api';
-import Endpoint from '../../services/api/endpoint';
 import CardTestimonial from '../../components/cardtestimonial/CardTestimonial';
 import Loading from '../../components/loading/Loading';
 import ButtonCard from '../../components/buttoncard/ButtonCard';
 
 function Testimonial() {
-
     const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar] = useContext(PathContext)
     const [dataHeader, setDataHeader] = useState({})
     const [dataTestimonial, setDataTestimonial] = useState([])
@@ -65,7 +65,8 @@ function Testimonial() {
         <>
             <HelmetCard
                 title={Object.keys(dataHeader).length > 0 ? dataHeader.namePage + ' ' + '-' + ' ' + 'Rumah Sakit Permata' : ''}
-                content="Rumah sakit permata Depok - Testimoni para pasien loyal"
+                content="komentar para pasien yang telah berobat dirumah sakit permata depok - permata keluarga husada grup"
+                linkCanonical={`${url}testimonial`}
             />
 
             <BannerHeader

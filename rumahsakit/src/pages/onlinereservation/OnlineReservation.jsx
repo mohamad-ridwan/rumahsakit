@@ -2,20 +2,20 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router';
 import { send } from 'emailjs-com'
 import './OnlineReservation.scss'
+import API from '../../services/api';
+import url from '../../services/api/url';
+import Endpoint from '../../services/api/endpoint';
+import { PathContext } from '../../services/context/path/Path';
 import BannerHeader from '../../components/bannerheader/BannerHeader';
 import ButtonCard from '../../components/buttoncard/ButtonCard';
 import Headers from '../../components/headers/Headers';
 import HelmetCard from '../../components/helmetcard/HelmetCard';
 import Input from '../../components/input/Input';
-import API from '../../services/api';
-import Endpoint from '../../services/api/endpoint';
-import { PathContext } from '../../services/context/path/Path';
 import IndicatorAnswer from '../../components/indicatoranswer/IndicatorAnswer';
 import Loading from '../../components/loading/Loading';
 import ModalSuccess from '../../components/modalsuccess/ModalSuccess';
 
 function OnlineReservation() {
-
     const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar, indexActive, setIndexActive] = useContext(PathContext)
     const [dataHeader, setDataHeader] = useState({})
     const [dataListDoctor, setDataListDoctor] = useState([])
@@ -508,7 +508,8 @@ function OnlineReservation() {
         <>
             <HelmetCard
                 title={Object.keys(dataHeader).length > 0 ? `${dataHeader.namePage} - Rumah Sakit Permata` : 'Rumah Sakit Permata'}
-                content="Rumah Sakit Permata - Permata Keluarga Husada Grup"
+                content="Pendaftaran online untuk anda berobat atau berkonsultasi dirumah sakit permata - permata keluarga husada grup"
+                linkCanonical={`${url}online-reservation`}
             />
 
             <BannerHeader

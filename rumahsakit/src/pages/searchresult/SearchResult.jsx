@@ -2,17 +2,17 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 import './SearchResult.scss'
 import API from '../../services/api'
+import url from '../../services/api/url'
+import Endpoint from '../../services/api/endpoint'
 import { PathContext } from '../../services/context/path/Path'
+import { FaqContext } from '../../services/context/faq/Faq'
 import HelmetCard from '../../components/helmetcard/HelmetCard'
 import BannerHeader from '../../components/bannerheader/BannerHeader'
-import Endpoint from '../../services/api/endpoint'
 import Headers from '../../components/headers/Headers'
 import Card from '../../components/card/Card'
 import Loading from '../../components/loading/Loading'
-import { FaqContext } from '../../services/context/faq/Faq'
 
 function SearchResult() {
-
     const [titleMenuFaq, setTitleMenuFaq, indexActiveFaqGlobal, setIndexActiveFaqGlobal] = useContext(FaqContext)
     const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar, indexActive, setIndexActive, searchResult, setSearchResult, searchValue, setSearchValue] = useContext(PathContext)
     const [dataHeader, setDataHeader] = useState({})
@@ -144,7 +144,8 @@ function SearchResult() {
         <>
             <HelmetCard
                 title={Object.keys(dataHeader).length > 0 ? dataHeader.namePage + ' ' + '-' + ' ' + 'Rumah Sakit Permata' : ''}
-                content="Rumah sakit permata Depok - Testimoni para pasien loyal"
+                content="Pencarian berbagai konten di website rumah sakit permata depok - rumah sakit permata husada grup"
+                linkCanonical={`${url}search`}
             />
 
             <BannerHeader
@@ -185,8 +186,11 @@ function SearchResult() {
                                                 marginCard="0 0 40px 0"
                                                 title={e.question}
                                                 displayIcon="none"
+                                                altImg=""
                                                 nameBtnReadMore="Read More"
+                                                displayBtnDownload="none"
                                                 deskripsi={e.answer}
+                                                linkDownloadPdf={`${url}faq`}
                                                 clickToPage={() => {
                                                     updateStateFaq(checkTitle, e.title)
                                                     toPage(`/faq`)
@@ -225,10 +229,13 @@ function SearchResult() {
                                                     paddingCard="0"
                                                     marginCard="0 0 40px 0"
                                                     nameBtnReadMore="Read More"
+                                                    displayBtnDownload="none"
+                                                    altImg={e.title}
                                                     img={`${Endpoint}/images/${e.image}`}
                                                     title={e.title}
                                                     date={e.date}
                                                     deskripsi={removeTagHTML}
+                                                    linkDownloadPdf={`${url}articles/read/${e.path}`}
                                                     clickToPage={() => toPage(`/articles/read/${e.path}`)}
                                                 />
                                             </div>
@@ -265,6 +272,7 @@ function SearchResult() {
                                                     marginImg="0 20px 0 0"
                                                     marginCard="0 0 40px 0"
                                                     displayBtnDownload="flex"
+                                                    altImg={e.title}
                                                     img={`${Endpoint}/images/${e.image}`}
                                                     title={e.title}
                                                     date={e.date}
@@ -309,9 +317,12 @@ function SearchResult() {
                                                     fontTitle="16px"
                                                     marginImg="0 10px 0 0"
                                                     marginCard="0px 0px 40px 0"
+                                                    displayBtnDownload="none"
+                                                    altImg={e.name}
                                                     img={`${Endpoint}/images/${e.image}`}
                                                     title={e.name}
                                                     date={e.speciality}
+                                                    linkDownloadPdf={`${url}doctor/${e.path}`}
                                                     clickToPage={() => toPage(`/doctor/${e.path}`)}
                                                 />
                                             </div>
@@ -347,8 +358,11 @@ function SearchResult() {
                                                     marginCard="0px 0px 40px 0"
                                                     displayImg="none"
                                                     nameBtnReadMore="Read More"
+                                                    displayBtnDownload="none"
+                                                    altImg=""
                                                     title={e.title}
                                                     deskripsi={e.konten}
+                                                    linkDownloadPdf={`${url}our-hospital/content/${e.path}`}
                                                     clickToPage={() => toPage(`/our-hospital/content/${e.path}`)}
                                                 />
                                             </div>
@@ -382,10 +396,13 @@ function SearchResult() {
                                                     paddingCard="0"
                                                     marginCard="0 0 40px 0"
                                                     nameBtnReadMore="Read More"
+                                                    displayBtnDownload="none"
+                                                    altImg={e.title}
                                                     img={`${Endpoint}/images/${e.image}`}
                                                     title={e.title}
                                                     date={e.date}
                                                     deskripsi={e.deskripsi}
+                                                    linkDownloadPdf={`${url}promo/details/${e.path}`}
                                                     clickToPage={() => toPage(`/promo/details/${e.path}`)}
                                                 />
                                             </div>
@@ -418,9 +435,12 @@ function SearchResult() {
                                                     marginCard="0 0 40px 0"
                                                     fontFamilyTitle="Mulish, sans-serif"
                                                     nameBtnReadMore="View Detail"
+                                                    displayBtnDownload="none"
+                                                    altImg=""
                                                     title={e.titleBidang}
                                                     date={e.dateLamaran}
                                                     deskripsi={e.deskripsi}
+                                                    linkDownloadPdf={`${url}career/details/${e.path}`}
                                                     clickToPage={() => toPage(`/career/details/${e.path}`)}
                                                 />
                                             </div>

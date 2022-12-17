@@ -1,7 +1,7 @@
 import React from 'react'
 import './NavMenu.scss'
 
-function NavMenu({ name, clickNav, address, mouseEnter, mouseLeave, marginLeft, clickBtn, colorBtn, dataModalMenu, btnModalMenu, mouseEnterModal, mouseLeaveModal }) {
+function NavMenu({ name, clickNav, mouseEnter, mouseLeave, marginLeft, clickBtn, colorBtn, dataModalMenu, btnModalMenu, mouseEnterModal, mouseLeaveModal }) {
     return (
         <>
             <div className="wrapp-navmenu"
@@ -9,12 +9,12 @@ function NavMenu({ name, clickNav, address, mouseEnter, mouseLeave, marginLeft, 
                 onMouseLeave={mouseLeave}
                 onClick={clickBtn}
             >
-                <a href={address} className="btn-group-navmenu" onClick={clickNav} style={{
+                <button className="btn-group-navmenu" onClick={clickNav} style={{
                     marginLeft: `${marginLeft}`,
                     color: `${colorBtn}`
                 }}>
                     {name}
-                </a>
+                </button>
 
                 <div className="container-modal-navmenu" style={{
                     height: '1px'
@@ -26,7 +26,7 @@ function NavMenu({ name, clickNav, address, mouseEnter, mouseLeave, marginLeft, 
                     {dataModalMenu && dataModalMenu.length > 0 ?
                         dataModalMenu.map((e, i) => {
                             return (
-                                <a key={e._id} href={'#'} className="btn-modal-navmenu"
+                                <button key={e._id} className="btn-modal-navmenu"
                                     onClick={(p) => {
                                         p.stopPropagation();
                                         btnModalMenu(e, i)
@@ -41,7 +41,7 @@ function NavMenu({ name, clickNav, address, mouseEnter, mouseLeave, marginLeft, 
                                     }}
                                 >
                                     {e.title}
-                                </a>
+                                </button>
                             )
                         }) : (
                             <div></div>

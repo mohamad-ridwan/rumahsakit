@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import './BlogArticle.scss'
-import bgHeader from '../../images/bgheader.png'
+import API from '../../services/api';
+import url from '../../services/api/url';
+import Endpoint from '../../services/api/endpoint';
+import { PathContext } from '../../services/context/path/Path';
 import BannerHeader from '../../components/bannerheader/BannerHeader';
 import Headers from '../../components/headers/Headers';
-import { PathContext } from '../../services/context/path/Path';
-import API from '../../services/api';
 import Loading from '../../components/loading/Loading';
-import Endpoint from '../../services/api/endpoint';
 import HelmetCard from '../../components/helmetcard/HelmetCard';
 import Card from '../../components/card/Card';
 
@@ -114,7 +114,8 @@ class BlogArticle extends Component {
             <>
                 <HelmetCard
                     title={Object.keys(this.state.dataBlog).length > 0 ? this.state.dataBlog.title + ' ' + '-' + ' ' + 'Rumah Sakit Permata' : ''}
-                    content={this.state.dataBlog && this.state.dataBlog.deskripsi}
+                    content={this.state.dataBlog && this.state.dataBlog.deskripsi ? this.state.dataBlog.deskripsi.slice(0, 200) + '...' : this.state.dataBlog.deskripsi}
+                    linkCanonical={`${url}articles/read/${this.state.dataBlog.path}`}
                 />
 
                 <BannerHeader
@@ -182,6 +183,9 @@ class BlogArticle extends Component {
                                                 widthCard="100%"
                                                 nameBtnReadMore="Read More"
                                                 img={`${Endpoint}/images/${e.image}`}
+                                                displayBtnDownload="none"
+                                                linkDownloadPdf={`${url}articles/read/${e.path}`}
+                                                altImg={e.title}
                                                 title={e.title}
                                                 date={e.date}
                                                 deskripsi={e.deskripsi}

@@ -3,19 +3,19 @@ import { useHistory } from 'react-router'
 import { withRouter } from 'react-router-dom'
 import { send } from 'emailjs-com'
 import './ContactUs.scss'
+import API from '../../services/api'
+import url from '../../services/api/url'
+import Endpoint from '../../services/api/endpoint'
+import { PathContext } from '../../services/context/path/Path'
 import BannerHeader from '../../components/bannerheader/BannerHeader'
 import Headers from '../../components/headers/Headers'
 import HelmetCard from '../../components/helmetcard/HelmetCard'
-import API from '../../services/api'
-import Endpoint from '../../services/api/endpoint'
-import { PathContext } from '../../services/context/path/Path'
 import Input from '../../components/input/Input'
 import ButtonCard from '../../components/buttoncard/ButtonCard'
 import Loading from '../../components/loading/Loading'
 import ModalSuccess from '../../components/modalsuccess/ModalSuccess'
 
 function ContactUs() {
-
     const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar, indexActive, setIndexActive, searchResult, setSearchResult, searchValue, setSearchValue, autoplayCarousel] = useContext(PathContext)
     const [dataHeader, setDataHeader] = useState({})
     const [dataContactRS, setDataContactRS] = useState({})
@@ -185,7 +185,8 @@ function ContactUs() {
         <>
             <HelmetCard
                 title={Object.keys(dataHeader).length > 0 ? dataHeader.namePage + ' ' + '-' + ' ' + 'Rumah Sakit Permata' : ''}
-                content="Rumah sakit permata Depok - Testimoni para pasien loyal"
+                content="Hubungi rumah sakit permata depok - permata husada grup dengan mengirimkan pesan dan data email Anda di kontak kami. Dan Anda dapat menghubungi kami melalui gmail yang tersedia di kontak. Anda juga dapat datang ke lokasi yang dicantumkan di kontak kami"
+                linkCanonical={`${url}contact`}
             />
 
             <BannerHeader

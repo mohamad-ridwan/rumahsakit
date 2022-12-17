@@ -1,17 +1,17 @@
-import React, { Component, useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useHistory, withRouter } from 'react-router-dom'
 import './AboutUs.scss'
+import API from '../../services/api';
+import url from '../../services/api/url';
+import Endpoint from '../../services/api/endpoint';
+import { PathContext } from '../../services/context/path/Path';
 import HelmetCard from '../../components/helmetcard/HelmetCard';
 import BannerHeader from '../../components/bannerheader/BannerHeader';
 import NavMenu from '../../components/navmenu/NavMenu';
 import Headers from '../../components/headers/Headers';
-import API from '../../services/api';
 import Loading from '../../components/loading/Loading';
-import { PathContext } from '../../services/context/path/Path';
-import Endpoint from '../../services/api/endpoint';
 
 function AboutUs() {
-
     const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar] = useContext(PathContext)
     const [loading, setLoading] = useState(false)
     const [fixed, setFixed] = useState(false)
@@ -146,7 +146,8 @@ function AboutUs() {
         <>
             <HelmetCard
                 title={Object.keys(dataHeader).length > 0 ? dataHeader.namePage + ' ' + '-' + ' ' + 'Rumah Sakit Permata' : ''}
-                content="Rumah sakit permata Depok - Testimoni para pasien loyal"
+                content="Tentang kami bagaimana rumah sakit permata keluarga husada grup dibangun, beberapa pendiri dan dokter aktif kami dengan visi misinya untuk memajukan rumah sakit kami dan bagaimana history atau perjalanan dari rumah sakit ini."
+                linkCanonical={`${url}about`}
             />
 
             <BannerHeader

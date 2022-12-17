@@ -1,16 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 import './DetailCareer.scss'
+import API from '../../services/api'
+import url from '../../services/api/url'
+import Endpoint from '../../services/api/endpoint'
+import { PathContext } from '../../services/context/path/Path'
 import BannerHeader from '../../components/bannerheader/BannerHeader'
 import Headers from '../../components/headers/Headers'
 import HelmetCard from '../../components/helmetcard/HelmetCard'
 import Loading from '../../components/loading/Loading'
-import API from '../../services/api'
-import Endpoint from '../../services/api/endpoint'
-import { PathContext } from '../../services/context/path/Path'
 
 function DetailCareer() {
-
     const [paramsGlobal, setParamsGlobal, updateParams] = useContext(PathContext)
     const [dataHeader, setDataHeader] = useState({})
     const [career, setCareer] = useState({})
@@ -51,7 +51,8 @@ function DetailCareer() {
         <>
             <HelmetCard
                 title={Object.keys(career).length > 0 ? career.titleBidang + ' ' + '-' + ' ' + 'Rumah Sakit Permata' : ''}
-                content="Rumah sakit permata Depok - Testimoni para pasien loyal"
+                content="Kesempatan berkarir di rs permata, dengan menyertakan subjek posisi lowongan di lamaran anda, lalu kirim ke : hrd_rspd@rspermata.co.id, lihat lebih detail deskripsi pada pekerjaannya disini."
+                linkCanonical={`${url}career/details/${career && career.path}`}
             />
 
             <BannerHeader

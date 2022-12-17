@@ -1,15 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 import './OurHospital.scss'
+import url from '../../services/api/url'
+import Endpoint from '../../services/api/endpoint'
+import API from '../../services/api'
+import { PathContext } from '../../services/context/path/Path'
 import BannerHeader from '../../components/bannerheader/BannerHeader'
 import Headers from '../../components/headers/Headers'
 import HelmetCard from '../../components/helmetcard/HelmetCard'
 import Input from '../../components/input/Input'
 import Loading from '../../components/loading/Loading'
 import NavMenu from '../../components/navmenu/NavMenu'
-import API from '../../services/api'
-import Endpoint from '../../services/api/endpoint'
-import { PathContext } from '../../services/context/path/Path'
 import Pagination from '../../components/pagination/Pagination'
 import CarouselMain from '../../components/carouselmain/CarouselMain'
 import ButtonCard from '../../components/buttoncard/ButtonCard'
@@ -403,7 +404,8 @@ function OurHospital() {
         <>
             <HelmetCard
                 title={Object.keys(ourHospital).length > 0 ? ourHospital.title + ' ' + '-' + ' ' + 'Rumah Sakit Permata' : ''}
-                content="Rumah sakit permata Depok - Temukan Dokter yang biasa Anda Berobat dengan mesin pencarian kami"
+                content="Rumah sakit permata Depok - Mengenai profil rumah sakit permata depok, berbagai layanan fasilitas dan jadwal dokter yang siap melayani pasien"
+                linkCanonical={`${url}content/profil`}
             />
 
             <BannerHeader

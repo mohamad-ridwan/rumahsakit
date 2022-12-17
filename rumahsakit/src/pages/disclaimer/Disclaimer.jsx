@@ -2,15 +2,15 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 import './Disclaimer.scss'
 import API from '../../services/api'
+import url from '../../services/api/url'
+import Endpoint from '../../services/api/endpoint'
+import { PathContext } from '../../services/context/path/Path'
 import HelmetCard from '../../components/helmetcard/HelmetCard'
 import BannerHeader from '../../components/bannerheader/BannerHeader'
-import Endpoint from '../../services/api/endpoint'
 import Headers from '../../components/headers/Headers'
-import { PathContext } from '../../services/context/path/Path'
 import Loading from '../../components/loading/Loading'
 
 function Disclaimer() {
-
     const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar, indexActive, setIndexActive] = useContext(PathContext)
     const [dataHeader, setDataHeader] = useState({})
     const [loading, setLoading] = useState(false)
@@ -52,7 +52,8 @@ function Disclaimer() {
         <>
             <HelmetCard
                 title={Object.keys(dataHeader).length > 0 ? dataHeader.namePage + ' ' + '-' + ' ' + 'Rumah Sakit Permata' : ''}
-                content="Rumah sakit permata Depok - Testimoni para pasien loyal"
+                content={Object.keys(dataHeader).length > 0 && dataHeader.paragraph ? dataHeader.paragraph.slice(0, 200) + '...' : 'Rumah Sakit Permata - Permata Keluarga Husada Grup'}
+                linkCanonical={`${url}disclaimer`}
             />
 
             <BannerHeader

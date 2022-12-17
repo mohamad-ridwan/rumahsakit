@@ -1,18 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 import './Faq.scss'
+import API from '../../services/api'
+import url from '../../services/api/url'
+import Endpoint from '../../services/api/endpoint'
+import { PathContext } from '../../services/context/path/Path'
+import { FaqContext } from '../../services/context/faq/Faq'
 import BannerHeader from '../../components/bannerheader/BannerHeader'
 import Headers from '../../components/headers/Headers'
 import HelmetCard from '../../components/helmetcard/HelmetCard'
 import Loading from '../../components/loading/Loading'
 import NavMenu from '../../components/navmenu/NavMenu'
-import API from '../../services/api'
-import Endpoint from '../../services/api/endpoint'
-import { PathContext } from '../../services/context/path/Path'
-import { FaqContext } from '../../services/context/faq/Faq'
 
 function Faq() {
-
     const [titleMenuFaq, setTitleMenuFaq, indexActiveFaqGlobal, setIndexActiveFaqGlobal] = useContext(FaqContext)
     const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar] = useContext(PathContext)
     const [dataHeader, setDataHeader] = useState({})
@@ -192,7 +192,8 @@ function Faq() {
         <>
             <HelmetCard
                 title={Object.keys(dataHeader).length > 0 ? dataHeader.namePage + ' ' + '-' + ' ' + 'Rumah Sakit Permata' : ''}
-                content="Rumah sakit permata Depok - Temukan Dokter yang biasa Anda Berobat dengan mesin pencarian kami"
+                content="tanya jawab tentang sistem berobat dirumah sakit permata depok - permata keluarga husada grup"
+                linkCanonical={`${url}faq`}
             />
 
             <BannerHeader

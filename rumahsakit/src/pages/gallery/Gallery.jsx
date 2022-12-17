@@ -2,16 +2,16 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 import './Gallery.scss'
 import API from '../../services/api'
+import url from '../../services/api/url'
+import Endpoint from '../../services/api/endpoint'
 import { PathContext } from '../../services/context/path/Path'
 import HelmetCard from '../../components/helmetcard/HelmetCard'
 import BannerHeader from '../../components/bannerheader/BannerHeader'
-import Endpoint from '../../services/api/endpoint'
 import Headers from '../../components/headers/Headers'
 import Loading from '../../components/loading/Loading'
 import ButtonCard from '../../components/buttoncard/ButtonCard'
 
 function Gallery() {
-
     const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar, indexActive, setIndexActive] = useContext(PathContext)
     const [dataHeader, setDataHeader] = useState({})
     const [totalGallery, setTotalGallery] = useState(0)
@@ -91,7 +91,8 @@ function Gallery() {
         <>
             <HelmetCard
                 title={Object.keys(dataHeader).length > 0 ? dataHeader.namePage + ' ' + '-' + ' ' + 'Rumah Sakit Permata' : ''}
-                content="Rumah sakit permata Depok - Testimoni para pasien loyal"
+                content="Berbagai foto aktifitas dirumah sakit permata depok - permata keluarga husada grup"
+                linkCanonical={`${url}gallery`}
             />
 
             <BannerHeader
@@ -115,7 +116,7 @@ function Gallery() {
                             return (
                                 <>
                                     <a href={`${Endpoint}/images/${e.image1}`} target="_blank" className="btn-view-img">
-                                        <img key={e._id} src={`${Endpoint}/images/${e.image1}`} alt="" className="img-konten-gallery" loading='lazy' />
+                                        <img key={e._id} src={`${Endpoint}/images/${e.image1}`} alt={`${e.image1} - rs permata`} className="img-konten-gallery" loading='lazy' />
                                     </a>
                                 </>
                             )
@@ -129,7 +130,7 @@ function Gallery() {
                             return (
                                 <>
                                     <a href={`${Endpoint}/images/${e.image2}`} target="_blank" className="btn-view-img">
-                                        <img key={e._id} src={`${Endpoint}/images/${e.image2}`} alt="" className="img-konten-gallery" loading='lazy' />
+                                        <img key={e._id} src={`${Endpoint}/images/${e.image2}`} alt={`${e.image2} - rs permata`} className="img-konten-gallery" loading='lazy' />
                                     </a>
                                 </>
                             )
@@ -143,7 +144,7 @@ function Gallery() {
                             return (
                                 <>
                                     <a href={`${Endpoint}/images/${e.image3}`} target="_blank" className="btn-view-img">
-                                        <img key={e._id} src={`${Endpoint}/images/${e.image3}`} alt="" className="img-konten-gallery" loading='lazy' />
+                                        <img key={e._id} src={`${Endpoint}/images/${e.image3}`} alt={`${e.image3} - rs permata`} className="img-konten-gallery" loading='lazy' />
                                     </a>
                                 </>
                             )

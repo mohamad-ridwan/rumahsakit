@@ -1,17 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 import './DetailPromo.scss'
+import API from '../../services/api'
+import url from '../../services/api/url'
+import Endpoint from '../../services/api/endpoint'
+import { PathContext } from '../../services/context/path/Path'
 import BannerHeader from '../../components/bannerheader/BannerHeader'
 import Headers from '../../components/headers/Headers'
 import HelmetCard from '../../components/helmetcard/HelmetCard'
 import Loading from '../../components/loading/Loading'
-import API from '../../services/api'
-import Endpoint from '../../services/api/endpoint'
-import { PathContext } from '../../services/context/path/Path'
 import Card from '../../components/card/Card'
 
 function DetailPromo() {
-
     const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar] = useContext(PathContext)
     const [dataHeader, setDataHeader] = useState({})
     const [detailPromo, setDetailPromo] = useState({})
@@ -86,7 +86,8 @@ function DetailPromo() {
         <>
             <HelmetCard
                 title={Object.keys(detailPromo).length > 0 ? detailPromo.title + ' ' + '-' + ' ' + 'Rumah Sakit Permata' : ''}
-                content="Rumah sakit permata Depok - Testimoni para pasien loyal"
+                content="Detail informasi perobatan atau produk semacamnya dengan promo yang tersedia dirumah sakit permata depok - permata keluarga husada grup"
+                linkCanonical={`${url}promo/details/${detailPromo.path}`}
             />
 
             <BannerHeader
@@ -112,7 +113,7 @@ function DetailPromo() {
                     <div className="main-konten-detail-promo">
                         {Object.keys(detailPromo).length > 0 ? (
                             <>
-                                <img src={`${Endpoint}/images/${detailPromo.image}`} alt="" className="img-detail-promo" width="940" height="377" />
+                                <img src={`${Endpoint}/images/${detailPromo.image}`} loading="lazy" alt="gambar detail artikel promo rs permata" className="img-detail-promo" width="940" height="377" />
 
                                 <p className="title-detail-promo">
                                     {detailPromo.title}
@@ -148,11 +149,15 @@ function DetailPromo() {
                                                 key={e._id}
                                                 widthCard="100%"
                                                 nameBtnReadMore="Read More"
+                                                displayBtnDownload="none"
+                                                altImg={e.title}
                                                 img={`${Endpoint}/images/${e.image}`}
                                                 title={e.title}
                                                 date={e.date}
                                                 deskripsi={e.deskripsi}
                                                 heightImg={heightImgCard}
+                                                lazyLoadingImg="lazy"
+                                                linkDownloadPdf={`${url}promo/details/${e.path}`}
                                                 clickToPage={() => toPage(`/promo/details/${e.path}`)}
                                             />
                                         </div>

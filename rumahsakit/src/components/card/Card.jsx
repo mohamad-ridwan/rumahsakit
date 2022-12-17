@@ -1,7 +1,7 @@
 import React from 'react'
 import './Card.scss'
 
-function Card({ img, title, date, deskripsi, widthCard, paddingCard, marginCard, heightImg, clickToPage, widthCardImg, heightCardImg, displayReadMore, displayIcon, flexDirection, marginImg, fontTitle, fontFamilyTitle, radiusImg, displayBtnDownload, iconPdf, linkDownloadPdf, displayImg, fontStyle, nameBtnReadMore, alignItemsWrapp, textAlignTitleContent, textAlignDatekonten, justifyContentDateKonten, justifyContentTitleContent, lazyLoadingImg }) {
+function Card({ img, title, date, deskripsi, widthCard, paddingCard, marginCard, heightImg, clickToPage, widthCardImg, heightCardImg, displayReadMore, displayIcon, flexDirection, marginImg, fontTitle, fontFamilyTitle, radiusImg, displayBtnDownload, iconPdf, linkDownloadPdf, displayImg, fontStyle, nameBtnReadMore, alignItemsWrapp, textAlignTitleContent, textAlignDatekonten, justifyContentDateKonten, justifyContentTitleContent, lazyLoadingImg, altImg }) {
 
     const RenderHTML = (props) => (
         <span className="render-deskripsi-card" dangerouslySetInnerHTML={{ __html: props.deskripsi }}></span>
@@ -16,7 +16,7 @@ function Card({ img, title, date, deskripsi, widthCard, paddingCard, marginCard,
                 flexDirection: `${flexDirection}`,
                 alignItems: alignItemsWrapp
             }}>
-                <img src={img} width={widthCardImg} height={heightCardImg} loading={lazyLoadingImg} className="img-card" style={{
+                <img alt={altImg} src={img} width={widthCardImg} height={heightCardImg} loading={lazyLoadingImg} className="img-card" style={{
                     height: `${heightImg}`,
                     margin: `${marginImg}`,
                     borderRadius: `${radiusImg}`,

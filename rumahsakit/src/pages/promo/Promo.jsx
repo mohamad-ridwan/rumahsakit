@@ -2,17 +2,17 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useHistory, withRouter } from 'react-router-dom'
 import './Promo.scss'
 import API from '../../services/api'
+import url from '../../services/api/url'
+import Endpoint from '../../services/api/endpoint'
+import { PathContext } from '../../services/context/path/Path'
 import HelmetCard from '../../components/helmetcard/HelmetCard'
 import BannerHeader from '../../components/bannerheader/BannerHeader'
-import Endpoint from '../../services/api/endpoint'
 import Headers from '../../components/headers/Headers'
-import { PathContext } from '../../services/context/path/Path'
 import Card from '../../components/card/Card'
 import ButtonCard from '../../components/buttoncard/ButtonCard'
 import Loading from '../../components/loading/Loading'
 
 function Promo() {
-
     const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar] = useContext(PathContext)
     const [dataHeader, setDataHeader] = useState({})
     const [promo, setPromo] = useState([])
@@ -76,7 +76,8 @@ function Promo() {
         <>
             <HelmetCard
                 title={Object.keys(dataHeader).length > 0 ? dataHeader.namePage + ' ' + '-' + ' ' + 'Rumah Sakit Permata' : ''}
-                content="Rumah sakit permata Depok - Testimoni para pasien loyal"
+                content="Berbagai promo berobat atau produk semacamnya dirumah sakit permata depok - permata keluarga husada grup"
+                linkCanonical={`${url}promo`}
             />
 
             <BannerHeader
@@ -111,10 +112,13 @@ function Promo() {
                                                 lazyLoadingImg="lazy"
                                                 marginCard="0 0 40px 0"
                                                 nameBtnReadMore="Read More"
+                                                displayBtnDownload="none"
+                                                altImg={e.title}
                                                 img={`${Endpoint}/images/${e.image}`}
                                                 title={e.title}
                                                 date={e.date}
                                                 deskripsi={e.deskripsi}
+                                                linkDownloadPdf={`${url}promo/details/${e.path}`}
                                                 clickToPage={() => toPage(`/promo/details/${e.path}`)}
                                             />
                                         </div>

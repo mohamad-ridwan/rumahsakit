@@ -1,18 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 import './Home.scss'
+import API from '../../services/api'
+import url from '../../services/api/url'
+import Endpoint from '../../services/api/endpoint'
+import { PathContext } from '../../services/context/path/Path'
 import CarouselMain from '../../components/carouselmain/CarouselMain'
 import ButtonCard from '../../components/buttoncard/ButtonCard'
 import Card from '../../components/card/Card'
-import { PathContext } from '../../services/context/path/Path'
 import HelmetCard from '../../components/helmetcard/HelmetCard'
-import API from '../../services/api'
-import Endpoint from '../../services/api/endpoint'
 import Loading from '../../components/loading/Loading'
 import ModalSuccess from '../../components/modalsuccess/ModalSuccess'
 
 function Home() {
-
     const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar, indexActive, setIndexActive, searchResult, setSearchResult, searchValue, setSearchValue, autoplayCarousel, playInterval, setPlayInterval] = useContext(PathContext)
     const [dataArticle, setDataArticle] = useState([])
     const [dataCarouselHome, setDataCarouselHome] = useState([])
@@ -207,6 +207,7 @@ function Home() {
             <HelmetCard
                 title="Rumah Sakit Permata"
                 content="Rumah Sakit Permata - Permata Keluarga Husada Grup"
+                linkCanonical={url}
             />
 
             <div className="wrapp-home">
@@ -280,7 +281,10 @@ function Home() {
                                                 key={e._id}
                                                 img={`${Endpoint}/images/${e.image}`}
                                                 widthCard="100%"
+                                                altImg="artikel kesehatan rs permata"
                                                 lazyLoadingImg='lazy'
+                                                linkDownloadPdf={`${url}articles/read/${e.path}`}
+                                                displayBtnDownload="none"
                                                 title={`${minimizeTitle}...`}
                                                 date={e.date}
                                                 deskripsi={`${minimizeDescription}...`}

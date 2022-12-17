@@ -2,16 +2,16 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 import { withRouter } from 'react-router-dom'
 import './ProfilDoctor.scss'
+import API from '../../services/api'
+import url from '../../services/api/url'
+import Endpoint from '../../services/api/endpoint'
+import { PathContext } from '../../services/context/path/Path'
 import BannerHeader from '../../components/bannerheader/BannerHeader'
 import Headers from '../../components/headers/Headers'
 import HelmetCard from '../../components/helmetcard/HelmetCard'
-import API from '../../services/api'
-import Endpoint from '../../services/api/endpoint'
-import { PathContext } from '../../services/context/path/Path'
 import Loading from '../../components/loading/Loading'
 
 function ProfilDoctor() {
-
     const [paramsGlobal, setParamsGlobal, updateParams, activeNavbar, indexActive, setIndexActive] = useContext(PathContext)
     const [loading, setLoading] = useState(false)
     const [dataHeader, setDataHeader] = useState({})
@@ -56,7 +56,8 @@ function ProfilDoctor() {
         <>
             <HelmetCard
                 title={Object.keys(dataDoctor).length > 0 ? dataDoctor.name + ' ' + '-' + ' ' + 'Rumah Sakit Permata' : ''}
-                content="Rumah sakit permata Depok - Profil Doctor"
+                content="Profil Doctor spesialis kami dan berupa jadwal yang dapat dikunjungi"
+                linkCanonical={`${url}doctor/${dataDoctor && dataDoctor.path}`}
             />
 
             <BannerHeader

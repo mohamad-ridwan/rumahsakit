@@ -1,13 +1,14 @@
 import React, { Component, useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 import './Article.scss'
+import API from '../../services/api'
+import url from '../../services/api/url'
+import Endpoint from '../../services/api/endpoint'
+import { PathContext } from '../../services/context/path/Path'
 import BannerHeader from '../../components/bannerheader/BannerHeader'
 import Headers from '../../components/headers/Headers'
 import Card from '../../components/card/Card'
 import ButtonCard from '../../components/buttoncard/ButtonCard'
-import { PathContext } from '../../services/context/path/Path'
-import API from '../../services/api'
-import Endpoint from '../../services/api/endpoint'
 import Loading from '../../components/loading/Loading'
 import HelmetCard from '../../components/helmetcard/HelmetCard'
 
@@ -105,7 +106,8 @@ class Article extends Component {
             <>
                 <HelmetCard
                     title={Object.keys(this.state.header).length > 0 ? `${this.state.header.namePage} - Rumah Sakit Permata` : 'Rumah Sakit Permata'}
-                    content="seputar artikel kesehatan dari rumah sakit permata depok"
+                    content="seputar artikel kesehatan dari rumah sakit permata depok - rumah sakit permata keluarga husada grup"
+                    linkCanonical={`${url}articles`}
                 />
 
                 <BannerHeader
@@ -149,6 +151,9 @@ class Article extends Component {
                                                 title={e.title}
                                                 date={e.date}
                                                 deskripsi={removeTagHTML}
+                                                displayBtnDownload="none"
+                                                altImg={e.title}
+                                                linkDownloadPdf={`${url}${e.path}`}
                                                 clickToPage={() => this.goToPage(e.path)}
                                             />
                                         </div>

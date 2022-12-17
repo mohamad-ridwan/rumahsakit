@@ -3,12 +3,12 @@ import { useHistory } from 'react-router';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/splide/dist/css/themes/splide-sea-green.min.css';
 import './CarouselMain.scss'
+import url from '../../services/api/url';
 import Endpoint from '../../services/api/endpoint'
-import Card from '../card/Card';
 import { PathContext } from '../../services/context/path/Path';
+import Card from '../card/Card';
 
 function CarouselMain({ data, mouseEnter, mouseLeave, dataTestimoni, iconQuotes, displayCarouselImg, displayCarouselTestimony, displayCarouselListDoctor, dataListDoctor }) {
-
     var [paramsGlobal, setParamsGlobal, updateParams, activeNavbar, indexActive, setIndexActive, searchResult, setSearchResult, searchValue, setSearchValue, autoplayCarousel, playInterval, setPlayInterval] = useContext(PathContext)
 
     const history = useHistory()
@@ -170,10 +170,12 @@ function CarouselMain({ data, mouseEnter, mouseLeave, dataTestimoni, iconQuotes,
                                             textAlignDatekonten={alignItemsCardListDoctor}
                                             justifyContentDateKonten={alignItemsCardListDoctor}
                                             justifyContentTitleContent={alignItemsCardListDoctor}
+                                            altImg={e.name}
                                             displayIcon="none"
                                             lazyLoadingImg="lazy"
                                             heightImg="80px"
                                             heightCardImg="213"
+                                            displayBtnDownload="none"
                                             widthCardImg="80"
                                             radiusImg="0"
                                             paddingCard="0"
@@ -184,6 +186,7 @@ function CarouselMain({ data, mouseEnter, mouseLeave, dataTestimoni, iconQuotes,
                                             img={`${Endpoint}/images/${e.image}`}
                                             title={e.name}
                                             date={e.speciality}
+                                            linkDownloadPdf={`${url}${e.path}`}
                                             clickToPage={() => toPageDetailDoctor(e)}
                                         />
                                     </SplideSlide>
