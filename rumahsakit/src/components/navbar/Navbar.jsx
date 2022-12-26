@@ -213,10 +213,12 @@ function Navbar() {
     }
 
     function submitSearch() {
-        setSearchResult(searchValue)
-        toPage(`search?q=${searchValue}`, true)
-
-        window.scrollTo(0, 0)
+        if(searchValue.trim()){
+            setSearchResult(searchValue)
+            toPage(`search?q=${searchValue}`, true)
+    
+            window.scrollTo(0, 0)
+        }
     }
 
     return (

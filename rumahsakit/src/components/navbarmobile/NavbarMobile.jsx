@@ -213,12 +213,15 @@ function NavbarMobile() {
     }
 
     function submitSearch(e) {
-        e.preventDefault();
-        setSearchResult(searchValue)
-        toPage(`search?q=${searchValue}`, true)
-        setDisplaySearch(false)
-
-        window.scrollTo(0, 0)
+        e.preventDefault()
+        
+        if(searchValue.trim()){
+            setSearchResult(searchValue)
+            toPage(`search?q=${searchValue}`, true)
+            setDisplaySearch(false)
+    
+            window.scrollTo(0, 0)
+        }
     }
 
     function inputSearch(e) {

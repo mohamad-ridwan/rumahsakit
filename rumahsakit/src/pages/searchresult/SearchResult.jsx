@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useHistory } from 'react-router'
+import { useHistory, useLocation } from 'react-router'
 import './SearchResult.scss'
 import API from '../../services/api'
 import url from '../../services/api/url'
@@ -24,12 +24,25 @@ function SearchResult() {
     const [promo, setPromo] = useState([])
     const [career, setCareer] = useState([])
     const [loading, setLoading] = useState(false)
+    const [messageWrongQuery, setMessageWrongQuery] = useState(false)
 
     const location = window.location.pathname.toString().split('/')[1]
 
     const history = useHistory()
 
+    const query = useLocation()
+
+    const regexSpecialCharacters = /[^a-zA-Z0-9 ]/g
+
     function setAllAPI() {
+        if (query && Object.keys(query).length > 0) {
+            if (query.search.includes('?q=')) {
+                setSearchResult(query.search.split('?q=')[1].replace(/ /g, '%20').split('%20').filter(e => e !== '').join(' '))
+                setSearchValue(query.search.split('?q=')[1].replace(/ /g, '%20').split('%20').filter(e => e !== '').join(' '))
+            } else {
+                setMessageWrongQuery(true)
+            }
+        }
         setLoading(true)
         let newDataFaq = []
 
@@ -37,6 +50,10 @@ function SearchResult() {
             .then(res => {
                 const getData = res.data.filter((e) => e.path === location)
                 setDataHeader(getData[0])
+            })
+            .catch(err=>{
+                console.log(err)
+                alert('Oops!, telah terjadi kesalahan server')
             })
 
         API.APIGetGeneral()
@@ -60,29 +77,57 @@ function SearchResult() {
                         })
                 }, 0);
             })
+            .catch(err=>{
+                console.log(err)
+                alert('Oops!, telah terjadi kesalahan server')
+            })
 
         API.APIGetHealthArticle()
             .then(res => setArticle(res.data))
+            .catch(err=>{
+                console.log(err)
+                alert('Oops!, telah terjadi kesalahan server')
+            })
 
         API.APIGetPublication()
             .then(res => setPublication(res.data))
+            .catch(err=>{
+                console.log(err)
+                alert('Oops!, telah terjadi kesalahan server')
+            })
 
         API.APIGetListDoctor()
             .then(res => setDoctor(res.data))
+            .catch(err=>{
+                console.log(err)
+                alert('Oops!, telah terjadi kesalahan server')
+            })
 
         API.APIGetOurHospital()
             .then(res => {
                 const getPathLayananAndFasilitas = res.data.filter((e) => e.path !== 'profil' && e.path !== 'jadwal-dokter')
                 setLayananAndFasilitas(getPathLayananAndFasilitas)
             })
+            .catch(err=>{
+                console.log(err)
+                alert('Oops!, telah terjadi kesalahan server')
+            })
 
         API.APIGetPromo()
             .then(res => setPromo(res.data))
+            .catch(err=>{
+                console.log(err)
+                alert('Oops!, telah terjadi kesalahan server')
+            })
 
         API.APIGetCareer()
             .then(res => {
                 setLoading(false)
                 setCareer(res.data)
+            })
+            .catch(err=>{
+                console.log(err)
+                alert('Oops!, telah terjadi kesalahan server')
             })
     }
 
@@ -90,23 +135,23 @@ function SearchResult() {
         setAllAPI();
         activeNavbar();
         setIndexActive();
-    }, [])
+    }, [query])
 
-    const searchFaq = dataFaq.filter((e) => e.question.toLowerCase().includes(searchResult.toLowerCase()))
+    const searchFaq = dataFaq.filter((e) => e.question.replace(regexSpecialCharacters, '').toLowerCase().includes(searchResult.replace(/ /g, '+').split('+').filter(e => e !== '').join(' ').replace(regexSpecialCharacters, '').toLowerCase()))
 
-    const searchArticles = article.filter((e) => e.title.toLowerCase().includes(searchResult.toLowerCase()))
+    const searchArticles = article.filter((e) => e.title.replace(regexSpecialCharacters, '').toLowerCase().includes(searchResult.replace(/ /g, '+').split('+').filter(e => e !== '').join(' ').replace(regexSpecialCharacters, '').toLowerCase()))
 
-    const searchPublication = publication.filter((e) => e.title.toLowerCase().includes(searchResult.toLowerCase()))
+    const searchPublication = publication.filter((e) => e.title.replace(regexSpecialCharacters, '').toLowerCase().includes(searchResult.replace(/ /g, '+').split('+').filter(e => e !== '').join(' ').replace(regexSpecialCharacters, '').toLowerCase()))
 
-    const searchDoctor = doctor.filter((e) => e.name.toLowerCase().includes(searchResult.toLowerCase()) ||
-        e.speciality.toLowerCase().includes(searchResult.toLowerCase())
+    const searchDoctor = doctor.filter((e) => e.name.replace(regexSpecialCharacters, '').toLowerCase().includes(searchResult.replace(/ /g, '+').split('+').filter(e => e !== '').join(' ').replace(regexSpecialCharacters, '').toLowerCase()) ||
+        e.speciality.replace(regexSpecialCharacters, '').toLowerCase().includes(searchResult.replace(/ /g, '+').split('+').filter(e => e !== '').join(' ').replace(regexSpecialCharacters, '').toLowerCase())
     )
 
-    const searchLayananAndFasilitas = layananAndFasilitas.filter((e) => e.title.toLowerCase().includes(searchResult.toLowerCase()))
+    const searchLayananAndFasilitas = layananAndFasilitas.filter((e) => e.title.replace(regexSpecialCharacters, '').toLowerCase().includes(searchResult.replace(/ /g, '+').split('+').filter(e => e !== '').join(' ').replace(regexSpecialCharacters, '').toLowerCase()))
 
-    const searchPromo = promo.filter((e) => e.title.toLowerCase().includes(searchResult.toLowerCase()))
+    const searchPromo = promo.filter((e) => e.title.replace(regexSpecialCharacters, '').toLowerCase().includes(searchResult.replace(/ /g, '+').split('+').filter(e => e !== '').join(' ').replace(regexSpecialCharacters, '').toLowerCase()))
 
-    const searchCareer = career.filter((e) => e.titleBidang.toLowerCase().includes(searchResult.toLowerCase()))
+    const searchCareer = career.filter((e) => e.titleBidang.replace(regexSpecialCharacters, '').toLowerCase().includes(searchResult.replace(/ /g, '+').split('+').filter(e => e !== '').join(' ').replace(regexSpecialCharacters, '').toLowerCase()))
 
     const messageNoResult = searchFaq.length + searchArticles.length + searchPublication.length + searchDoctor.length + searchLayananAndFasilitas.length + searchPromo.length + searchCareer.length
 
@@ -148,6 +193,10 @@ function SearchResult() {
                 linkCanonical={`${url}search`}
             />
 
+            <Loading
+                displayWrapp={loading ? 'flex' : 'none'}
+            />
+
             <BannerHeader
                 img={Object.keys(dataHeader).length > 0 ? `${Endpoint}/images/${dataHeader.img}` : ''}
                 title={dataHeader && dataHeader.titleBanner}
@@ -164,7 +213,7 @@ function SearchResult() {
                 />
 
                 <div className="konten-search-result">
-                    {searchFaq && searchFaq.length > 0 ? (
+                    {messageWrongQuery === false && searchFaq && searchFaq.length > 0 ? (
                         <>
                             <p className="title-faq-search-result">
                                 FAQ
@@ -205,7 +254,7 @@ function SearchResult() {
                         <div></div>
                     )}
 
-                    {searchArticles && searchArticles.length > 0 ? (
+                    {messageWrongQuery === false && searchArticles && searchArticles.length > 0 ? (
                         <>
                             <p className="title-faq-search-result">
                                 Article
@@ -248,7 +297,7 @@ function SearchResult() {
                         <div></div>
                     )}
 
-                    {searchPublication && searchPublication.length > 0 ? (
+                    {messageWrongQuery === false && searchPublication && searchPublication.length > 0 ? (
                         <>
                             <p className="title-faq-search-result">
                                 Publication
@@ -290,7 +339,7 @@ function SearchResult() {
                         <div></div>
                     )}
 
-                    {searchDoctor && searchDoctor.length > 0 ? (
+                    {messageWrongQuery === false && searchDoctor && searchDoctor.length > 0 ? (
                         <>
                             <p className="title-faq-search-result">
                                 Doctor
@@ -335,7 +384,7 @@ function SearchResult() {
                         <div></div>
                     )}
 
-                    {searchLayananAndFasilitas && searchLayananAndFasilitas.length > 0 ? (
+                    {messageWrongQuery === false && searchLayananAndFasilitas && searchLayananAndFasilitas.length > 0 ? (
                         <>
                             <p className="title-faq-search-result">
                                 Layanan & Fasilitas
@@ -375,7 +424,7 @@ function SearchResult() {
                         <div></div>
                     )}
 
-                    {searchPromo && searchPromo.length > 0 ? (
+                    {messageWrongQuery === false && searchPromo && searchPromo.length > 0 ? (
                         <>
                             <p className="title-faq-search-result">
                                 Promo
@@ -415,7 +464,7 @@ function SearchResult() {
                         <div></div>
                     )}
 
-                    {searchCareer && searchCareer.length > 0 ? (
+                    {messageWrongQuery === false && searchCareer && searchCareer.length > 0 ? (
                         <>
                             <p className="title-faq-search-result">
                                 Career
@@ -453,21 +502,23 @@ function SearchResult() {
                         <div></div>
                     )}
 
-                    {messageNoResult === 0 ? (
+                    {messageWrongQuery ? (
                         <>
                             <p className="title-faq-search-result">
-                                Sorry, no result
+                                Sorry, incorrect search query
                             </p>
                         </>
                     ) : (
-                        <div></div>
+                        <>
+                            {messageNoResult === 0 ? (
+                                <p className="title-faq-search-result">
+                                    Sorry, no result
+                                </p>
+                            ) : ''}
+                        </>
                     )}
                 </div>
             </div>
-
-            <Loading
-                displayWrapp={loading ? 'flex' : 'none'}
-            />
         </>
     )
 }
