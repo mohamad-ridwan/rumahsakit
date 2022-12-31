@@ -1,8 +1,10 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import DatePicker from 'react-datepicker'
+import "react-datepicker/dist/react-datepicker.css";
+import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 import './Input.scss'
 
-function Input({ title, label, placeholder, displayTitle, errorMessage, displayBtn, nameBtn, displayInput, nameInput, value, handleChange, data, displayModal, topModal, clickBtnInput, clickNameMenu, searchMenuInput, clickCloseModal, nameClass, displayWrapp, displayBintangWajib, cursorBtn, displayLabel, borderBtn, cursorInputForm, idInputForm, typeInput, marginBtn, marginInputForm }) {
+function Input({ title, label, placeholder, displayTitle, errorMessage, displayBtn, nameBtn, displayInput, nameInput, value, handleChange, data, displayModal, topModal, clickBtnInput, clickNameMenu, searchMenuInput, clickCloseModal, nameClass, displayWrapp, displayBintangWajib, cursorBtn, displayLabel, borderBtn, cursorInputForm, idInputForm, typeInput, marginBtn, marginInputForm, renderCustomHeader, displayWrappCalendar, idCalendar, selectedCalendar, changeDateOfCalendar, isOpenTanggalKunjungan, selectedDateKunjungan, changeDateKunjungan, filterDateKunjungan, displayLoadBtn, minDateKunjungan, maxDateKunjungan}) {
     return (
         <>
             <div className="wrapp-input-card" style={{
@@ -34,6 +36,7 @@ function Input({ title, label, placeholder, displayTitle, errorMessage, displayB
                 >
                     {nameBtn}
                     <i className="fas fa-sort-down"></i>
+                    <div className="circle-loading-btn" style={{display: displayLoadBtn}}></div>
 
                     <div className="modal-search-input" style={{
                         display: `${displayModal}`,
@@ -80,6 +83,10 @@ function Input({ title, label, placeholder, displayTitle, errorMessage, displayB
                     </div>
                 </button>
 
+                {isOpenTanggalKunjungan && (
+                    <DatePicker selected={selectedDateKunjungan} onChange={changeDateKunjungan} filterDate={filterDateKunjungan} minDate={minDateKunjungan} maxDate={maxDateKunjungan} inline />
+                )}
+
                 <input name={nameInput} value={value} type={typeInput} className="input-form-online-rv" id={idInputForm} style={{
                     display: `${displayInput}`,
                     cursor: `${cursorInputForm}`,
@@ -88,6 +95,12 @@ function Input({ title, label, placeholder, displayTitle, errorMessage, displayB
                     onChange={handleChange}
                     placeholder={placeholder}
                 />
+                <div className="wrapp-calendar" style={{
+                    display: displayWrappCalendar
+                }}>
+                    <DatePicker renderCustomHeader={renderCustomHeader} id={idCalendar} selected={selectedCalendar} onChange={changeDateOfCalendar}/>
+                </div>
+
                 <p className="error-message-form-online-rv">
                     {errorMessage}
                 </p>

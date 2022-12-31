@@ -41,6 +41,51 @@
     .input-form-online-rv::placeholder{
         color: $color2;
     }
+
+    .wrapp-calendar{
+        display: none;
+        margin-top: 5px;
+
+        .react-datepicker__tab-loop{
+            display: flex;
+        }
+
+        .react-datepicker-wrapper{
+            overflow: hidden;
+            .react-datepicker__input-container{
+                display: flex;
+    
+                #date-of-birth{
+                    outline: none;
+                    border: none;
+                    border-radius: 5px;
+                    color: $color2;
+                    font-size: 13px;
+                    font-family: 'Mulish', sans-serif;
+                    padding: 10px 12px;
+                    width: 100%;
+                }
+                #date-of-birth::placeholder{
+                    color: $color2;
+                    font-size: 13px;
+                }
+    
+                #appointment-date{
+                    outline: none;
+                    border: none;
+                    color: $color2;
+                    font-size: 13px;
+                    font-family: 'Mulish', sans-serif;
+                    padding: 5px 12px 10px 30px;
+                    width: 100%;
+                }
+                #appointment-date::placeholder{
+                    color: $color2;
+                    font-size: 13px;
+                }
+            }
+        }
+    }
     
     .error-message-form-online-rv{
         display: flex;
@@ -64,6 +109,20 @@
         align-items: center;
         font-family: 'Mulish', sans-serif;
         text-align: start;
+
+        .circle-loading-btn{
+            display: none;
+            height: 20px;
+            width: 20px;
+            position: absolute;
+            right: 10px;
+            background-color: #fff;
+            border-radius: 500px;
+            border: 2px solid $color1;
+            border-top-color: #fff;
+            transform: rotate(0);
+            animation: loadBtn 0.5s ease-in infinite;
+        }
     
         .modal-search-input{
             display: none;
@@ -132,5 +191,11 @@
             right: 10px;
             margin-top: -5px;
         }
+    }
+}
+
+@keyframes loadBtn {
+    to{
+        transform: rotate(360deg);
     }
 }

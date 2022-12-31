@@ -1,6 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router';
 import { send } from 'emailjs-com'
+import getYear from 'date-fns/getYear'
+import getMonth from 'date-fns/getMonth'
+import getDay from 'date-fns/getDay'
+import format from 'date-fns/format'
+import { range } from 'lodash'
+import addMonths from 'addmonths'
 import './OnlineReservation.scss'
 import API from '../../services/api';
 import url from '../../services/api/url';
@@ -21,6 +27,14 @@ function OnlineReservation() {
     const [dataListDoctor, setDataListDoctor] = useState([])
     const [allDoctor, setAllDoctor] = useState([])
     const [listNamaDoctor, setListNamaDoctor] = useState([])
+    const [starDateOfBirth, setStarDateOfBirth] = useState(new Date())
+    const [starDateKunjungan, setStarDateKunjungan] = useState(new Date())
+    const [isOpenTanggalKunjungan, setIsOpenTanggalKunjungan] = useState(false)
+    const [displayLoadBtnCalendar, setDisplayLoadBtnCalendar] = useState(false)
+    const [filterDateKunjungan, setFilterDateKunjungan] = useState(null)
+    const [minDateKunjungan, setMinDateKunjungan] = useState(new Date())
+    const [maxDateKunjungan, setMaxDateKunjungan] = useState(addMonths(new Date(), 0))
+    const [pilihTanggalKunjungan, setPilihTanggalKunjungan] = useState('Pilih Tanggal')
     const [topModal, setTopModal] = useState('')
     const [topModalPilihDoctor, setTopModalPilihDoctor] = useState('')
     const [searchSpesialisDoctor, setSearchSpesialisDoctor] = useState('')
@@ -35,7 +49,6 @@ function OnlineReservation() {
     const [loadingPage, setLoadingPage] = useState(false)
     const [loadingForm, setLoadingForm] = useState(false)
     const [successMessage, setSuccessMessage] = useState('')
-
     const [jadwalDokter, setJadwalDokter] = useState({
         Senin: '',
         Selasa: '',
@@ -45,13 +58,10 @@ function OnlineReservation() {
         Sabtu: '',
         Minggu: ''
     })
-
     const [value, setValue] = useState({
         nama: '',
         nomorTelepon: '',
-        tanggalLahir: '',
         email: '',
-        tanggalKunjungan: '',
         message: '',
         nomorRekamMedis: '',
         spesialisDokter: '',
@@ -60,6 +70,22 @@ function OnlineReservation() {
     })
 
     const history = useHistory()
+
+    const monthsCalendar = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+    ]
+    const yearsCalendar = range(1920, getYear(new Date()) + 1, 1)
 
     const getParams = window.location.pathname.toString().split('/')[1]
 
@@ -135,81 +161,40 @@ function OnlineReservation() {
         }
     }
 
-    function postOnlineReservation() {
-        const data = {
-            nama: value.nama,
-            nomorTelepon: value.nomorTelepon,
-            tanggalLahir: value.tanggalLahir,
-            email: value.email,
-            tanggalKunjungan: value.tanggalKunjungan,
-            message: value.message,
-            nomorRekamMedis: `${value.nomorRekamMedis.length > 0 ? value.nomorRekamMedis : '-'}`,
-            spesialisDokter: value.spesialisDokter,
-            namaDokter: value.namaDokter,
-            jadwalDokter: value.jadwalDokter,
-            pernahBerobat: `Apakah Pernah Berobat Sebelumnya ? : ${answerPernahBerobat}`,
-            tipePembayaran: answerTipePembayaran
-        }
+    async function postOnlineReservation() {
+        return await new Promise((resolve, reject) => {
+            const data = {
+                nama: value.nama,
+                nomorTelepon: value.nomorTelepon,
+                tanggalLahir: document.getElementById('date-of-birth').value,
+                email: value.email,
+                tanggalKunjungan: pilihTanggalKunjungan,
+                message: value.message,
+                nomorRekamMedis: `${value.nomorRekamMedis.length > 0 ? value.nomorRekamMedis : '-'}`,
+                spesialisDokter: value.spesialisDokter,
+                namaDokter: value.namaDokter,
+                jadwalDokter: value.jadwalDokter,
+                pernahBerobat: `Apakah Pernah Berobat Sebelumnya ? : ${answerPernahBerobat}`,
+                tipePembayaran: answerTipePembayaran
+            }
 
-        API.APIPostOnlineReservation(data)
-            .then(res => {
-                setLoadingForm(false)
-                setAgreeSubmit(false)
-                setSuccessMessage('Pendaftaran Online Reservation telah berhasil. Kami akan meresponnya melalui SMS dan GMAIL Anda.')
-                setNameBtnPilihDoctor('Pilih Dokter')
-                setNameBtnSpesialisDoctor('Pilih Spesialisasi Dokter')
-                setAnswerPernahBerobat('Ya')
-                setAnswerTipePembayaran('Biaya Pribadi')
-
-                setValue({
-                    nama: '',
-                    nomorTelepon: '',
-                    tanggalLahir: '',
-                    email: '',
-                    tanggalKunjungan: '',
-                    message: '',
-                    nomorRekamMedis: '',
-                    spesialisDokter: '',
-                    namaDokter: '',
-                    jadwalDokter: '',
+            API.APIPostOnlineReservation(data)
+                .then(res => {
+                    resolve('success')
                 })
-
-                const elementJadwalPraktek = document.getElementsByClassName('jadwal-praktek')
-
-                if (elementJadwalPraktek.length > 0 && nameBtnPilihDoctor !== 'Pilih Dokter') {
-                    for (let i = 0; i < elementJadwalPraktek.length; i++) {
-                        elementJadwalPraktek[i].style.backgroundColor = 'transparent'
-                        elementJadwalPraktek[i].style.border = '1px solid #999'
-                    }
-                }
-
-                const element = document.getElementsByClassName('spesialis')
-
-                if (element.length > 0) {
-                    for (let i = 0; i < element.length; i++) {
-                        element[i].style.backgroundColor = '#fff'
-                        element[i].style.color = '#333'
-                    }
-                }
-
-                setTimeout(() => {
-                    setSuccessMessage('')
-                }, 5000);
-                return res;
-            })
-            .catch(err => {
-                setSuccessMessage('oops!, terjadi kesalahan. Mohon coba beberapa saat lagi.')
-                setLoadingForm(false)
-
-                setTimeout(() => {
-                    setSuccessMessage('')
-                }, 5000);
-                console.log(err)
-            })
+                .catch(err => {
+                    reject(err)
+                })
+        })
     }
 
     function handleSubmit(e) {
         e.preventDefault()
+        setIsOpenTanggalKunjungan(false)
+
+        const getYearsOfBirth = document.getElementById('date-of-birth').value.split('/')[2]
+        const year = new Date().getFullYear().toString()
+        const dateRegex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/
 
         const confirm = window.confirm('Note: Harap Tidak melakukan pendaftaran ulang dengan jadwal yang sama/yang sudah terdaftar!. \n\nApakah data sudah benar?')
 
@@ -224,7 +209,7 @@ function OnlineReservation() {
             err.nomorTelepon = 'Wajib di isi'
         }
 
-        if (!value.tanggalLahir) {
+        if (getYearsOfBirth === year && dateRegex.test(getYearsOfBirth) === false) {
             err.tanggalLahir = 'Wajib di isi'
         }
 
@@ -246,7 +231,7 @@ function OnlineReservation() {
             err.jadwalDokter = 'Wajib di isi'
         }
 
-        if (!value.tanggalKunjungan) {
+        if (pilihTanggalKunjungan === 'Pilih Tanggal') {
             err.tanggalKunjungan = 'Wajib di isi'
         }
 
@@ -259,43 +244,108 @@ function OnlineReservation() {
         setTimeout(() => {
             if (confirm) {
                 setLoadingForm(true)
+                document.body.style.overflowY = 'hidden'
                 kondisi = true
                 if (Object.keys(err).length === 0 && kondisi) {
-                    postOnlineReservation();
-
-                    const data = {
-                        from_name: value.nama,
-                        to_name: 'RS Permata Depok',
-                        message: `Pesan Dari Pasien : ${value.message}`,
-                        nama: `Nama : ${value.nama}`,
-                        nomorTelepon: `Nomor Telepon : ${value.nomorTelepon}`,
-                        tanggalLahir: `Tanggal Lahir : ${value.tanggalLahir}`,
-                        email: `Email : ${value.email}`,
-                        tanggalKunjungan: `Tanggal Kunjungan : ${value.tanggalKunjungan}`,
-                        nomorRekamMedis: `Nomor Rekam Medis: ${value.nomorRekamMedis.length > 0 ? value.nomorRekamMedis : '-'}`,
-                        spesialisDokter: `Spesialisasi Dokter: ${value.spesialisDokter}`,
-                        namaDokter: `Nama Dokter : ${value.namaDokter}`,
-                        jadwalDokter: `Jadwal Dokter : ${value.jadwalDokter}`,
-                        pernahBerobat: `Apakah Pernah Berobat Sebelumnya ? : ${answerPernahBerobat}`,
-                        tipePembayaran: `Metode Tipe Pembayaran : ${answerTipePembayaran}`,
-                        reply_to: value.email,
-                    }
-
-                    send(
-                        'service_j94lebl',
-                        'template_r59s9rb',
-                        data,
-                        'user_OTNWA7vJIJuI4F2IiKuIN'
-                    )
+                    postOnlineReservation()
                         .then(res => {
-                            return res;
+                            if (res === 'success') {
+                                const data = {
+                                    from_name: value.nama,
+                                    to_name: 'RS Permata Depok',
+                                    message: `Pesan Dari Pasien : ${value.message}`,
+                                    nama: `Nama : ${value.nama}`,
+                                    nomorTelepon: `Nomor Telepon : ${value.nomorTelepon}`,
+                                    tanggalLahir: `Tanggal Lahir : ${document.getElementById('date-of-birth').value}`,
+                                    email: `Email : ${value.email}`,
+                                    tanggalKunjungan: `Tanggal Kunjungan : ${pilihTanggalKunjungan}`,
+                                    nomorRekamMedis: `Nomor Rekam Medis: ${value.nomorRekamMedis.length > 0 ? value.nomorRekamMedis : '-'}`,
+                                    spesialisDokter: `Spesialisasi Dokter: ${value.spesialisDokter}`,
+                                    namaDokter: `Nama Dokter : ${value.namaDokter}`,
+                                    jadwalDokter: `Jadwal Dokter : ${value.jadwalDokter}`,
+                                    pernahBerobat: `Apakah Pernah Berobat Sebelumnya ? : ${answerPernahBerobat}`,
+                                    tipePembayaran: `Metode Tipe Pembayaran : ${answerTipePembayaran}`,
+                                    reply_to: value.email,
+                                }
+
+                                send(
+                                    'service_j94lebl',
+                                    'template_r59s9rb',
+                                    data,
+                                    'user_OTNWA7vJIJuI4F2IiKuIN'
+                                )
+                                    .then(res => {
+                                        setLoadingForm(false)
+                                        setAgreeSubmit(false)
+                                        setSuccessMessage('Pendaftaran Online Reservation telah berhasil. Kami akan meresponnya melalui SMS dan GMAIL Anda.')
+                                        setNameBtnPilihDoctor('Pilih Dokter')
+                                        setNameBtnSpesialisDoctor('Pilih Spesialisasi Dokter')
+                                        setAnswerPernahBerobat('Ya')
+                                        setAnswerTipePembayaran('Biaya Pribadi')
+                                        setPilihTanggalKunjungan('Pilih Tanggal')
+                                        setStarDateKunjungan(new Date())
+                                        setStarDateOfBirth(new Date())
+
+                                        setValue({
+                                            nama: '',
+                                            nomorTelepon: '',
+                                            email: '',
+                                            message: '',
+                                            nomorRekamMedis: '',
+                                            spesialisDokter: '',
+                                            namaDokter: '',
+                                            jadwalDokter: '',
+                                        })
+
+                                        const elementJadwalPraktek = document.getElementsByClassName('jadwal-praktek')
+
+                                        if (elementJadwalPraktek.length > 0 && nameBtnPilihDoctor !== 'Pilih Dokter') {
+                                            for (let i = 0; i < elementJadwalPraktek.length; i++) {
+                                                elementJadwalPraktek[i].style.backgroundColor = 'transparent'
+                                                elementJadwalPraktek[i].style.border = '1px solid #999'
+                                            }
+                                        }
+
+                                        const element = document.getElementsByClassName('spesialis')
+
+                                        if (element.length > 0) {
+                                            for (let i = 0; i < element.length; i++) {
+                                                element[i].style.backgroundColor = '#fff'
+                                                element[i].style.color = '#333'
+                                            }
+                                        }
+
+                                        document.body.style.overflowY = 'scroll'
+
+                                        setTimeout(() => {
+                                            setSuccessMessage('')
+                                        }, 5000);
+                                    })
+                                    .catch(err => {
+                                        setSuccessMessage('oops!, terjadi kesalahan. Mohon coba beberapa saat lagi.')
+                                        setLoadingForm(false)
+                                        document.body.style.overflowY = 'scroll'
+
+                                        setTimeout(() => {
+                                            setSuccessMessage('')
+                                        }, 5000);
+                                        console.log(err)
+                                    })
+                            }
                         })
                         .catch(err => {
-                            console.log(err)
+                            setSuccessMessage('oops!, terjadi kesalahan. Mohon coba beberapa saat lagi.')
                             setLoadingForm(false)
+                            document.body.style.overflowY = 'scroll'
+
+                            setTimeout(() => {
+                                setSuccessMessage('')
+                            }, 5000);
+                            console.log(err)
                         })
                 } else {
                     setLoadingForm(false)
+                    document.body.style.overflowY = 'scroll'
                 }
             }
         }, 0);
@@ -368,6 +418,7 @@ function OnlineReservation() {
 
     function showModalSpesialisDoctor(e) {
         e.stopPropagation();
+        setIsOpenTanggalKunjungan(false)
 
         const getTop = document.getElementById('btn-form-online-rv')
         setTopModal(`${getTop.getBoundingClientRect().top + 40}px`)
@@ -393,6 +444,11 @@ function OnlineReservation() {
         })
 
         changeElementInputFormRv(true);
+
+        if (pilihTanggalKunjungan !== 'Pilih Tanggal') {
+            setPilihTanggalKunjungan('Pilih Tanggal')
+            setStarDateKunjungan(new Date())
+        }
 
         setTimeout(() => {
             if (nameBtnPilihDoctor !== 'Pilih Dokter') {
@@ -430,6 +486,7 @@ function OnlineReservation() {
     function showModalNameDoctor(e) {
         if (nameBtnSpesialisDoctor !== 'Pilih Spesialisasi Dokter') {
             e.stopPropagation();
+            setIsOpenTanggalKunjungan(false)
 
             const getTop = document.getElementById('btn-form-online-rv')
             setTopModalPilihDoctor(`${getTop.getBoundingClientRect().top + 40}px`)
@@ -475,10 +532,16 @@ function OnlineReservation() {
         })
         setNameBtnPilihDoctor(data)
 
+        if (pilihTanggalKunjungan !== 'Pilih Tanggal') {
+            setPilihTanggalKunjungan('Pilih Tanggal')
+            setStarDateKunjungan(new Date())
+        }
+
         changeElementInputFormRv(true);
     }
 
     function answerJadwalPraktek(e, i) {
+        setIsOpenTanggalKunjungan(false)
         setValue({
             ...value,
             jadwalDokter: e[1]
@@ -494,6 +557,11 @@ function OnlineReservation() {
         elementJadwalPraktek[i].style.backgroundColor = '#b04579'
         elementJadwalPraktek[i].style.border = '1px solid #b04579'
 
+        if (pilihTanggalKunjungan !== 'Pilih Tanggal') {
+            setPilihTanggalKunjungan('Pilih Tanggal')
+            setStarDateKunjungan(new Date())
+        }
+
         changeElementInputFormRv(false);
     }
 
@@ -503,6 +571,67 @@ function OnlineReservation() {
     const topSuccessMessage1024 = minimizeValue > 766 && minimizeValue < 1024 ? '150px' : '170px'
 
     const topSuccessMessage = minimizeValue < 769 ? '110px' : topSuccessMessage1024
+
+    async function getOneDoctor() {
+        return await new Promise((resolve, reject) => {
+            API.APIGetListDoctor()
+                .then(res => {
+                    const respons = res.data
+
+                    const getDoctor = respons.filter(e => e.name === nameBtnPilihDoctor && e.speciality === nameBtnSpesialisDoctor)
+                    resolve(getDoctor)
+                })
+                .catch(err => {
+                    reject(err)
+                })
+        })
+    }
+
+    function clickDateKunjungan(e) {
+        e.preventDefault()
+        if (value.jadwalDokter.length > 1 && displayLoadBtnCalendar === false) {
+            if (isOpenTanggalKunjungan === false) {
+                setDisplayLoadBtnCalendar(true)
+                getOneDoctor()
+                    .then(res => {
+                        if (res && res.length > 0) {
+                            setMinDateKunjungan(new Date(res[0].minDate))
+                            setMaxDateKunjungan(addMonths(new Date(res[0].maxDate), 0))
+
+                            setIsOpenTanggalKunjungan(!isOpenTanggalKunjungan)
+                            const days = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu']
+                            const getDayKunjungan = value.jadwalDokter.split(' ')[0].toLowerCase()
+
+                            for (let i = 0; i < days.length; i++) {
+                                if (getDayKunjungan === days[i]) {
+                                    setFilterDateKunjungan(i)
+                                }
+                            }
+
+                            setDisplayLoadBtnCalendar(false)
+                        }
+                    })
+                    .catch(err => {
+                        alert('Oops!, telah terjadi kesalahan server\nMohon coba beberapa saat lagi.')
+                        console.log(err)
+                        setDisplayLoadBtnCalendar(false)
+                    })
+            } else {
+                setIsOpenTanggalKunjungan(!isOpenTanggalKunjungan)
+            }
+        }
+    }
+
+    function changeDateKunjungan(date) {
+        setIsOpenTanggalKunjungan(!isOpenTanggalKunjungan)
+        setStarDateKunjungan(date)
+        setPilihTanggalKunjungan(format(date, "MM/dd/yyyy"))
+    }
+
+    function isWeekDay(date) {
+        const day = getDay(date)
+        return day === filterDateKunjungan
+    }
 
     return (
         <>
@@ -557,13 +686,77 @@ function OnlineReservation() {
                             />
 
                             <Input
+                                renderCustomHeader={({
+                                    date,
+                                    changeYear,
+                                    changeMonth,
+                                    decreaseMonth,
+                                    increaseMonth,
+                                    prevMonthButtonDisabled,
+                                    nextMonthButtonDisabled,
+                                }) => (
+                                    <div
+                                        style={{
+                                            margin: 10,
+                                            display: "flex",
+                                            justifyContent: "center",
+                                        }}
+                                    >
+                                        <button onClick={decreaseMonth} disabled={prevMonthButtonDisabled} style={{
+                                            display: 'flex',
+                                            width: '30px',
+                                            justifyContent: 'center',
+                                            alignItems: 'center'
+                                        }}>
+                                            {"<"}
+                                        </button>
+                                        <select
+                                            value={getYear(date)}
+                                            onChange={({ target: { value } }) => changeYear(value)}
+                                        >
+                                            {yearsCalendar.map((option) => (
+                                                <option key={option} value={option}>
+                                                    {option}
+                                                </option>
+                                            ))}
+                                        </select>
+
+                                        <select
+                                            value={monthsCalendar[getMonth(date)]}
+                                            onChange={({ target: { value } }) =>
+                                                changeMonth(monthsCalendar.indexOf(value))
+                                            }
+                                        >
+                                            {monthsCalendar.map((option) => (
+                                                <option key={option} value={option}>
+                                                    {option}
+                                                </option>
+                                            ))}
+                                        </select>
+
+                                        <button onClick={increaseMonth} disabled={nextMonthButtonDisabled} style={{
+                                            display: 'flex',
+                                            width: '30px',
+                                            justifyContent: 'center',
+                                            alignItems: 'center'
+                                        }}>
+                                            {">"}
+                                        </button>
+                                    </div>
+                                )}
+                                displayInput="none"
+                                displayWrappCalendar="flex"
                                 label="Tanggal Lahir"
-                                placeholder="Tanggal/Bulan/Tahun"
                                 nameInput="tanggalLahir"
                                 typeInput="text"
-                                value={value.tanggalLahir}
-                                handleChange={inputDataPribadi}
+                                idCalendar="date-of-birth"
+                                selectedCalendar={starDateOfBirth}
+                                changeDateOfCalendar={(date) => setStarDateOfBirth(date)}
                                 errorMessage={errForm && errForm.tanggalLahir}
+                            // selectedCalendar={starDateOfBirth}
+                            // value={value.tanggalLahir}
+                            // handleChange={inputDataPribadi}
+                            // errorMessage={errForm && errForm.tanggalLahir}
                             />
 
                             <Input
@@ -697,15 +890,26 @@ function OnlineReservation() {
                             </p>
 
                             <Input
+                                displayInput="none"
+                                nameBtn={pilihTanggalKunjungan}
+                                displayLoadBtn={displayLoadBtnCalendar ? 'flex' : 'none'}
+                                displayBtn="flex"
                                 label="Tanggal Kunjungan"
-                                placeholder="Tanggal/Bulan/Tahun"
                                 errorMessage={errForm && errForm.tanggalKunjungan}
                                 nameInput="tanggalKunjungan"
                                 typeInput="text"
-                                value={value.tanggalKunjungan}
-                                handleChange={inputDataPribadi}
-                                cursorInputForm={value.jadwalDokter.length > 1 ? 'text' : 'not-allowed'}
+                                clickBtnInput={clickDateKunjungan}
+                                cursorBtn={value.jadwalDokter.length > 1 ? 'pointer' : 'not-allowed'}
+                                // value={value.tanggalKunjungan}
+                                // handleChange={inputDataPribadi}
+                                // cursorInputForm={value.jadwalDokter.length > 1 ? 'text' : 'not-allowed'}
                                 idInputForm="tanggal-kunjungan"
+                                filterDateKunjungan={isWeekDay}
+                                selectedDateKunjungan={starDateKunjungan}
+                                isOpenTanggalKunjungan={isOpenTanggalKunjungan}
+                                minDateKunjungan={minDateKunjungan}
+                                maxDateKunjungan={maxDateKunjungan}
+                                changeDateKunjungan={changeDateKunjungan}
                             />
 
                             <label htmlFor="label" className="label-form-online-rv">
