@@ -753,10 +753,6 @@ function OnlineReservation() {
                                 selectedCalendar={starDateOfBirth}
                                 changeDateOfCalendar={(date) => setStarDateOfBirth(date)}
                                 errorMessage={errForm && errForm.tanggalLahir}
-                            // selectedCalendar={starDateOfBirth}
-                            // value={value.tanggalLahir}
-                            // handleChange={inputDataPribadi}
-                            // errorMessage={errForm && errForm.tanggalLahir}
                             />
 
                             <Input
@@ -900,9 +896,6 @@ function OnlineReservation() {
                                 typeInput="text"
                                 clickBtnInput={clickDateKunjungan}
                                 cursorBtn={value.jadwalDokter.length > 1 ? 'pointer' : 'not-allowed'}
-                                // value={value.tanggalKunjungan}
-                                // handleChange={inputDataPribadi}
-                                // cursorInputForm={value.jadwalDokter.length > 1 ? 'text' : 'not-allowed'}
                                 idInputForm="tanggal-kunjungan"
                                 filterDateKunjungan={isWeekDay}
                                 selectedDateKunjungan={starDateKunjungan}
