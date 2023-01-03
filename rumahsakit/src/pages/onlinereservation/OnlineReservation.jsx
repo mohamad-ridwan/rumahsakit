@@ -28,7 +28,7 @@ function OnlineReservation() {
     const [allDoctor, setAllDoctor] = useState([])
     const [listNamaDoctor, setListNamaDoctor] = useState([])
     const [starDateOfBirth, setStarDateOfBirth] = useState(new Date())
-    const [starDateKunjungan, setStarDateKunjungan] = useState(new Date())
+    const [starDateKunjungan, setStarDateKunjungan] = useState('')
     const [isOpenTanggalKunjungan, setIsOpenTanggalKunjungan] = useState(false)
     const [displayLoadBtnCalendar, setDisplayLoadBtnCalendar] = useState(false)
     const [filterDateKunjungan, setFilterDateKunjungan] = useState(null)
@@ -283,7 +283,7 @@ function OnlineReservation() {
                                         setAnswerPernahBerobat('Ya')
                                         setAnswerTipePembayaran('Biaya Pribadi')
                                         setPilihTanggalKunjungan('Pilih Tanggal')
-                                        setStarDateKunjungan(new Date())
+                                        setStarDateKunjungan('')
                                         setStarDateOfBirth(new Date())
 
                                         setValue({
@@ -447,7 +447,7 @@ function OnlineReservation() {
 
         if (pilihTanggalKunjungan !== 'Pilih Tanggal') {
             setPilihTanggalKunjungan('Pilih Tanggal')
-            setStarDateKunjungan(new Date())
+            setStarDateKunjungan('')
         }
 
         setTimeout(() => {
@@ -534,7 +534,7 @@ function OnlineReservation() {
 
         if (pilihTanggalKunjungan !== 'Pilih Tanggal') {
             setPilihTanggalKunjungan('Pilih Tanggal')
-            setStarDateKunjungan(new Date())
+            setStarDateKunjungan('')
         }
 
         changeElementInputFormRv(true);
@@ -559,7 +559,7 @@ function OnlineReservation() {
 
         if (pilihTanggalKunjungan !== 'Pilih Tanggal') {
             setPilihTanggalKunjungan('Pilih Tanggal')
-            setStarDateKunjungan(new Date())
+            setStarDateKunjungan('')
         }
 
         changeElementInputFormRv(false);
