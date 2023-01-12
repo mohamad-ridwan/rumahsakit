@@ -107,7 +107,7 @@ function CarouselMain({ data, mouseEnter, mouseLeave, dataTestimoni, iconQuotes,
                                 return (
                                     <>
                                         <SplideSlide key={e._id}>
-                                            <img key={e._id} name={i} src={`${Endpoint}/images/${e.img || e.image}`} loading="lazy" alt="banner home" width="1519" height="608" className="img-carousel-main" />
+                                            <img key={e._id} name={i} src={`${Endpoint}/images/${e.img || e.image}`} loading="lazy" alt="banner home" height="608" width="10000" className="img-carousel-main" />
                                         </SplideSlide>
                                     </>
                                 )

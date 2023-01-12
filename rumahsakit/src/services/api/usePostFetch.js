@@ -1,13 +1,14 @@
-import Endpoint from "../endpoint"
+import Endpoint from "./endpoint"
 
-const GetOurHospital = async (path) => {
-    return await new Promise((resolve, reject) => {
+async function usePostFetch(path, data){
+    return await new Promise((resolve, reject)=>{
         fetch(`${Endpoint}/${path}`, {
-            method: 'GET',
+            method: 'POST',
             mode: 'cors',
             headers: {
                 "Content-Type": "application/json"
-            }
+            },
+            body: JSON.stringify(data)
         })
             .then(res => res.json())
             .then(res => resolve(res))
@@ -15,4 +16,4 @@ const GetOurHospital = async (path) => {
     })
 }
 
-export default GetOurHospital;
+export default usePostFetch
